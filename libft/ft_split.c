@@ -6,43 +6,71 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:26:53 by tnolent           #+#    #+#             */
-/*   Updated: 2025/02/24 12:21:22 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/03/07 10:44:23 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		count_world(char const *str, char sep);
-int		is_sep(char c, char sep);
-int		size_tab(const char *str, char sep);
-char	*ft_strndup(const char *s1, size_t size);
+#define QUOTES "\'\""
 
-char	**ft_split(char const *s, char c)
+typedef struct s_split
 {
 	int		i;
 	int		k;
 	int		l;
+	int		tmp;
 	char	**result;
+}	t_split;
 
-	i = 0;
-	k = 0;
-	result = (char **)malloc(sizeof(char *) * (count_world(s, c) + 1));
-	if (!result || !s)
+int		count_world(char const *str, char sep);
+int		is_sep(char c, char sep);
+int		size_tab(const char *str, char sep);
+char	*ft_strndup(const char *s1, size_t size);
+void	quote_case(const char *s, t_split *split);
+
+char	**ft_split(char const *s, char c)
+{
+	t_split	split;
+
+	split.i = 0;
+	split.k = 0;
+	split.result = (char **)malloc(sizeof(char *) * (ft_strlen(s)));
+	if (!split.result || !s)
 		return (NULL);
-	while (s[i])
+	while (s[split.i])
 	{
-		if (!is_sep(s[i], c))
+		split.l = 0;
+		if (ft_strchr(QUOTES, s[split.i]))
+			quote_case(s, &split);
+		else if (!is_sep(s[split.i], c))
 		{
-			l = 0;
-			result[k] = ft_strndup(&s[i], size_tab(&s[i], c));
-			while (!is_sep(s[i], c) && s[i])
-				result[k][l++] = s[i++];
-			result[k++][l] = '\0';
+			split.result[split.k] = malloc(sizeof(char) * (ft_strlen(s)));
+			while (!is_sep(s[split.i], c) && s[split.i])
+				split.result[split.k][split.l++] = s[split.i++];
+			split.result[split.k++][split.l] = '\0';
 		}
 		else
-			i++;
+			split.i++;
 	}
-	return (result[k] = NULL, result);
+	return (split.result[split.k] = NULL, split.result);
+}
+
+void	quote_case(const char *s, t_split *split)
+{
+	int	len;
+
+	len = 0;
+	split->tmp = split->i;
+	split->i++;
+	split->result[split->k] = malloc(sizeof(char) * (ft_strlen(s)));
+	split->result[split->k][split->l++] = s[split->i - 1];
+	while (s[split->i] != s[split->tmp] && s[split->i])
+		split->result[split->k][split->l++] = s[split->i++];
+	if (s[split->i])
+		split->result[split->k][split->l++] = s[split->i++];
+	split->result[split->k++][split->l] = '\0';
+	split->l = 0;
 }
 
 int	is_sep(char c, char sep)
@@ -85,24 +113,6 @@ int	size_tab(char const *str, char sep)
 	return (i);
 }
 
-char	*ft_strndup(const char *s1, size_t size)
-{
-	size_t	i;
-	char	*result;
-
-	i = 0;
-	result = (char *)malloc(sizeof(char) * (size + 1));
-	if (!result)
-		return (NULL);
-	while (s1[i] && i < size)
-	{
-		result[i] = s1[i];
-		i++;
-	}
-	result[i] = '\0';
-	return (result);
-}
-
 // void	print_tab(char **str)
 // {
 // 	int	i;
@@ -115,15 +125,14 @@ char	*ft_strndup(const char *s1, size_t size)
 // 	}
 // }
 
-// int	main(void)
+// int	main(int ac, char **av)
 // {
-// 	char *str = "coucou a";
+// 	char *str = "\' coucou \'     \'ahahahaha   \'   \'   l lol\' \"caca\"";
 // 	char **ptr;
 // 	int i = 0;
 // 	ptr = ft_split(str, ' ');
 // 	print_tab(ptr);
-// 	// while (ptr[i] != NULL)
-// 	// 	free(ptr[i++]);
+// 	while (ptr[i] != NULL)
+// 		free(ptr[i++]);
 // 	free(ptr);
-// 	return (0);
 // }

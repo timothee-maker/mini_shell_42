@@ -24,10 +24,12 @@ typedef struct s_list
 } 	t_list;
 
 void 	free_split(char **split);
-void 	minishell(char *line, char **env, t_list *list);
+void 	minishell(char *line, t_list *list);
 t_list	*initialisation(void);
 void	afficherliste(t_list *liste);
 void	insertion_f(t_list *liste, char *arg, char *token, int index);
 void	destruction(t_list *liste);
+char	*clean_line(char *line);
+
 
 #endif
