@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:26:53 by tnolent           #+#    #+#             */
-/*   Updated: 2025/03/07 10:44:23 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/03/10 13:55:02 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	**ft_split(char const *s, char c)
 
 	split.i = 0;
 	split.k = 0;
-	split.result = (char **)malloc(sizeof(char *) * (ft_strlen(s)));
+	split.result = (char **)malloc(sizeof(char *) * (ft_strlen(s) + 1));
 	if (!split.result || !s)
 		return (NULL);
 	while (s[split.i])
@@ -45,7 +45,7 @@ char	**ft_split(char const *s, char c)
 			quote_case(s, &split);
 		else if (!is_sep(s[split.i], c))
 		{
-			split.result[split.k] = malloc(sizeof(char) * (ft_strlen(s)));
+			split.result[split.k] = malloc(sizeof(char) * (ft_strlen(s) + 1));
 			while (!is_sep(s[split.i], c) && s[split.i])
 				split.result[split.k][split.l++] = s[split.i++];
 			split.result[split.k++][split.l] = '\0';
@@ -63,7 +63,7 @@ void	quote_case(const char *s, t_split *split)
 	len = 0;
 	split->tmp = split->i;
 	split->i++;
-	split->result[split->k] = malloc(sizeof(char) * (ft_strlen(s)));
+	split->result[split->k] = malloc(sizeof(char) * (ft_strlen(s) + 1));
 	split->result[split->k][split->l++] = s[split->i - 1];
 	while (s[split->i] != s[split->tmp] && s[split->i])
 		split->result[split->k][split->l++] = s[split->i++];
@@ -127,7 +127,7 @@ int	size_tab(char const *str, char sep)
 
 // int	main(int ac, char **av)
 // {
-// 	char *str = "\' coucou \'     \'ahahahaha   \'   \'   l lol\' \"caca\"";
+// 	char *str = "<}|>";
 // 	char **ptr;
 // 	int i = 0;
 // 	ptr = ft_split(str, ' ');

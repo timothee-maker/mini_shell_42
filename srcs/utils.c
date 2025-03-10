@@ -6,12 +6,11 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:52:42 by tnolent           #+#    #+#             */
-/*   Updated: 2025/03/05 16:29:34 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/03/10 15:39:55 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-# define DELIMITER "|<>"
 
 void    free_split(char **split)
 {
@@ -52,4 +51,14 @@ char	*clean_line(char *line)
 	}
 	new_line[j] = '\0';
 	return (new_line);
+}
+
+int	len_tab(char **split)
+{
+	int	i;
+
+	i = 0;
+	while (split[i])
+		i++;
+	return (i);
 }

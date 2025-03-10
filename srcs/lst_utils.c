@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:13:08 by tnolent           #+#    #+#             */
-/*   Updated: 2025/03/03 16:19:48 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/03/10 13:03:03 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 t_list	*initialisation(void);
 void	afficherliste(t_list *liste);
-void	insertion_f(t_list *liste, char *arg, char *token, int index);
+void	insertion_element(t_list *liste, char *arg, char *token, int index);
 void	destruction(t_list *liste);
+void	insertion_list(t_list *liste);
 
 t_list	*initialisation(void)
 {
@@ -25,16 +26,17 @@ t_list	*initialisation(void)
 	if (liste == NULL)
 		exit(0);
 	liste->first = NULL;
+	liste->next_list = NULL;
 	return (liste);
 }
 
-void	insertion_f(t_list *liste, char *arg, char *token, int index)
+void	insertion_element(t_list *liste, char *arg, char *token, int index)
 {
 	t_element	*nouveau;
 	t_element	*actuel;
 
 	nouveau = malloc(sizeof(*nouveau));
-	if (liste == NULL || nouveau == NULL)
+	if (!liste || !nouveau)
 		exit(0);
 	nouveau->next = NULL;
 	nouveau->arg = arg;
@@ -51,31 +53,66 @@ void	insertion_f(t_list *liste, char *arg, char *token, int index)
 	}
 }
 
+void	insertion_list(t_list *liste)
+{
+	t_list	*new_list;
+	t_list	*current;
+
+	new_list = malloc(sizeof(*new_list));
+	if (!liste || !new_list)
+		exit(0);
+	new_list->next_list = NULL;
+	new_list->first = NULL;
+	if (liste->next_list == NULL)
+		liste->next_list = new_list;
+	else
+	{
+		current = liste->next_list;
+		while (current->next_list != NULL)
+			current = current->next_list;
+		current->next_list = new_list;	
+	}
+}
+
 void	destruction(t_list *liste)
 {
 	t_element	*asupprimer;
+	t_list		*lst_asupprimer;
 
 	if (liste == NULL)
 		exit(EXIT_FAILURE);
-	while (liste->first != NULL)
-	{
-		free(liste->first->arg);
-		asupprimer = liste->first;
-		liste->first = liste->first->next;
-		free(asupprimer);
+	while (liste != NULL)
+	{		
+		while (liste->first != NULL)
+		{
+			free(liste->first->arg);
+			asupprimer = liste->first;
+			liste->first = liste->first->next;
+			free(asupprimer);
+		}
+		lst_asupprimer = liste;
+		liste = liste->next_list;
+		free(lst_asupprimer);
 	}
 }
 
 void	afficherliste(t_list *liste)
 {
 	t_element	*actuel;
+	int			i;
 
 	if (liste == NULL)
 		exit(0);
-	actuel = liste->first;
-	while (actuel != NULL)
-	{
-		printf("position[%d]=[%s]-[%s] \n", actuel->position, actuel->arg, actuel->token);
-		actuel = actuel->next;
+	i = 0;
+	while (liste != NULL)
+	{		
+		actuel = liste->first;
+		printf("liste [%d]\n", i++);
+		while (actuel != NULL)
+		{
+			printf("position[%d]=[%s]-[%s] \n", actuel->position, actuel->arg, actuel->token);
+			actuel = actuel->next;
+		}
+		liste = liste->next_list;
 	}
 }
