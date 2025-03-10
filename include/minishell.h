@@ -31,5 +31,11 @@ void	insertion_f(t_list *liste, char *arg, char *token, int index);
 void	destruction(t_list *liste);
 char	*clean_line(char *line);
 
+int		find_builtin(char *split, t_list *list, int index);
+int		find_cmd(char *split, t_list *list, int index);
+void	find_opt_arg(char *split, t_list *list, int index);
+int		find_token(char *split, t_list *list, int index);
+void	find_file(char *split, t_list *list, int index, int redir);
+
 
 #endif
