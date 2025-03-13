@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 16:19:39 by tnolent           #+#    #+#             */
-/*   Updated: 2025/03/10 11:25:37 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/03/12 12:22:53 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,30 @@
 
 int	find_builtin(char *split, t_list *list, int index)
 {
-	if (strcmp(split, "export") == 0)
-		return (insertion_element(list, ft_strdup(split), "BUILTIN", index), 1);
-	else if (strcmp(split, "env") == 0)
-		return (insertion_element(list, ft_strdup(split), "BUILTIN", index), 1);
-	else if (strcmp(split, "pwd") == 0)
-		return (insertion_element(list, ft_strdup(split), "BUILTIN", index), 1);
-	else if (strcmp(split, "cd") == 0)
-		return (insertion_element(list, ft_strdup(split), "BUILTIN", index), 1);
-	else if (strcmp(split, "unset") == 0)
-		return (insertion_element(list, ft_strdup(split), "BUILTIN", index), 1);
-	else if (strcmp(split, "exit") == 0)
-		return (insertion_element(list, ft_strdup(split), "BUILTIN", index), 1);
-	else if (strcmp(split, "echo") == 0)
-		return (insertion_element(list, ft_strdup(split), "BUILTIN", index), 1);
+	char	*new_str;
+
+	new_str = remove_quotes(split);
+	if (strcmp(new_str, "export") == 0)
+		return (insertion_element(list, ft_strdup(split), "BUILTIN", index),
+			free(new_str), 1);
+	else if (strcmp(new_str, "env") == 0)
+		return (insertion_element(list, ft_strdup(split), "BUILTIN", index),
+			free(new_str), 1);
+	else if (strcmp(new_str, "pwd") == 0)
+		return (insertion_element(list, ft_strdup(split), "BUILTIN", index),
+			free(new_str), 1);
+	else if (strcmp(new_str, "cd") == 0)
+		return (insertion_element(list, ft_strdup(split), "BUILTIN", index),
+			free(new_str), 1);
+	else if (strcmp(new_str, "unset") == 0)
+		return (insertion_element(list, ft_strdup(split), "BUILTIN", index),
+			free(new_str), 1);
+	else if (strcmp(new_str, "exit") == 0)
+		return (insertion_element(list, ft_strdup(split), "BUILTIN", index),
+			free(new_str), 1);
+	else if (strcmp(new_str, "echo") == 0)
+		return (insertion_element(list, ft_strdup(split), "BUILTIN", index),
+			free(new_str), 1);
 	else
 		return (0);
 }
@@ -42,27 +52,33 @@ int	find_cmd(char *split, t_list *list, int index)
 	static int	arg = 0;
 	char		**path;
 	char		*tmp_cmd;
+	char		*new_str;
 	int			i;
 
-	if (access(split, X_OK) == 0)
+	new_str = remove_quotes(split);
+	if (access(new_str, X_OK) == 0)
 		return (insertion_element(list, ft_strdup(split), "CMD", index), 1);
 	path = ft_split(getenv("PATH"), ':');
 	i = 0;
 	while (path[i])
 	{
-		tmp_cmd = ft_strjoin(path[i++], split);
+		tmp_cmd = ft_strjoin(path[i++], new_str);
 		if (access(tmp_cmd, X_OK) == 0)
 			return (insertion_element(list, ft_strdup(split), "CMD", index),
-				free_split(path), free(tmp_cmd), 1);
+				free_split(path), free(tmp_cmd), free(new_str), 1);
 		free(tmp_cmd);
 	}
-	return (free_split(path), 0);
+	return (free_split(path), free(new_str), 0);
 }
 
 void	find_opt_arg(char *split, t_list *list, int index)
 {
 	if (split[0] == '-')
 		insertion_element(list, ft_strdup(split), "OPT", index);
+	else if (split[0] == '\"')
+		insertion_element(list, ft_strdup(split), "DOUBLE-QUOTE", index);
+	else if (split[0] == '\'')
+		insertion_element(list, ft_strdup(split), "SIMPLE-QUOTE", index);
 	else
 		insertion_element(list, ft_strdup(split), "ARG", index);
 }
@@ -75,8 +91,6 @@ int	find_token(char *split, t_list *list, int index)
 		return (insertion_element(list, ft_strdup(">>"), "REDIR-OUT_APPEND", index), redir = OUT_APPEND, 1);
 	else if (ft_strchr(split, '<') && ft_strlen(split) == 1)
 		return (insertion_element(list, ft_strdup("<"), "REDIR-IN", index), redir = IN, 1);
-	// else if (ft_strchr(split, '|') && ft_strlen(split) == 1)
-	// 	return (insertion_element(list, ft_strdup("|"), "pipe", index), 1);
 	else if (ft_strchr(split, '>') && ft_strlen(split) == 1)
 		return (insertion_element(list, ft_strdup(">"), "REDIR-OUT", index), redir = OUT, 1);
 	else if (access(split, F_OK) == 0 && access(split, X_OK) != 0)
@@ -88,11 +102,11 @@ int	find_token(char *split, t_list *list, int index)
 void	find_file(char *split, t_list *list, int index, int redir)
 {
 	if (redir == IN)
-		insertion_element(list, ft_strdup(split), "FILE-IN", index);
+		insertion_element(list, ft_strdup(split), "INFILE", index);
 	else if (redir == OUT)
-		insertion_element(list, ft_strdup(split), "FILE-OUT", index);
+		insertion_element(list, ft_strdup(split), "OUTFILE", index);
 	else if (redir == OUT_APPEND)
-		insertion_element(list, ft_strdup(split), "FILE-OUT-APPEND", index);
+		insertion_element(list, ft_strdup(split), "OUTFILE-APPEND", index);
 	else
 		insertion_element(list, ft_strdup(split), "FILE", index);
 }

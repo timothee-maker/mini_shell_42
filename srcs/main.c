@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 09:53:56 by tnolent           #+#    #+#             */
-/*   Updated: 2025/03/10 16:01:38 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/03/12 15:46:07 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,6 @@
 
 void	analyze_line(char **split, t_list *list);
 void	minishell(char	*line, t_list *list);
-int		find_token(char *split, t_list *list, int index);
-void	find_file(char *split, t_list *list, int index, int redir);
-int		find_cmd(char *split, t_list *list, int index);
-void	find_opt_arg(char *split, t_list *list, int index);
-int		find_builtin(char *split, t_list *list, int index);
-int		parse(char **split);
-int		valid_quote(char *split);
 
 int	main(void)
 {
@@ -51,45 +44,9 @@ void	minishell(char	*line, t_list *list)
 	line = clean_line(line);
 	split = ft_split(line, ' ');
 	free(line);
-	if (!parse(split))
-	{
-		free_split(split);
-		printf("erreur de parsing\n");
-		return;
-	}
-	analyze_line(split, list);
+	if (start_parse(split))
+		analyze_line(split, list);
 	free_split(split);
-}
-
-int		parse(char **split)
-{
-	int	i;
-	int	len_split;
-	
-	len_split = len_tab(split) - 1;
-	i = 0;
-	while (split[i])
-	{
-		if (ft_strchr(split[i], '|') && (i == 0 || i == len_split))
-			return(0);
-		else if (!valid_quote(split[i]))
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-int	valid_quote(char *split)
-{
-	char 	tmp;
-
-	if (strchr(QUOTES, split[0]))
-		tmp = split[0];
-	else
-		return (1);
-	if (split[ft_strlen(split) - 1] == tmp)
-		return (1);
-	return (0);
 }
 
 void	analyze_line(char **split, t_list *list)

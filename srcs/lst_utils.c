@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:13:08 by tnolent           #+#    #+#             */
-/*   Updated: 2025/03/10 13:03:03 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/03/12 15:48:38 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ void	afficherliste(t_list *liste)
 	{		
 		actuel = liste->first;
 		printf("liste [%d]\n", i++);
+		// printf("liste des infiles : %s, liste des outfiles : %s\n", liste->infile->token, liste->outfile->token);
 		while (actuel != NULL)
 		{
 			printf("position[%d]=[%s]-[%s] \n", actuel->position, actuel->arg, actuel->token);
