@@ -6,11 +6,11 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/06 14:26:53 by tnolent           #+#    #+#             */
-/*   Updated: 2025/03/10 13:55:02 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/03/19 15:40:13 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
 #define QUOTES "\'\""
 

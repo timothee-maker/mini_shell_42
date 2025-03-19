@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 16:19:39 by tnolent           #+#    #+#             */
-/*   Updated: 2025/03/14 11:57:12 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/03/19 16:13:20 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int	find_cmd(char *split, t_list *list, int index)
 	int			i;
 
 	new_str = remove_quotes(split);
+	if (ft_strlen(new_str) == 0)
+		return (free(new_str), 0);
 	if (access(new_str, X_OK) == 0)
 		return (insertion_element(list, ft_strdup(split), "CMD", index), 1);
 	path = ft_split(getenv("PATH"), ':');

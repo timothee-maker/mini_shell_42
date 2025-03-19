@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 09:53:56 by tnolent           #+#    #+#             */
-/*   Updated: 2025/03/14 11:23:33 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/03/19 16:08:37 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,9 @@ void	minishell(char	*line, t_list *list)
 	line = clean_line(line);
 	// printf("%s\n", line);
 	split = ft_split(line, ' ');
+	// int	i = 0;
+	// while (split[i])
+	// 	printf("%s\n", split[i++]);
 	free(line);
 	if (start_parse(split))
 		analyze_line(split, list);
