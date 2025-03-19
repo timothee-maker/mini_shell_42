@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 16:19:39 by tnolent           #+#    #+#             */
-/*   Updated: 2025/03/12 12:22:53 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/03/14 11:57:12 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,6 @@ int	find_builtin(char *split, t_list *list, int index)
 	if (strcmp(new_str, "export") == 0)
 		return (insertion_element(list, ft_strdup(split), "BUILTIN", index),
 			free(new_str), 1);
-	else if (strcmp(new_str, "env") == 0)
-		return (insertion_element(list, ft_strdup(split), "BUILTIN", index),
-			free(new_str), 1);
-	else if (strcmp(new_str, "pwd") == 0)
-		return (insertion_element(list, ft_strdup(split), "BUILTIN", index),
-			free(new_str), 1);
 	else if (strcmp(new_str, "cd") == 0)
 		return (insertion_element(list, ft_strdup(split), "BUILTIN", index),
 			free(new_str), 1);
@@ -40,11 +34,8 @@ int	find_builtin(char *split, t_list *list, int index)
 	else if (strcmp(new_str, "exit") == 0)
 		return (insertion_element(list, ft_strdup(split), "BUILTIN", index),
 			free(new_str), 1);
-	else if (strcmp(new_str, "echo") == 0)
-		return (insertion_element(list, ft_strdup(split), "BUILTIN", index),
-			free(new_str), 1);
 	else
-		return (0);
+		return (free(new_str), 0);
 }
 
 int	find_cmd(char *split, t_list *list, int index)
@@ -64,18 +55,17 @@ int	find_cmd(char *split, t_list *list, int index)
 	{
 		tmp_cmd = ft_strjoin(path[i++], new_str);
 		if (access(tmp_cmd, X_OK) == 0)
-			return (insertion_element(list, ft_strdup(split), "CMD", index),
+			return (insertion_element(list, ft_strdup(tmp_cmd), "CMD", index),
 				free_split(path), free(tmp_cmd), free(new_str), 1);
 		free(tmp_cmd);
 	}
+	insertion_element(list, ft_strdup(split), "ARG", index);
 	return (free_split(path), free(new_str), 0);
 }
 
 void	find_opt_arg(char *split, t_list *list, int index)
 {
-	if (split[0] == '-')
-		insertion_element(list, ft_strdup(split), "OPT", index);
-	else if (split[0] == '\"')
+	if (split[0] == '\"')
 		insertion_element(list, ft_strdup(split), "DOUBLE-QUOTE", index);
 	else if (split[0] == '\'')
 		insertion_element(list, ft_strdup(split), "SIMPLE-QUOTE", index);

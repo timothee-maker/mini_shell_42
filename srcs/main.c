@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 09:53:56 by tnolent           #+#    #+#             */
-/*   Updated: 2025/03/12 15:46:07 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/03/14 11:23:33 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	minishell(char	*line, t_list *list)
 	int		nb_pipe;
 
 	line = clean_line(line);
+	// printf("%s\n", line);
 	split = ft_split(line, ' ');
 	free(line);
 	if (start_parse(split))
@@ -70,10 +71,7 @@ void	analyze_line(char **split, t_list *list)
 		if (!find_builtin(split[i], current, position_element))
 		{
 			if (!find_token(split[i], current, position_element))
-			{
-				if (!find_cmd(split[i], current, position_element))
-					find_opt_arg(split[i], current, position_element);
-			}
+				find_cmd(split[i], current, position_element);
 		}
 		i++;
 		position_element++;

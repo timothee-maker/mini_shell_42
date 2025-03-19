@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 11:10:35 by tnolent           #+#    #+#             */
-/*   Updated: 2025/03/12 16:10:20 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/03/13 10:32:25 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <fcntl.h>
 # include <termios.h>
 
-# define DELIMITER "|<>"
+# define DELIMITER "|<>&"
 # define QUOTES "\'\""
 
 typedef struct s_element
@@ -57,7 +57,7 @@ void	find_file(char *split, t_list *list, int index, int redir);
 
 int		len_tab(char **split);
 char	*remove_quotes(char *str);
-int		syntax_error(char *split, int len_split);
+int		syntax_error(char **split, int len_split);
 int		start_parse(char **split);
 int		valid_quote(char *split);
 int		parse_one_case(char *split);
