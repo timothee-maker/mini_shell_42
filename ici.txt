@@ -1,4 +1,1 @@
-lol caca
-caca
-caca lol
-caca lol lslslafksjfb
+Ceci est le plus beau Makefile que tu as vu de ta vie

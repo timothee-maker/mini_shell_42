@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 09:53:56 by tnolent           #+#    #+#             */
-/*   Updated: 2025/03/19 16:08:37 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/03/20 10:41:05 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,10 @@ void	analyze_line(char **split, t_list *list)
 		if (!find_builtin(split[i], current, position_element))
 		{
 			if (!find_token(split[i], current, position_element))
+			{
+				// printf("%s\n", split[i]);
 				find_cmd(split[i], current, position_element);
+			}
 		}
 		i++;
 		position_element++;
