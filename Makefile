@@ -32,7 +32,7 @@ $(NAME): lib $(OBJS)
 	@echo "$(GREEN)$(NAME) compiled!$(DEF_COLOR)"
 
 clean: 
-	@rm -f $(OBJS)
+	@rm -f $(OBJS) .infile .outfile
 	@echo "$(BLUE)$(NAME) object files cleaned!$(DEF_COLOR)"
 
 fclean: clean
