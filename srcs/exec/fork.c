@@ -3,10 +3,12 @@
 static char **create_args(t_exec *exec)
 {
     char **res;
+    char *output;
 
-    res = malloc(sizeof(char *) * 2);
-    res[0] = ft_strdup(exec->cmd->name);
-    res[1] = NULL;
+    ft_reopen_IO(exec, 1);
+    output = get_file_content(exec->infile);
+    res = ft_split(output, ' ');
+    free(output);
     return (res);
 }
 
@@ -19,6 +21,5 @@ void child_process(t_exec *exec)
 
 void parent_process(pid_t pid)
 {
-
     waitpid(pid, NULL, 0);
 }

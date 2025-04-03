@@ -6,6 +6,8 @@ void fill_args(t_list *list, t_exec *exec)
     t_filenode  *currfile;
     int         currfd;
 
+    ft_putstr_fd(exec->cmd->name, exec->infile);
+    ft_putstr_fd(" ", exec->infile);
     elem = list->first;
     while(elem)
     {

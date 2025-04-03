@@ -80,6 +80,7 @@ t_filenode *init_outfiles(t_list *list)
             res = malloc(sizeof(t_filenode));
             res->name = el->arg;
             res->open_mode = get_open_mode(el);
+            res->next = NULL;
             if (temp != NULL)
                 temp->next = res;
             if (!first)
