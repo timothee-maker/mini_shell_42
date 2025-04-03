@@ -95,7 +95,8 @@ void    parent_process(pid_t pid);
 
 // -----------------------OUTPUT-------------------------
 void    display_output(t_exec *exec);
-void    redirect_output(t_exec *exec);
+void    redirect_output(t_list *list, t_exec *exec);
+void    ft_pipe(t_exec *exec);
 
 
 

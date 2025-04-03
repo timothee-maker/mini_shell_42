@@ -7,7 +7,7 @@ void exec_line(t_exec *exec, t_list *list)
         exec->cmd = init_cmd(list);
         fill_args(list, exec);
         exec_cmd(exec);
-        redirect_output(exec);
+        redirect_output(list, exec);
         //free_cmd(exec->cmd);
         list = list->next_list;
     }
