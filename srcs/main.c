@@ -20,15 +20,15 @@ int	main(int argc, char **argv, char **envp)
 
     (void) argc;
     (void) argv;
-    liste = initialisation();
     exec = init_exec(envp);
 	while (1)
 	{
-		input = readline("$>");
+		input = readline("$> ");
         if (input)
         {
+            liste = initialisation();
 		    minishell(input, liste);
-            //afficherliste(liste);
+            afficherliste(liste);
             exec_line(exec, liste);
 		    destruction(liste);
         }
