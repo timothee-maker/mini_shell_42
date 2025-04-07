@@ -7,7 +7,7 @@ static char **create_args(t_exec *exec)
 
 	ft_reopen_IO(exec, 1);
 	output = get_file_content(exec->infile);
-	res = ft_split(output, ' ');
+	res = ft_split_minishell(output, ' ');
 	free(output);
 	return (res);
 }

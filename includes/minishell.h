@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/04/04 11:13:45 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/04/07 12:15:44 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,18 @@
 # include <readline/history.h>
 # include "../libft/libft.h"
 
-# define DELIMITER "|<>"
+# define DELIMITER "|<>&"
 # define QUOTES "\'\""
 # define NORMAL 0
 # define IN 1
 # define OUT 2
 # define OUT_APPEND 3
+# define HERE_DOC 4
 # define ERROR_CHAR "<>|&"
 # define BUFFER_SIZE 1000
+
+/*lignes test*/
+// <ici.txt ls|grep a|cat>/dev/stdout|echo "'hola que tal' $ZSH okay"
 
 typedef struct s_element
 {
@@ -97,8 +101,6 @@ void    parent_process(pid_t pid);
 void    display_output(t_exec *exec);
 void    redirect_output(t_exec *exec);
 
-
-
 // _______________________UTILS__________________________
 
 // ------------------------ARGS--------------------------
@@ -133,8 +135,6 @@ t_cmd 		*init_cmd(t_list *list);
 t_filenode 	*init_infiles(t_list *list);
 t_filenode 	*init_outfiles(t_list *list);
 
-
-
 // ______________________ PARSING________________________
 
 // -------------------------CORE-------------------------
@@ -160,6 +160,7 @@ int		start_parse(char **split);
 int		syntax_error(char **split, int len_split);
 int	    parse_one_case(char *split);
 char	*chr_str(char *str, char *to_find);
+char	**ft_split_minishell(char const *s, char c);
 
 // -------------------------UTILS------------------------
 int	    len_tab(char **split);

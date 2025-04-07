@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
+/*   ft_split_minishell.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 13:35:03 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/04/07 10:22:01 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/04/07 12:21:54 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,10 @@ typedef struct s_split
 	char	**result;
 }	t_split;
 
-int		count_world(char const *str, char sep);
-int		is_sep(char c, char sep);
-int		size_tab(const char *str, char sep);
 void	quote_case(const char *s, t_split *split);
 void	dollar_case(const char *s, t_split *split);
 
-char	**ft_split(char const *s, char c)
+char	**ft_split_minishell(char const *s, char c)
 {
 	t_split	split;
 
@@ -88,66 +85,6 @@ void	quote_case(const char *s, t_split *split)
 	split->result[split->k++][split->l] = '\0';
 	split->l = 0;
 }
-
-int	count_world(char const *str, char sep)
-{
-	int	compteur;
-	int	i;
-	int	j;
-
-	j = 0;
-	i = 0;
-	compteur = 1;
-	while (str[i])
-	{
-		if (!is_sep(str[i], sep) && compteur == 1)
-		{
-			j++;
-			compteur = 0;
-		}
-		else if (is_sep(str[i], sep) && compteur == 0)
-			compteur = 1;
-		i++;
-	}
-	return (j);
-}
-
-int	size_tab(char const *str, char sep)
-{
-	int	i;
-
-	i = 0;
-	while (str[i] && !is_sep(str[i], sep))
-		i++;
-	return (i);
-}
-
-// void	quote_case(const char *s, t_split *split)
-// {
-// 	split->tmp = s[split->i];
-// 	split->i++;
-// 	split->result[split->k] = malloc(sizeof(char) * (ft_strlen(s) + 1));
-// 	split->result[split->k][split->l++] = s[split->i - 1];
-// 	while (s[split->i])
-// 	{
-// 		if (s[split->i] != s[split->tmp])
-// 		{
-// 			if (s[split->i] == '$' && split->tmp == '\"')
-// 			{
-// 				split->result[split->k][split->l++] = '\"';
-// 				split->result[split->k++][split->l] = '\0';
-// 				dollar_case(s, split);
-// 				split->result[split->k][split->l++] = '\"';
-// 			}
-// 			if (s[split->i])
-// 				split->result[split->k][split->l++] = s[split->i++];
-// 		}
-// 	}
-// 	if (s[split->i])
-// 		split->result[split->k][split->l++] = s[split->i++];
-// 	split->result[split->k++][split->l] = '\0';
-// 	split->l = 0;
-// }
 
 // static void	ft_define_vars(size_t *i, int *j, int *s_word)
 // {
