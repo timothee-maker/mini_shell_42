@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 void	minishell(char	*line, t_list *list)
 {
@@ -7,6 +7,9 @@ void	minishell(char	*line, t_list *list)
     add_history(line);
 	line = clean_line(line);
 	split = ft_split(line, ' ');
+	int	i = 0;
+	while (split[i])
+		printf("%s\n", split[i++]);
 	free(line);
 	if (start_parse(split))
 		analyze_line(split, list);

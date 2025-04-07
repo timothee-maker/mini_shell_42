@@ -6,11 +6,11 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:52:42 by tnolent           #+#    #+#             */
-/*   Updated: 2025/03/12 12:21:22 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/04/04 11:13:11 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 void    free_split(char **split)
 {
@@ -78,6 +78,35 @@ int	valid_quote(char *split)
 	return (0);
 }
 
+int	is_sep(char c, char sep)
+{
+	if (c == sep)
+		return (1);
+	return (0);
+}
+
+// char	*remove_quotes(char *str)
+// {
+// 	char	*new_str;
+// 	int		i;
+// 	int		j;
+
+// 	j = 1;
+// 	i = 0;
+// 	if (!ft_strchr(QUOTES, str[0]))
+// 		return (ft_strdup(str));
+// 	new_str = ft_calloc(ft_strlen(str), sizeof(char));
+// 	if (!new_str)
+// 		return (NULL);
+// 	while(str[j] && !ft_strchr(QUOTES, str[j]))
+// 	{
+// 		new_str[i++] = str[j++];
+// 	}
+// 	return (new_str);
+// 	new_str[i] = '\0';
+// 	return (new_str);
+// }
+
 char	*remove_quotes(char *str)
 {
 	char	*new_str;
@@ -91,11 +120,8 @@ char	*remove_quotes(char *str)
 	new_str = ft_calloc(ft_strlen(str), sizeof(char));
 	if (!new_str)
 		return (NULL);
-	while(str[j] && !ft_strchr(QUOTES, str[j]))
-	{
+	while(str[j] && str[j] != str[0])
 		new_str[i++] = str[j++];
-	}
-	return (new_str);
 	new_str[i] = '\0';
 	return (new_str);
 }

@@ -6,11 +6,11 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 16:19:39 by tnolent           #+#    #+#             */
-/*   Updated: 2025/03/12 12:22:53 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/04/04 11:03:35 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 int	find_builtin(char *split, t_list *list, int index)
 {
@@ -46,7 +46,7 @@ int	find_cmd(char *split, t_list *list, int index)
 {
 	char		**path;
 	char		*tmp_cmd;
-    char        *tmp_path;
+	char        *tmp_path;
 	char		*new_str;
 	int			i;
 
@@ -57,9 +57,9 @@ int	find_cmd(char *split, t_list *list, int index)
 	i = 0;
 	while (path[i])
 	{
-        tmp_path = ft_strjoin(path[i++], "/");
+		tmp_path = ft_strjoin(path[i++], "/");
 		tmp_cmd = ft_strjoin(tmp_path, new_str);
-        free(tmp_path);
+		free(tmp_path);
 		if (access(tmp_cmd, X_OK) == 0)
 			return (insertion_element(list, ft_strdup(tmp_cmd), "CMD", index),
 				free_split(path), free(tmp_cmd), free(new_str), 1);

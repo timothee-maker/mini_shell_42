@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_env.c                                       :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lde-guil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:25:32 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/03/14 13:25:33 by lde-guil         ###   ########.fr       */
+/*   Updated: 2025/04/04 11:01:46 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 t_env	**create_env(char **envp)
 {
@@ -29,7 +29,7 @@ t_env	**create_env(char **envp)
 		variable->name = get_var_name(envp[i]);
 		variable->value = get_var_value(envp[i]);
 		variable->next = NULL;
-        res[i] = variable;
+		res[i] = variable;
 		if (i > 0)
 			res[i - 1]->next = variable;
 		i++;

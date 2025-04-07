@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lde-guil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/03/14 13:32:49 by lde-guil         ###   ########.fr       */
+/*   Updated: 2025/04/04 11:13:45 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void    redirect_output(t_exec *exec);
 
 // ------------------------ARGS--------------------------
 void 	fill_args(t_list *list, t_exec *exec);
+int		is_sep(char c, char sep);
 
 // ------------------CREATE ENVIRONMENT------------------
 t_env	**create_env(char **envp);
