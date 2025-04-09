@@ -22,8 +22,8 @@ void fill_args(t_list *list, t_exec *exec)
     while (currfile)
     {
         currfd = open(currfile->name, currfile->open_mode);
-        ft_putstr_fd(get_file_content(currfd), exec->infile);
-        ft_putstr_fd(" ", exec->infile);
+        ft_putstr_fd(get_file_content(currfd), exec->fstdin);
+        ft_putstr_fd(" ", exec->fstdin);
         close(currfd);
         currfile = currfile->next;
     }

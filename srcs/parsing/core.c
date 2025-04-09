@@ -6,11 +6,7 @@ void	minishell(char	*line, t_list *list)
 
     add_history(line);
 	line = clean_line(line);
-	//printf("%s\n", line);
 	split = ft_split_minishell(line, ' ');
-	// int	i = 0;
-	// while (split[i])
-	// 	printf("%s\n", split[i++]);
 	free(line);
 	if (start_parse(split))
 		analyze_line(split, list);

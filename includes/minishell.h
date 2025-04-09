@@ -39,6 +39,7 @@
 
 /*lignes test*/
 // <ici.txt ls|grep a|cat>/dev/stdout|echo "'hola que tal' $ZSH okay"
+// cas defaillant : ls -la > outfile1 > outfile2 | grep < outfile 3 > outfile 2
 
 typedef struct s_element
 {

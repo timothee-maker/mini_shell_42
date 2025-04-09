@@ -54,6 +54,7 @@ t_filenode *init_infiles(t_list *list)
 			res = malloc(sizeof(t_filenode));
 			res->name = elem->arg;
 			res->open_mode = O_RDWR;
+            res->next = NULL;
 			if (temp != NULL)
 				temp->next = res;
 			if (!first)

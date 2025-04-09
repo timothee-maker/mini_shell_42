@@ -28,7 +28,7 @@ void redirect_output(t_exec *exec)
 	}
     if (exec->cmd->is_pipe != 0)
         ft_pipe(exec, output);
-    else
+    else if (exec->cmd->outfiles == NULL)
         display_output(exec);
     free(output);
     clear_IO(exec, 1);
