@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 int is_infile(t_element *elem)
 {
@@ -57,6 +57,11 @@ void ft_reopen_IO(t_exec *exec, int IO)
 	{
 		close(exec->outfile);
 		exec->outfile = open(".outfile", O_RDWR);
+	}
+    else if (IO == 3)
+	{
+		close(exec->fstdin);
+		exec->fstdin = open(".stdin", O_RDWR);
 	}
 	else
 	{

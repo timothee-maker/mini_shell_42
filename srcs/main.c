@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../includes/minishell.h"
 
 int main(int argc, char **argv, char **envp)
 {
@@ -28,8 +28,8 @@ int main(int argc, char **argv, char **envp)
 		{
 			liste = initialisation();
 			minishell(input, liste);
-			afficherliste(liste);
-			// exec_line(exec, liste);
+			//afficherliste(liste);
+			exec_line(exec, liste);
 			destruction(liste);
 		}
 		else

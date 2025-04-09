@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 void	minishell(char	*line, t_list *list)
 {
@@ -6,7 +6,7 @@ void	minishell(char	*line, t_list *list)
 
     add_history(line);
 	line = clean_line(line);
-	printf("%s\n", line);
+	//printf("%s\n", line);
 	split = ft_split_minishell(line, ' ');
 	// int	i = 0;
 	// while (split[i])

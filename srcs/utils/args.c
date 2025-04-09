@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 void fill_args(t_list *list, t_exec *exec)
 {

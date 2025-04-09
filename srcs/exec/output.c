@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 void display_output(t_exec *exec)
 {
@@ -26,5 +26,39 @@ void redirect_output(t_exec *exec)
 		file = file->next;
 		close(fd);
 	}
-	display_output(exec);
+    if (exec->cmd->is_pipe != 0)
+        ft_pipe(exec, output);
+    else
+        display_output(exec);
+    free(output);
+    clear_IO(exec, 1);
+    clear_IO(exec, 2);
+}
+
+void clear_IO(t_exec *exec, int IO)
+{
+    if (IO == 1)
+    {
+        close(exec->infile);
+        exec->infile = open(".infile", O_CREAT | O_RDWR | O_TRUNC, 0777);
+    }
+    else if (IO == 2)
+    {
+        close(exec->outfile);
+        exec->outfile = open(".outfile", O_CREAT | O_RDWR | O_TRUNC, 0777);
+    }
+    else if (IO == 3)
+    {
+        close(exec->fstdin);
+        exec->fstdin = open(".stdin", O_CREAT | O_RDWR | O_TRUNC, 0777);
+    }
+    else
+        printf("No IO file given to clean\n");
+}
+
+void ft_pipe(t_exec *exec, char *output)
+{
+    clear_IO(exec, 3);
+    ft_putstr_fd(output, exec->fstdin);
+    ft_reopen_IO(exec, 3);
 }

@@ -74,6 +74,7 @@ typedef struct s_cmd
 	char 		*path;
 	char		delimit;
 	int			is_builtin;
+    int         is_pipe;
 	t_filenode 	*infiles;
 	t_filenode 	*outfiles;
 }	t_cmd;
@@ -85,6 +86,7 @@ typedef struct s_exec
 	t_env 	**env;
 	int		infile;
 	int		outfile;
+    int     fstdin;
 }	t_exec;
 
 // ________________________EXEC__________________________
@@ -100,6 +102,8 @@ void    parent_process(pid_t pid);
 // -----------------------OUTPUT-------------------------
 void    display_output(t_exec *exec);
 void    redirect_output(t_exec *exec);
+void    clear_IO(t_exec *exec, int IO);
+void    ft_pipe(t_exec *exec, char *output);
 
 // _______________________UTILS__________________________
 

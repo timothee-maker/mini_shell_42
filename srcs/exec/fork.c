@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 static char **create_args(t_exec *exec)
 {
@@ -14,8 +14,9 @@ static char **create_args(t_exec *exec)
 
 void child_process(t_exec *exec)
 {
-	dup2(exec->infile, STDIN_FILENO);
-	dup2(exec->outfile, STDOUT_FILENO);
+	dup2(exec->fstdin, STDIN_FILENO);
+    if (exec->cmd->is_pipe != 0)
+	    dup2(exec->outfile, STDOUT_FILENO);
 	execve(exec->cmd->path, create_args(exec), exec->envp);
 }
 

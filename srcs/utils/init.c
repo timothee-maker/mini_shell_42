@@ -1,4 +1,4 @@
-#include "minishell.h"
+#include "../../includes/minishell.h"
 
 t_exec *init_exec(char **envp)
 {
@@ -10,6 +10,7 @@ t_exec *init_exec(char **envp)
 	res->env = create_env(envp);
 	res->infile = open(".infile", O_RDWR | O_CREAT, 0777);
 	res->outfile = open(".outfile", O_RDWR | O_CREAT, 0777);
+    res->fstdin = open(".outfile", O_RDWR | O_CREAT, 0777);
 	return (res);
 }
 
@@ -20,6 +21,7 @@ t_cmd *init_cmd(t_list *list)
 
 	res = malloc(sizeof(t_cmd));
 	res->is_builtin = 0;
+    res->is_pipe = 0;
 	res->infiles = init_infiles(list);
 	res->outfiles = init_outfiles(list);
 	elem = list->first;

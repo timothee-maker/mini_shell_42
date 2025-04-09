@@ -28,11 +28,11 @@ lib:
 	@make clean -C libft
 
 $(NAME): lib $(OBJS)
-	@cc $(OBJS) libft/libft.a -o $(NAME) $(CLIBS)
+	@cc $(OBJS) libft/libft.a -g -o $(NAME) $(CLIBS)
 	@echo "$(GREEN)$(NAME) compiled!$(DEF_COLOR)"
 
 clean: 
-	@rm -f $(OBJS) .infile .outfile
+	@rm -f $(OBJS) .infile .outfile .stdin
 	@echo "$(BLUE)$(NAME) object files cleaned!$(DEF_COLOR)"
 
 fclean: clean
