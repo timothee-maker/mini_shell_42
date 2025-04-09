@@ -28,3 +28,5 @@ void fill_args(t_list *list, t_exec *exec)
         currfile = currfile->next;
     }
 }
+
+void check_heredoc(t_exec *exec);

@@ -88,6 +88,7 @@ typedef struct s_exec
 	int		infile;
 	int		outfile;
     int     fstdin;
+    int     pipe_count;
 }	t_exec;
 
 // ________________________EXEC__________________________

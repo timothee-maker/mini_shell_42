@@ -11,6 +11,7 @@ t_exec *init_exec(char **envp)
 	res->infile = open(".infile", O_RDWR | O_CREAT, 0777);
 	res->outfile = open(".outfile", O_RDWR | O_CREAT, 0777);
     res->fstdin = open(".outfile", O_RDWR | O_CREAT, 0777);
+    res->pipe_count = 0;
 	return (res);
 }
 
