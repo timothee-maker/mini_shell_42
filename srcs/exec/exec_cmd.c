@@ -8,6 +8,7 @@ void exec_line(t_exec *exec, t_list *list)
         if (list->next_list != 0)
             exec->cmd->is_pipe = 1;
 		fill_args(list, exec);
+		fill_heredoc(list, exec);
 		exec_cmd(exec);
 		redirect_output(exec);
 		free_cmd(exec->cmd);

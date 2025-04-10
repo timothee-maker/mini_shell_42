@@ -73,7 +73,7 @@ typedef struct s_cmd
 {
 	char 		*name;
 	char 		*path;
-	char		delimit;
+	char		*delimit;
 	int			is_builtin;
     int         is_pipe;
 	t_filenode 	*infiles;
@@ -88,7 +88,6 @@ typedef struct s_exec
 	int		infile;
 	int		outfile;
     int     fstdin;
-    int     pipe_count;
 }	t_exec;
 
 // ________________________EXEC__________________________
@@ -100,6 +99,9 @@ void    exec_cmd(t_exec *exec);
 // ------------------------FORK--------------------------
 void    child_process(t_exec *exec);
 void    parent_process(pid_t pid);
+
+// ----------------------HEREDOC-------------------------
+void 	fill_heredoc(t_list *list, t_exec *exec);
 
 // -----------------------OUTPUT-------------------------
 void    display_output(t_exec *exec);
