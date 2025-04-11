@@ -27,5 +27,7 @@ void exec_cmd(t_exec *exec)
 	if (pid)
 		parent_process(pid);
 	else
+    {
 		child_process(exec);
+    }
 }

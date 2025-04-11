@@ -39,7 +39,7 @@
 
 /*lignes test*/
 // <ici.txt ls|grep a|cat>/dev/stdout|echo "'hola que tal' $ZSH okay"
-// cas defaillant : ls -la > outfile1 > outfile2 | grep < outfile 3 > outfile 2
+// cas defaillant : ls -la > outfile1 > outfile2 | grep < outfile3 > outfile2
 
 typedef struct s_element
 {
@@ -106,7 +106,6 @@ void 	fill_heredoc(t_list *list, t_exec *exec);
 // -----------------------OUTPUT-------------------------
 void    display_output(t_exec *exec);
 void    redirect_output(t_exec *exec);
-void    clear_IO(t_exec *exec, int IO);
 void    ft_pipe(t_exec *exec, char *output);
 
 // _______________________UTILS__________________________
@@ -126,6 +125,10 @@ int 	is_outfile(t_element *elem);
 int 	get_open_mode(t_element *elem);
 char 	*get_file_content(int fd);
 void    ft_reopen_IO(t_exec *exec, int IO);
+
+// -----------------------FILES2-------------------------
+void    clear_IO(t_exec *exec, int IO);
+int     is_stdin_empty(t_exec *exec);
 
 // ----------------------FIND CMD------------------------
 char    *get_cmd_name(char *path);
