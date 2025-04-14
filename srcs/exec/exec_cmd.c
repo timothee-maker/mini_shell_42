@@ -5,8 +5,12 @@ void exec_line(t_exec *exec, t_list *list)
 	while (list)
 	{
 		exec->cmd = init_cmd(list);
-        if (list->next_list != 0)
-            exec->cmd->is_pipe = 1;
+        if (!exec->cmd->name)
+        {
+            ft_putstr_fd("command not found: ", 2);
+            ft_putendl_fd(list->first->arg, 2);
+            return ;
+        }
 		fill_args(list, exec);
 		fill_heredoc(list, exec);
 		exec_cmd(exec);

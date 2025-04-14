@@ -21,7 +21,7 @@ void redirect_output(t_exec *exec)
 	output = get_file_content(exec->outfile);
 	while (file)
 	{
-		fd = open(file->name, O_RDWR | O_CREAT, 0777);
+		fd = open(file->name, file->open_mode);
 		ft_putstr_fd(output, fd);
 		file = file->next;
 		close(fd);

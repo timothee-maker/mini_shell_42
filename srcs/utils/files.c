@@ -19,9 +19,9 @@ int is_outfile(t_element *elem)
 int get_open_mode(t_element *elem)
 {
 	if (!ft_strncmp(elem->token, "OUTFILE", ft_strlen(elem->token)))
-		return (O_RDWR);
+		return (O_RDWR | O_CREAT);
 	if (!ft_strncmp(elem->token, "OUTFILE-APPEND", ft_strlen(elem->token)))
-		return (O_RDWR | O_APPEND);
+		return (O_RDWR | O_APPEND | O_CREAT);
 	return (0);
 }
 

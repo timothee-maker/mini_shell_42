@@ -24,15 +24,15 @@ int main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		input = readline("$> ");
-		if (input)
+		if (input[0] != '\0')
 		{
 			liste = initialisation();
 			minishell(input, liste);
-            afficherliste(liste);
-			// exec_line(exec, liste);
+            //afficherliste(liste);
+			exec_line(exec, liste);
 			destruction(liste);
 		}
 		else
-			exit(1);
+			continue;
 	}
 }
