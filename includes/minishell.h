@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/04/07 12:15:44 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/04/14 10:37:32 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_list
 {
 	t_element		*first;
 	struct s_list	*next_list;
+	int				cmd;
 }	t_list;
 
 typedef struct s_env
@@ -162,7 +163,7 @@ void	find_opt_arg(char *split, t_list *list, int index);
 // ----------------------LIST UTILS----------------------
 t_list	*initialisation(void);
 void	afficherliste(t_list *liste);
-void	insertion_element(t_list *liste, char *arg, char *token, int index);
+void	add_token(t_list *liste, char *arg, char *token, int index);
 void	destruction(t_list *liste);
 void	insertion_list(t_list *liste);
 

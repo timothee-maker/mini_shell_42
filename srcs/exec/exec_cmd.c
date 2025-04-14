@@ -1,4 +1,4 @@
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 void exec_line(t_exec *exec, t_list *list)
 {

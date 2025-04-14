@@ -6,11 +6,11 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:13:08 by tnolent           #+#    #+#             */
-/*   Updated: 2025/04/04 10:54:53 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/04/14 10:37:32 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 t_list	*initialisation(void)
 {
@@ -21,10 +21,11 @@ t_list	*initialisation(void)
 		exit(0);
 	liste->first = NULL;
 	liste->next_list = NULL;
+	liste->cmd = 0;
 	return (liste);
 }
 
-void	insertion_element(t_list *liste, char *arg, char *token, int index)
+void	add_token(t_list *liste, char *arg, char *token, int index)
 {
 	t_element	*nouveau;
 	t_element	*actuel;
@@ -57,6 +58,7 @@ void	insertion_list(t_list *liste)
 		exit(0);
 	new_list->next_list = NULL;
 	new_list->first = NULL;
+	new_list->cmd = 0;
 	if (liste->next_list == NULL)
 		liste->next_list = new_list;
 	else
@@ -106,7 +108,7 @@ void	afficherliste(t_list *liste)
 		// printf("liste des infiles : %s, liste des outfiles : %s\n", liste->infile->token, liste->outfile->token);
 		while (actuel != NULL)
 		{
-			printf("position[%d]=[%s]-[%s] \n", actuel->position, actuel->arg, actuel->token);
+			printf("[%d]=[%s]-[%s] \n", actuel->position, actuel->arg, actuel->token);
 			actuel = actuel->next;
 		}
 		liste = liste->next_list;
