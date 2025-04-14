@@ -6,11 +6,11 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 16:19:39 by tnolent           #+#    #+#             */
-/*   Updated: 2025/04/14 10:37:32 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/04/14 13:19:19 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 int	find_builtin(char *split, t_list *list, int index)
 {
@@ -37,7 +37,7 @@ int	find_builtin(char *split, t_list *list, int index)
             free(new_str), 1);
     else if (strcmp(new_str, "echo") == 0)
         return (add_token(list, ft_strdup(split), "BUILTIN", index),
-            free(new_str), 1);
+			free(new_str), 1);
 	else
 		return (free(new_str), 0);
 }
@@ -51,6 +51,7 @@ int	find_cmd(char *split, t_list *list, int index)
 	int			i;
 
 	new_str = remove_quotes(split);
+	// new_str = split;
 	if (ft_strlen(new_str) == 0)
 		return (free(new_str), 0);
 	if (access(new_str, X_OK) == 0 && list->cmd == 0)
@@ -81,7 +82,7 @@ void	find_opt_arg(char *split, t_list *list, int index)
 		add_token(list, ft_strdup(split), "ARG", index);
 }
 
-int	find_token(char *split, t_list *list, int index)
+int	find_files_redir(char *split, t_list *list, int index)
 {
 	static int	redir = 0;
 
@@ -96,7 +97,11 @@ int	find_token(char *split, t_list *list, int index)
 	else if (access(split, F_OK) == 0 && access(split, X_OK) != 0)
 		return(find_file(split, list, index, redir), redir = NORMAL, 1);
 	else if (redir == HERE_DOC)
-		return (add_token(list, ft_strdup(split), "DELIMITER", index), redir = NORMAL, 1);
+		return (add_token(list, ft_strdup(split), "DELIMITER", index), redir = NORMAL, 0);
+	else if (redir == OUT_APPEND)
+		return (add_token(list, ft_strdup(split), "OUTFILE-APPEND", index), redir = NORMAL, 0);
+	else if (redir == OUT)
+		return (add_token(list, ft_strdup(split), "OUTFILE", index), redir = NORMAL, 0);
 	else
 		return (redir = NORMAL, 0);
 }

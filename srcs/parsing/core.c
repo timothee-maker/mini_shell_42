@@ -33,7 +33,7 @@ void	analyze_line(char **split, t_list *list)
 		}
 		if (!find_builtin(split[i], current, position_element))
 		{
-			if (!find_token(split[i], current, position_element))
+			if (!find_files_redir(split[i], current, position_element))
             {
 				find_cmd(split[i], current, position_element);
             }

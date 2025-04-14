@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/04/14 10:37:32 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/04/14 13:19:43 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define BUFFER_SIZE 1000
 
 /*lignes test*/
-// <ici.txt ls|grep a|cat>/dev/stdout|echo "'hola que tal' $ZSH okay"
+// <Makefile ls|grep a|cat>/dev/stdout|echo "'hola que tal' $ZSH okay"
 // cas defaillant : ls -la > outfile1 > outfile2 | grep < outfile3 > outfile2
 
 typedef struct s_element
@@ -156,7 +156,7 @@ void	analyze_line(char **split, t_list *list);
 // ----------------------FIND LIST-----------------------
 int	    find_builtin(char *split, t_list *list, int index);
 int	    find_cmd(char *split, t_list *list, int index);
-int	    find_token(char *split, t_list *list, int index);
+int	    find_files_redir(char *split, t_list *list, int index);
 void	find_file(char *split, t_list *list, int index, int redir);
 void	find_opt_arg(char *split, t_list *list, int index);
 
