@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 16:19:39 by tnolent           #+#    #+#             */
-/*   Updated: 2025/04/15 15:12:43 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/04/15 15:42:17 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,25 +18,25 @@ int	find_builtin(char *split, t_list *list, int index)
 
 	new_str = remove_quotes(split);
 	if (strcmp(new_str, "export") == 0)
-		return (add_token(list, ft_strdup(split), "BUILTIN", index),
+		return (add_token(list, ft_strdup(new_str), "BUILTIN", index),
 			free(new_str), 1);
 	else if (strcmp(new_str, "cd") == 0)
-		return (add_token(list, ft_strdup(split), "BUILTIN", index),
+		return (add_token(list, ft_strdup(new_str), "BUILTIN", index),
 			free(new_str), 1);
 	else if (strcmp(new_str, "unset") == 0)
-		return (add_token(list, ft_strdup(split), "BUILTIN", index),
+		return (add_token(list, ft_strdup(new_str), "BUILTIN", index),
 			free(new_str), 1);
 	else if (strcmp(new_str, "exit") == 0)
-		return (add_token(list, ft_strdup(split), "BUILTIN", index),
+		return (add_token(list, ft_strdup(new_str), "BUILTIN", index),
 			free(new_str), 1);
     else if (strcmp(new_str, "env") == 0)
-        return (add_token(list, ft_strdup(split), "BUILTIN", index),
+        return (add_token(list, ft_strdup(new_str), "BUILTIN", index),
             free(new_str), 1);
     else if (strcmp(new_str, "pwd") == 0)
-        return (add_token(list, ft_strdup(split), "BUILTIN", index),
+        return (add_token(list, ft_strdup(new_str), "BUILTIN", index),
             free(new_str), 1);
     else if (strcmp(new_str, "echo") == 0)
-        return (add_token(list, ft_strdup(split), "BUILTIN", index),
+        return (add_token(list, ft_strdup(new_str), "BUILTIN", index),
 			free(new_str), 1);
 	else
 		return (free(new_str), 0);
@@ -54,7 +54,7 @@ int	find_cmd(char *split, t_list *list, int index)
 	if (ft_strlen(new_str) == 0)
 		return (free(new_str), 0);
 	if (access(new_str, X_OK) == 0 && list->cmd == 0)
-		return (add_token(list, ft_strdup(split), "CMD", index), list->cmd = 1, 1);
+		return (add_token(list, ft_strdup(new_str), "CMD", index), list->cmd = 1, 1);
 	path = ft_split(getenv("PATH"), ':');
 	i = 0;
 	while (path[i] && list->cmd == 0)
