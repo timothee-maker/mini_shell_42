@@ -6,11 +6,11 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:52:42 by tnolent           #+#    #+#             */
-/*   Updated: 2025/04/15 11:38:32 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/04/15 15:05:33 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 void    free_split(char **split)
 {
@@ -98,7 +98,6 @@ char	*remove_quotes(char *str)
 		else
 			i++;
 	}
-	new_str[i] = '\0';
 	return (new_str);
 }
 

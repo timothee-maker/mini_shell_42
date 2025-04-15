@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 16:19:39 by tnolent           #+#    #+#             */
-/*   Updated: 2025/04/15 11:51:52 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/04/15 15:12:43 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,16 +71,6 @@ int	find_cmd(char *split, t_list *list, int index)
 	return (free_split(path), free(new_str), 0);
 }
 
-void	find_opt_arg(char *split, t_list *list, int index)
-{
-	if (split[0] == '\"')
-		add_token(list, ft_strdup(split), "DOUBLE-QUOTE", index);
-	else if (split[0] == '\'')
-		add_token(list, ft_strdup(split), "SIMPLE-QUOTE", index);
-	else
-		add_token(list, ft_strdup(split), "ARG", index);
-}
-
 int	find_files_redir(char *split, t_list *list, int index)
 {
 	static int	redir = 0;
@@ -94,7 +84,7 @@ int	find_files_redir(char *split, t_list *list, int index)
 	else if (ft_strchr(split, '>') && ft_strlen(split) == 1)
 		return (redir = OUT, 1);
 	else if (access(split, F_OK) == 0 && access(split, X_OK) != 0)
-		return(find_file(split, list, index, redir), redir = NORMAL, 0);
+		return(find_file(split, list, index, redir), redir = NORMAL, 1);
 	else if (redir == HERE_DOC)
 		return (add_token(list, ft_strdup(split), "DELIMITER", index), redir = NORMAL, 1);
 	else if (redir == OUT_APPEND)
