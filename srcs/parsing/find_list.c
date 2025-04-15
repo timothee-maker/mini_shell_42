@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 16:19:39 by tnolent           #+#    #+#             */
-/*   Updated: 2025/04/14 13:19:19 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/04/15 11:51:52 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ int	find_cmd(char *split, t_list *list, int index)
 	int			i;
 
 	new_str = remove_quotes(split);
-	// new_str = split;
 	if (ft_strlen(new_str) == 0)
 		return (free(new_str), 0);
 	if (access(new_str, X_OK) == 0 && list->cmd == 0)
@@ -95,13 +94,13 @@ int	find_files_redir(char *split, t_list *list, int index)
 	else if (ft_strchr(split, '>') && ft_strlen(split) == 1)
 		return (redir = OUT, 1);
 	else if (access(split, F_OK) == 0 && access(split, X_OK) != 0)
-		return(find_file(split, list, index, redir), redir = NORMAL, 1);
+		return(find_file(split, list, index, redir), redir = NORMAL, 0);
 	else if (redir == HERE_DOC)
-		return (add_token(list, ft_strdup(split), "DELIMITER", index), redir = NORMAL, 0);
+		return (add_token(list, ft_strdup(split), "DELIMITER", index), redir = NORMAL, 1);
 	else if (redir == OUT_APPEND)
-		return (add_token(list, ft_strdup(split), "OUTFILE-APPEND", index), redir = NORMAL, 0);
+		return (add_token(list, ft_strdup(split), "OUTFILE-APPEND", index), redir = NORMAL, 1);
 	else if (redir == OUT)
-		return (add_token(list, ft_strdup(split), "OUTFILE", index), redir = NORMAL, 0);
+		return (add_token(list, ft_strdup(split), "OUTFILE", index), redir = NORMAL, 1);
 	else
 		return (redir = NORMAL, 0);
 }

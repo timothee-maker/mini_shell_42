@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/04/14 13:19:43 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/04/15 11:17:39 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 # define BUFFER_SIZE 1000
 
 /*lignes test*/
-// <Makefile ls|grep a|cat>/dev/stdout|echo "'hola que tal' $ZSH okay"
+// <Makefile ls|grep a|cat>/dev/stdout|"e""c""h""o" "'hola que tal' $ZSH okay"
 // cas defaillant : ls -la > outfile1 > outfile2 | grep < outfile3 > outfile2
 
 typedef struct s_element
@@ -180,6 +180,7 @@ int	    valid_quote(char *split);
 void    free_split(char **split);
 char	*remove_quotes(char *str);
 char	*clean_line(char *line);
+int		ft_strchr2(char *str1, char *str2);
 
 
 #endif

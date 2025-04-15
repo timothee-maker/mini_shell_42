@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:52:42 by tnolent           #+#    #+#             */
-/*   Updated: 2025/04/07 12:21:32 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/04/15 11:38:32 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,19 +80,44 @@ int	valid_quote(char *split)
 
 char	*remove_quotes(char *str)
 {
-	char	*new_str;
-	int		i;
-	int		j;
+	char		*new_str;
+	size_t		i;
+	int			j;
 
-	j = 1;
+	j = 0;
 	i = 0;
-	if (!ft_strchr(QUOTES, str[0]))
+	if (!ft_strchr2(QUOTES, str))
 		return (ft_strdup(str));
 	new_str = ft_calloc(ft_strlen(str), sizeof(char));
 	if (!new_str)
 		return (NULL);
-	while(str[j] && str[j] != str[0])
-		new_str[i++] = str[j++];
+	while(i < ft_strlen(str))
+	{
+		if (!ft_strchr(QUOTES, str[i]))
+			new_str[j++] = str[i++];
+		else
+			i++;
+	}
 	new_str[i] = '\0';
 	return (new_str);
+}
+
+int	ft_strchr2(char *str1, char *str2)
+{
+	int i;
+	int	j;
+	
+	i = 0;
+	j = 0;
+	while (str1[i])
+	{
+		j = 0;
+		while (str2[j])
+		{
+			if (str1[i] == str2[j++])
+				return (1);
+		}
+		i++;
+	}
+	return (0);
 }

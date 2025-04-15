@@ -6,11 +6,11 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 13:35:03 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/04/07 12:21:54 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/04/15 11:05:32 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 typedef struct s_split
 {
@@ -38,9 +38,10 @@ char	**ft_split_minishell(char const *s, char c)
 		split.l = 0;
 		if (ft_strchr(QUOTES, s[split.i]))
 			quote_case(s, &split);
-		else if (!is_sep(s[split.i], c))
+		if (!is_sep(s[split.i], c))
 		{
-			split.result[split.k] = malloc(sizeof(char) * (ft_strlen(s) + 1));
+			if (split.l == 0)
+				split.result[split.k] = malloc(sizeof(char) * (ft_strlen(s) + 1));
 			while (!is_sep(s[split.i], c) && s[split.i])
 				split.result[split.k][split.l++] = s[split.i++];
 			split.result[split.k++][split.l] = '\0';
@@ -82,97 +83,43 @@ void	quote_case(const char *s, t_split *split)
 	}
 	if (s[split->i])
 		split->result[split->k][split->l++] = s[split->i++];
-	split->result[split->k++][split->l] = '\0';
-	split->l = 0;
+	if (is_sep(s[split->i], ' '))
+	{
+		split->result[split->k++][split->l] = '\0';
+		split->l = 0;
+	}
 }
 
-// static void	ft_define_vars(size_t *i, int *j, int *s_word)
+// void	quote_case(const char *s, t_split *split)
 // {
-// 	*i = 0;
-// 	*j = 0;
-// 	*s_word = -1;
-// }
-
-// static void	*ft_free(char **strs, int count)
-// {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < count)
+// 	split->tmp = s[split->i++];  // quote char ('"' or '\'')
+// 	if (!split->result[split->k])
 // 	{
-// 		free(strs[i]);
-// 		i++;
+// 		split->result[split->k] = malloc(sizeof(char) * (ft_strlen(s) + 1));
+// 		if (!split->result[split->k])
+// 			exit(EXIT_FAILURE);
 // 	}
-// 	free(strs);
-// 	return (NULL);
-// }
 
-// static char	*ft_fill_word(const char *str, int start, int end)
-// {
-// 	char	*word;
-// 	int		i;
+// 	split->result[split->k][split->l++] = split->tmp;  // opening quote
 
-// 	i = 0;
-// 	word = malloc((end - start + 1) * sizeof(char));
-// 	if (!word)
-// 		return (NULL);
-// 	while (start < end)
+// 	while (s[split->i] && s[split->i] != split->tmp)
 // 	{
-// 		word[i] = str[start];
-// 		i++;
-// 		start++;
+// 		if (s[split->i] == '$' && split->tmp == '\"')
+// 			dollar_case(s, split);  // handle $ inside double quotes
+// 		split->result[split->k][split->l++] = s[split->i++];
 // 	}
-// 	word[i] = 0;
-// 	return (word);
-// }
 
-// static int	ft_wcount(const char *str, char c)
-// {
-// 	int	wc;
-// 	int	sep;
+// 	if (s[split->i] == split->tmp)  // closing quote
+// 		split->result[split->k][split->l++] = s[split->i++];
 
-// 	wc = 0;
-// 	sep = 0;
-// 	while (*str)
+// 	// ⚠️ NE PAS fermer la string ici si le mot continue après
+// 	// On ne fait pas de k++ ici, sauf si c'est suivi d'un séparateur
+
+// 	if (is_sep(s[split->i], ' ') || s[split->i] == '\0')
 // 	{
-// 		if (*str != c && sep == 0)
-// 		{
-// 			sep = 1;
-// 			wc++;
-// 		}
-// 		else if (*str == c)
-// 			sep = 0;
-// 		str++;
+// 		split->result[split->k][split->l] = '\0';
+// 		split->k++;
+// 		split->l = 0;
 // 	}
-// 	return (wc);
 // }
-
-// char	**ft_split(const char *s, char c)
-// {
-// 	char	**res;
-// 	size_t	i;
-// 	int		j;
-// 	int		s_word;
-
-// 	ft_define_vars(&i, &j, &s_word);
-// 	res = ft_calloc((ft_wcount(s, c) + 1), sizeof(char *));
-// 	if (!res)
-// 		return (NULL);
-// 	while (i <= ft_strlen(s))
-// 	{
-// 		if (s[i] != c && s_word < 0)
-// 			s_word = i;
-// 		else if ((s[i] == c || i == ft_strlen(s)) && s_word >= 0)
-// 		{
-// 			res[j] = ft_fill_word(s, s_word, i);
-// 			if (!(res[j]))
-// 				return (ft_free(res, j));
-// 			s_word = -1;
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// 	return (res);
-// }
-
 
