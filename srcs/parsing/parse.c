@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 15:17:16 by tnolent           #+#    #+#             */
-/*   Updated: 2025/04/04 10:54:56 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/04/14 16:17:56 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ int		start_parse(char **split)
 			printf("Error synstax\n");
 			return(0);
 		}
-		else if (!valid_quote(split[i]))
-			return (0);
+		// else if (!valid_quote(split[i]))
+		// 	return (0);
 		i++;
 	}
 	return (1);
