@@ -1,5 +1,11 @@
 #include "../../includes/minishell.h"
 
+static void check_pipe(t_list *list, t_cmd *res)
+{
+    if (list->next_list != NULL)
+        res->is_pipe = 1;
+}
+
 t_exec *init_exec(char **envp)
 {
 	t_exec *res;
@@ -10,7 +16,7 @@ t_exec *init_exec(char **envp)
 	res->env = create_env(envp);
 	res->infile = open(".infile", O_RDWR | O_CREAT, 0777);
 	res->outfile = open(".outfile", O_RDWR | O_CREAT, 0777);
-    res->fstdin = open(".outfile", O_RDWR | O_CREAT, 0777);
+    res->fstdin = open(".stdin", O_RDWR | O_CREAT, 0777);
 	return (res);
 }
 
@@ -24,6 +30,7 @@ t_cmd *init_cmd(t_list *list)
     res->is_pipe = 0;
 	res->infiles = init_infiles(list);
 	res->outfiles = init_outfiles(list);
+    check_pipe(list, res);
 	elem = list->first;
 	while (elem)
 	{
@@ -32,6 +39,11 @@ t_cmd *init_cmd(t_list *list)
 			res->name = get_cmd_name(elem->arg);
 			res->path = elem->arg;
 		}
+        else if (!ft_strncmp(elem->token, "BUILTIN", ft_strlen(elem->token)))
+        {
+            res->is_builtin = 1;
+            res->name = elem->arg;
+        }
 		elem = elem->next;
 	}
 	return (res);

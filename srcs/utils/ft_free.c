@@ -13,17 +13,16 @@ void free_tab(char **tab)
 	free(tab);
 }
 
-void free_env(t_env **env)
+void free_env(t_env *env)
 {
-	int i;
+	t_env *var;
 
-	i = 0;
-	while (env[i] != NULL)
+    var = env;
+	while (var)
 	{
-		free(env[0]->name);
-		free(env[0]->value);
-		free(env[0]);
-		i++;
+		free(var->name);
+        free(var->value);
+        var = var->next;
 	}
 }
 

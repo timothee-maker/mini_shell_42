@@ -85,7 +85,7 @@ typedef struct s_exec
 {
 	t_cmd	*cmd;
 	char	**envp;
-	t_env 	**env;
+	t_env 	*env;
 	int		infile;
 	int		outfile;
     int     fstdin;
@@ -116,9 +116,12 @@ void 	fill_args(t_list *list, t_exec *exec);
 int		is_sep(char c, char sep);
 
 // ------------------CREATE ENVIRONMENT------------------
-t_env	**create_env(char **envp);
+t_env	*create_env(char **envp);
 char	*get_var_name(char *str);
 char	*get_var_value(char *str);
+char    *translate_env(t_env *var,  char *varname);
+void    replace_env(t_list *list);
+char    **str_env(t_exec *exec);
 
 // ------------------------FILES-------------------------
 int 	is_infile(t_element *elem);
@@ -136,7 +139,7 @@ char    *get_cmd_name(char *path);
 
 // ------------------------FREE--------------------------
 void    free_tab(char **tab);
-void    free_env(t_env **env);
+void    free_env(t_env *env);
 void    free_filenode(t_filenode *fnode);
 void    free_cmd(t_cmd *cmd);
 void    free_exec(t_exec *exec);

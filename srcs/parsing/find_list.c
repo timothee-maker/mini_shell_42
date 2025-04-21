@@ -106,5 +106,5 @@ void	find_file(char *split, t_list *list, int index, int redir)
 	else if (redir == OUT_APPEND)
 		add_token(list, ft_strdup(split), "OUTFILE-APPEND", index);
 	else
-		add_token(list, ft_strdup(split), "FILE", index);
+		add_token(list, ft_strdup(split), "ARG", index);
 }
