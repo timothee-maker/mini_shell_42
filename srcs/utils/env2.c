@@ -50,7 +50,7 @@ char **str_env(t_exec *exec)
     int i;
 
     var = exec->env;
-    res = malloc(get_env_lenght(exec->env));
+    res = malloc(sizeof(char *) * get_env_lenght(exec->env));
     i = 0;
     while(var)
     {
@@ -61,5 +61,6 @@ char **str_env(t_exec *exec)
         i++;
         var = var->next;
     }
+    res[i] = NULL;
     return(res);
 }

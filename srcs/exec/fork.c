@@ -18,7 +18,7 @@ void child_process(t_exec *exec)
 	    dup2(exec->fstdin, STDIN_FILENO);
     if (exec->cmd->is_pipe != 0 || exec->cmd->outfiles != NULL)
 	    dup2(exec->outfile, STDOUT_FILENO);
-	execve(exec->cmd->path, create_args(exec), exec->envp);
+	execve(exec->cmd->path, create_args(exec), str_env(exec));
 }
 
 void parent_process(pid_t pid)
