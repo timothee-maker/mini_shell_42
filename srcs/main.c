@@ -14,26 +14,25 @@
 
 int main(int argc, char **argv, char **envp)
 {
-	//char *input;
-	//t_list *liste;
+	char *input;
+	t_list *liste;
 	t_exec *exec;
 
 	(void)argc;
 	(void)argv;
 	exec = init_exec(envp);
-    ft_env(exec);
-	//while (1)
-	//{
-	//	input = readline("$> ");
-	//	if (input[0] != '\0')
-	//	{
-	//		liste = initialisation();
-	//		minishell(input, liste);
-    //        //afficherliste(liste);
-	//		exec_line(exec, liste);
-	//		destruction(liste);
-	//	}
-	//	else
-	//		continue;
-	//}
+	while (1)
+	{
+		input = readline("$> ");
+		if (input[0] != '\0')
+		{
+			liste = initialisation();
+			minishell(input, liste);
+            //afficherliste(liste);
+			exec_line(exec, liste);
+			destruction(liste);
+		}
+		else
+			continue;
+	}
 }
