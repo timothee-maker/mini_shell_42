@@ -3,6 +3,7 @@ CFLAGS = -Wall -Wextra -Werror -g
 CLIBS = -lreadline
 SRC =	srcs/main.c \
 		srcs/parsing/core.c srcs/parsing/find_list.c srcs/parsing/lst_utils.c srcs/parsing/parse.c srcs/parsing/utils.c srcs/parsing/ft_split_minishell.c \
+		srcs/parsing/signals.c \
 		srcs/exec/exec_cmd.c srcs/exec/fork.c srcs/exec/heredoc.c srcs/exec/output.c \
 		srcs/utils/args.c srcs/utils/env.c srcs/utils/files.c srcs/utils/files2.c srcs/utils/find_cmd.c srcs/utils/ft_free.c srcs/utils/init.c \
 

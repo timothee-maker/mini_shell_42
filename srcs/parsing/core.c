@@ -7,7 +7,11 @@ void	minishell(char	*line, t_list *list)
     add_history(line);
 	line = clean_line(line);
 	split = ft_split_minishell(line, ' ');
-	free(line);
+	// printf("%s\n", line);
+	// int i = 0;
+	// while (split[i])
+	// 	printf("[%s]", split[i++]);
+	// free(line);
 	if (start_parse(split))
 		analyze_line(split, list);
 	free_split(split);

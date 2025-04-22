@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 13:35:03 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/04/15 11:05:32 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/04/17 14:40:32 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	dollar_case(const char *s, t_split *split)
 	split->result[split->k++][split->l] = '\0';
 	split->l = 0;
 	split->result[split->k] = malloc(sizeof(char) * (ft_strlen(s) + 1));
-	while (!is_sep(s[split->i], ' ') && s[split->i] && !is_sep(s[split->i], '\"'))
+	while (!is_sep(s[split->i], ' ') && s[split->i] && !is_sep(s[split->i], '\"') && !is_sep(s[split->i], '$'))
 		split->result[split->k][split->l++] = s[split->i++];
 	split->result[split->k++][split->l] = '\0';  
 	split->result[split->k] = malloc(sizeof(char) * (ft_strlen(s) + 1));

@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/04/15 15:44:00 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/04/17 17:21:02 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+#include <signal.h> 
 # include <termios.h>
 # include <sys/types.h>
 # include <sys/stat.h>
@@ -148,6 +149,9 @@ t_filenode 	*init_infiles(t_list *list);
 t_filenode 	*init_outfiles(t_list *list);
 
 // ______________________ PARSING________________________
+
+//--------------------------SIGNAUX-----------------------
+void 	handle_sigint(int sig);
 
 // -------------------------CORE-------------------------
 void	minishell(char	*line, t_list *list);

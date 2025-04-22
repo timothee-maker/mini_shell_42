@@ -6,11 +6,11 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:25:32 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/04/04 11:01:46 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/04/16 11:34:13 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 t_env	**create_env(char **envp)
 {

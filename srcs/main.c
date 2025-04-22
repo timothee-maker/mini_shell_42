@@ -6,15 +6,15 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:25:47 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/04/14 10:20:10 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/04/18 13:59:32 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 int main(int argc, char **argv, char **envp)
 {
-	char *input;
+	char	 *input;
 	t_list *liste;
 	t_exec *exec;
 
@@ -23,12 +23,15 @@ int main(int argc, char **argv, char **envp)
 	exec = init_exec(envp);
 	while (1)
 	{
+		signal(SIGINT, SIG_IGN);
 		input = readline("$> ");
+		// signal(SIGINT, SIG_IGN);
 		if (input[0] != '\0')
 		{
+			signal(SIGINT, SIG_IGN);
 			liste = initialisation();
 			minishell(input, liste);
-            //afficherliste(liste);
+            // afficherliste(liste);
 			exec_line(exec, liste);
 			destruction(liste);
 		}
