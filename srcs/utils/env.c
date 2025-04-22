@@ -12,30 +12,30 @@
 
 #include "minishell.h"
 
-t_env	**create_env(char **envp)
+t_env	*create_env(char **envp)
 {
 	int		i;
-	t_env	**res;
-	t_env	*variable;
+	t_env	*first;
+    t_env   *var;
+	t_env	*temp;
 
-	i = 0;
-	while (envp[i])
-		i++;
-	res = malloc((sizeof(t_env *) * i) + sizeof(NULL));
+    temp = NULL;
+	first = NULL;
 	i = 0;
 	while (envp[i])
 	{
-		variable = malloc(sizeof(t_env));
-		variable->name = get_var_name(envp[i]);
-		variable->value = get_var_value(envp[i]);
-		variable->next = NULL;
-		res[i] = variable;
-		if (i > 0)
-			res[i - 1]->next = variable;
+		var = malloc(sizeof(t_env));
+		var->name = get_var_name(envp[i]);
+		var->value = get_var_value(envp[i]);
+		var->next = NULL;
+		if (temp != NULL)
+            temp->next = var;
+        if (first == NULL)
+            first = var;
+        temp = var;
 		i++;
 	}
-	res[i] = NULL;
-	return (res);
+	return (first);
 }
 
 static char	*no_quotes(char *str)
@@ -66,13 +66,6 @@ static char	*no_quotes(char *str)
 	return (res);
 }
 
-static int	is_name(char c)
-{
-	if (c == '=')
-		return (0);
-	return (1);
-}
-
 char	*get_var_name(char *str)
 {
 	int		i;
@@ -94,7 +87,7 @@ char	*get_var_name(char *str)
 
 char	*get_var_value(char *str)
 {
-	while (is_name(*str))
+	while (*str != '=')
 		str++;
 	str++;
 	return (no_quotes(str));

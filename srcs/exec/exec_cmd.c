@@ -5,12 +5,14 @@ void exec_line(t_exec *exec, t_list *list)
 	while (list)
 	{
 		exec->cmd = init_cmd(list);
-        if (!exec->cmd->name)
+        if (!exec->cmd->name && exec->cmd->is_builtin == 0)
         {
             ft_putstr_fd("command not found: ", 2);
             ft_putendl_fd(list->first->arg, 2);
             return ;
         }
+        if (exec->cmd->is_builtin)
+            return ;
 		fill_args(list, exec);
 		fill_heredoc(list, exec);
 		exec_cmd(exec);
