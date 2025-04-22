@@ -19,6 +19,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <termios.h>
+# include <linux/limits.h>
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <sys/types.h>
@@ -84,12 +85,14 @@ typedef struct s_cmd
 typedef struct s_exec
 {
 	t_cmd	*cmd;
-	char	**envp;
 	t_env 	*env;
 	int		infile;
 	int		outfile;
     int     fstdin;
 }	t_exec;
+
+// ______________________BUILTINS________________________
+void    ft_env(t_exec *exec);
 
 // ________________________EXEC__________________________
 
@@ -100,6 +103,7 @@ void    exec_cmd(t_exec *exec);
 // ------------------------FORK--------------------------
 void    child_process(t_exec *exec);
 void    parent_process(pid_t pid);
+char    **create_args(t_exec *exec);
 
 // ----------------------HEREDOC-------------------------
 void 	fill_heredoc(t_list *list, t_exec *exec);

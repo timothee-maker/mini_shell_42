@@ -66,13 +66,6 @@ static char	*no_quotes(char *str)
 	return (res);
 }
 
-static int	is_name(char c)
-{
-	if (c == '=')
-		return (0);
-	return (1);
-}
-
 char	*get_var_name(char *str)
 {
 	int		i;
@@ -94,7 +87,7 @@ char	*get_var_name(char *str)
 
 char	*get_var_value(char *str)
 {
-	while (is_name(*str))
+	while (*str != '=')
 		str++;
 	str++;
 	return (no_quotes(str));

@@ -12,7 +12,6 @@ t_exec *init_exec(char **envp)
 
 	res = malloc(sizeof(t_exec));
 	res->cmd = NULL;
-	res->envp = envp;
 	res->env = create_env(envp);
 	res->infile = open(".infile", O_RDWR | O_CREAT, 0777);
 	res->outfile = open(".outfile", O_RDWR | O_CREAT, 0777);

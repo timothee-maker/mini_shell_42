@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-static char **create_args(t_exec *exec)
+char **create_args(t_exec *exec)
 {
 	char **res;
 	char *output;
