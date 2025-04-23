@@ -93,13 +93,20 @@ typedef struct s_exec
 }	t_exec;
 
 // ______________________BUILTINS________________________
+void    ft_cd(t_exec *exec);
+void    ft_echo(t_exec *exec);
 void    ft_env(t_exec *exec);
+void    ft_exit(t_exec *exec);
+void    ft_export(t_exec *exec);
+void    ft_pwd(t_exec *exec);
+void    ft_unset(t_exec *exec);
 
 // ________________________EXEC__________________________
 
 // ----------------------EXEC CMD------------------------
 void    exec_line(t_exec *exec, t_list *list);
 void    exec_cmd(t_exec *exec);
+void    exec_builtin(t_exec *ex);
 
 // ------------------------FORK--------------------------
 void    child_process(t_exec *exec);
@@ -124,8 +131,6 @@ int		is_sep(char c, char sep);
 t_env	*create_env(char **envp);
 char	*get_var_name(char *str);
 char	*get_var_value(char *str);
-char    *translate_env(t_env *var,  char *varname);
-void    replace_env(t_list *list);
 char    **str_env(t_exec *exec);
 
 // ------------------------FILES-------------------------

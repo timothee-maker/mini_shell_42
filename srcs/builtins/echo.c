@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-void echo(t_exec *exec)
+void ft_echo(t_exec *exec)
 {
     int newline;
     int i;
@@ -16,11 +16,11 @@ void echo(t_exec *exec)
     }
     while (args[i])
     {
-        printf("%s");
-        if (args[i] != NULL)
-            printf(" ");
+        ft_putstr_fd(args[i], exec->outfile);
         i++;
+        if (args[i] != NULL)
+            ft_putstr_fd(" ", exec->outfile);;
     }
     if (newline)
-        printf("\n");
+        ft_putstr_fd("\n", exec->outfile);
 }

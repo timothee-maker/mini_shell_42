@@ -72,7 +72,7 @@ char	*get_var_name(char *str)
 	char	*res;
 
 	i = 0;
-	while (str[i] != '=')
+	while (str[i] != '=' || str[i] != '\0')
 		i++;
 	res = malloc(sizeof(char) * (i + 1));
 	res[i] = '\0';

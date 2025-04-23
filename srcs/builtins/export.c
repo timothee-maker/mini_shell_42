@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-void export(t_exec *exec)
+void ft_export(t_exec *exec)
 {
     t_env   *var;
     t_env   *res;
@@ -10,6 +10,7 @@ void export(t_exec *exec)
 
     var = exec->env;
     res = NULL;
+    args = create_args(exec);
     var_name = get_var_name(args[1]);
     var_value = get_var_value(args[1]);
     args = create_args(exec);

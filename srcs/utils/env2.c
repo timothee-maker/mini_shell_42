@@ -15,31 +15,32 @@ static int get_env_lenght(t_env *env)
     return (i);
 }
 
-void replace_env(t_list *list)
+void translate_var(t_exec *exec, t_list *list)
 {
-    t_element	*elem;
+    t_element *elem;
+    t_env *var;
+    char *varname;
 
     elem = list->first;
     while(elem)
     {
-        if (!ft_strncmp(elem->token, "VAR", ft_strlen(elem->token)))
+        var = exec->env;
+        if (!ft_strncmp(elem->token, "ENV", ft_strlen(elem->token)))
         {
-            elem->arg = get_var_value(elem->arg);
-            elem->token = "ARG";
+            while(var)
+            {
+                varname = get_var_name(elem->arg);
+                if (!ft_strncmp(varname, var->name, ft_strlen(varname)))
+                {
+                    elem->arg = var->value;
+                    elem->token = "ARG";
+                }
+                free(varname);
+                var = var->next;
+            }
         }
         elem = elem->next;
     }
-}
-
-char *translate_env(t_env *var,  char *varname)
-{
-    while(var)
-    {
-        if (!ft_strncmp(var->name, varname, ft_strlen(var->name)))
-            return (var->value);
-        var = var->next;
-    }
-    return (NULL);
 }
 
 char **str_env(t_exec *exec)

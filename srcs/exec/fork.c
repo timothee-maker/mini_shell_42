@@ -14,11 +14,14 @@ char **create_args(t_exec *exec)
 
 void child_process(t_exec *exec)
 {
+    char **env;
+
+    env = str_env(exec);
     if (!is_stdin_empty(exec))
 	    dup2(exec->fstdin, STDIN_FILENO);
     if (exec->cmd->is_pipe != 0 || exec->cmd->outfiles != NULL)
 	    dup2(exec->outfile, STDOUT_FILENO);
-	execve(exec->cmd->path, create_args(exec), str_env(exec));
+	execve(exec->cmd->path, create_args(exec), env);
 }
 
 void parent_process(pid_t pid)

@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-void pwd(t_exec *exec)
+void ft_pwd(t_exec *exec)
 {
     t_env *var;
 
@@ -9,7 +9,7 @@ void pwd(t_exec *exec)
     {
         if(!ft_strncmp(var->name, "PWD", ft_strlen(var->name)))
         {
-            printf("%s\n", var->value);
+            ft_putendl_fd(var->value, exec->outfile);
             return ;
         }
         var = var->next;
