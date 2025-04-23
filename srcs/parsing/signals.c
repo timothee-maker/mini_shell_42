@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:10:35 by tnolent           #+#    #+#             */
-/*   Updated: 2025/04/18 13:13:58 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/04/23 02:21:59 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,9 @@
 
 void handle_sigint(int sig)
 {
-	printf("Caught signal %d\n", sig); 
+	(void)sig;
+	rl_replace_line("", 0);
+	write(1, "\n", 1);
+	rl_on_new_line();
+	rl_redisplay();
 }

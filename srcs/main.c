@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:25:47 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/04/18 13:59:32 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/04/23 02:43:53 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ int main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 	exec = init_exec(envp);
+	signal(SIGINT, handle_sigint);
 	while (1)
 	{
-		signal(SIGINT, SIG_IGN);
 		input = readline("$> ");
-		// signal(SIGINT, SIG_IGN);
+		if (input == NULL)
+            break;
 		if (input[0] != '\0')
 		{
-			signal(SIGINT, SIG_IGN);
 			liste = initialisation();
 			minishell(input, liste);
             // afficherliste(liste);
