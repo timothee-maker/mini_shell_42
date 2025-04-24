@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_list.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: timothee <timothee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 16:19:39 by tnolent           #+#    #+#             */
-/*   Updated: 2025/04/15 15:52:33 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/04/24 19:06:09 by timothee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,25 +19,25 @@ int	find_builtin(char *split, t_list *list, int index)
 	new_str = remove_quotes(split);
 	if (strcmp(new_str, "export") == 0)
 		return (add_token(list, ft_strdup(new_str), "BUILTIN", index),
-			free(new_str), 1);
+			free(new_str),list->cmd = 1, 1);
 	else if (strcmp(new_str, "cd") == 0)
 		return (add_token(list, ft_strdup(new_str), "BUILTIN", index),
-			free(new_str), 1);
+			free(new_str), list->cmd = 1, 1);
 	else if (strcmp(new_str, "unset") == 0)
 		return (add_token(list, ft_strdup(new_str), "BUILTIN", index),
-			free(new_str), 1);
+			free(new_str), list->cmd = 1, 1);
 	else if (strcmp(new_str, "exit") == 0)
 		return (add_token(list, ft_strdup(new_str), "BUILTIN", index),
-			free(new_str), 1);
+			free(new_str),list->cmd = 1, 1);
     else if (strcmp(new_str, "env") == 0)
         return (add_token(list, ft_strdup(new_str), "BUILTIN", index),
-            free(new_str), 1);
+            free(new_str),list->cmd = 1, 1);
     else if (strcmp(new_str, "pwd") == 0)
         return (add_token(list, ft_strdup(new_str), "BUILTIN", index),
-            free(new_str), 1);
+            free(new_str),list->cmd = 1, 1);
     else if (strcmp(new_str, "echo") == 0)
         return (add_token(list, ft_strdup(new_str), "BUILTIN", index),
-			free(new_str), 1);
+			free(new_str),list->cmd = 1, 1);
 	else
 		return (free(new_str), 0);
 }
