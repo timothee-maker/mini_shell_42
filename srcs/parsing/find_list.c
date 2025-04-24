@@ -6,7 +6,7 @@
 /*   By: timothee <timothee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 16:19:39 by tnolent           #+#    #+#             */
-/*   Updated: 2025/04/24 19:06:09 by timothee         ###   ########.fr       */
+/*   Updated: 2025/04/24 19:15:44 by timothee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,10 @@ int	find_cmd(char *split, t_list *list, int index)
 				free_split(path), free(tmp_cmd), free(new_str), list->cmd = 1, 1);
 		free(tmp_cmd);
 	}
-	add_token(list, ft_strdup(split), "ARG", index);
+	if (new_str[0] == '$')
+		add_token(list, ft_strdup(split), "ENV", index);
+	else	
+		add_token(list, ft_strdup(split), "ARG", index);
 	return (free_split(path), free(new_str), 0);
 }
 
