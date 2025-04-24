@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_minishell.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: timothee <timothee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 13:35:03 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/04/17 14:40:32 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/04/24 21:59:20 by timothee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,20 @@ void	dollar_case(const char *s, t_split *split)
 	split->result[split->k++][split->l] = '\0';
 	split->l = 0;
 	split->result[split->k] = malloc(sizeof(char) * (ft_strlen(s) + 1));
-	while (!is_sep(s[split->i], ' ') && s[split->i] && !is_sep(s[split->i], '\"') && !is_sep(s[split->i], '$'))
+	// printf("[%s]\n", split->result[split->k - 1]);
+	while (!is_sep(s[split->i], ' ') && s[split->i] && !is_sep(s[split->i], '\"'))
+	{
+		printf("[%c]\n", s[split->i]);
 		split->result[split->k][split->l++] = s[split->i++];
+		if (is_sep(s[split->i], '$'))
+		{
+			split->result[split->k++][split->l] = '\0';  
+			split->result[split->k] = malloc(sizeof(char) * (ft_strlen(s) + 1));
+			if (!split->result)
+				exit(EXIT_FAILURE);
+			split->l = 0;
+		}
+	}
 	split->result[split->k++][split->l] = '\0';  
 	split->result[split->k] = malloc(sizeof(char) * (ft_strlen(s) + 1));
 	if (!split->result)
