@@ -1,3 +1,7 @@
 a faire :
 
-les signaux,
+faire marcher les builtins
+free tout en quittant le programme
+mettre les fichiers IO dans un /temp
+refaire marcher le heredoc
+incorporer le $?

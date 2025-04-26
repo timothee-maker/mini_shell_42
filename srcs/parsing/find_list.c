@@ -83,7 +83,7 @@ int	find_files_redir(char *split, t_list *list, int index)
 	if (ft_strncmp(">>", split, 2) == 0)
 		return (redir = OUT_APPEND, 1);
 	else if (ft_strncmp("<<", split, 2) == 0)
-		return (redir = HERE_DOC, 1);
+        return(redir = HERE_DOC, find_file(new_str, list, index, redir), 1);
 	else if (ft_strchr(split, '<') && ft_strlen(split) == 1)
 		return (redir = IN, 1);
 	else if (ft_strchr(split, '>') && ft_strlen(split) == 1)
@@ -108,6 +108,8 @@ void	find_file(char *split, t_list *list, int index, int redir)
 		add_token(list, ft_strdup(split), "OUTFILE", index);
 	else if (redir == OUT_APPEND)
 		add_token(list, ft_strdup(split), "OUTFILE-APPEND", index);
+    else if (redir == HERE_DOC)
+		add_token(list, ft_strdup(split), "HERE-DOC", index);
 	else
 		add_token(list, ft_strdup(split), "ARG", index);
 }
