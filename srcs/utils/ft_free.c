@@ -42,7 +42,8 @@ void free_filenode(t_filenode *fnode)
 void free_cmd(t_cmd *cmd)
 {
 	free(cmd->name);
-	free(cmd->path);
+    if (cmd->path != NULL)
+	    free(cmd->path);
 	free_filenode(cmd->infiles);
 	free_filenode(cmd->outfiles);
 	free(cmd);

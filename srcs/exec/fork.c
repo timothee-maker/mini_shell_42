@@ -26,5 +26,9 @@ void child_process(t_exec *exec)
 
 void parent_process(pid_t pid)
 {
-	waitpid(pid, NULL, 0);
+    int status;
+
+    status = 0;
+	waitpid(pid, &status, 0);
+    printf("status : %i\n", WEXITSTATUS(status));
 }

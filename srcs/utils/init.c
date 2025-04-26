@@ -29,6 +29,7 @@ t_cmd *init_cmd(t_list *list)
     res->is_pipe = 0;
 	res->infiles = init_infiles(list);
 	res->outfiles = init_outfiles(list);
+    res->path = NULL;
     check_pipe(list, res);
 	elem = list->first;
 	while (elem)

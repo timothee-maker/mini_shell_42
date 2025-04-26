@@ -1,7 +1,10 @@
 a faire :
 
-faire marcher les builtins
-free tout en quittant le programme
 mettre les fichiers IO dans un /temp
-refaire marcher le heredoc
-incorporer le $?
+faire marcher les builtins
+incorporer le $? (utiliser WEXITSTATUS et le fork)
+free tout en quittant le programme
+
+erreurs :
+- cd qui accepte pas tous les types de path
+- export supprime la premiere env var exportee mais pas les autres
