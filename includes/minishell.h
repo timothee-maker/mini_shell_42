@@ -132,6 +132,7 @@ t_env	*create_env(char **envp);
 char	*get_var_name(char *str);
 char	*get_var_value(char *str);
 char    **str_env(t_exec *exec);
+void    replace_env(t_list *list, t_exec *exec);
 
 // ------------------------FILES-------------------------
 int 	is_infile(t_element *elem);

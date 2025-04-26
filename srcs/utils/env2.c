@@ -15,29 +15,40 @@ static int get_env_lenght(t_env *env)
     return (i);
 }
 
-void translate_var(t_exec *exec, t_list *list)
+static char *fetch_value(char *name, t_exec *exec)
+{
+    t_env *var;
+    char *dup_name;
+    int i;
+
+    var = exec->env;
+    i = 1;
+    dup_name = ft_calloc(sizeof(char), ft_strlen(name));
+    while(name[i] != '\0')
+    {
+        dup_name[i - 1] = name[i];
+        i++;
+    }
+    while(var)
+    {
+        if (!ft_strncmp(var->name, dup_name, ft_strlen(var->name)))
+            return (var->value);
+        var = var->next;
+    }
+    return (NULL);
+}
+
+void replace_env(t_list *list, t_exec *exec)
 {
     t_element *elem;
-    t_env *var;
-    char *varname;
 
     elem = list->first;
-    while(elem)
+    while (elem)
     {
-        var = exec->env;
         if (!ft_strncmp(elem->token, "ENV", ft_strlen(elem->token)))
         {
-            while(var)
-            {
-                varname = get_var_name(elem->arg);
-                if (!ft_strncmp(varname, var->name, ft_strlen(varname)))
-                {
-                    elem->arg = var->value;
-                    elem->token = "ARG";
-                }
-                free(varname);
-                var = var->next;
-            }
+            elem->arg = fetch_value(elem->arg, exec);
+            elem->token = "ARG";
         }
         elem = elem->next;
     }

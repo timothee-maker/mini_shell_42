@@ -11,6 +11,7 @@ void exec_line(t_exec *exec, t_list *list)
             ft_putendl_fd(list->first->arg, 2);
             return ;
         }
+        replace_env(list, exec);
 		fill_args(list, exec);
 		fill_heredoc(list, exec);
         if (exec->cmd->is_builtin == 1)
