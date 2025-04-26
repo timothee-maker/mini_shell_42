@@ -16,13 +16,17 @@ void free_tab(char **tab)
 void free_env(t_env *env)
 {
 	t_env *var;
+    t_env *next;
 
     var = env;
+    next = NULL;
 	while (var)
 	{
 		free(var->name);
         free(var->value);
-        var = var->next;
+        next = var->next;
+        free(var);
+        var = next;
 	}
 }
 
@@ -62,4 +66,5 @@ void free_exec(t_exec *exec)
     free(exec->infile_path);
     free(exec->outfile_path);
     free(exec->fstdin_path);
+    free(exec);
 }
