@@ -53,7 +53,7 @@ void exec_builtin(t_exec *ex)
     else if (!ft_strncmp(ex->cmd->name, "export", ft_strlen(ex->cmd->name)))
         return (ft_export(ex));
     else if (!ft_strncmp(ex->cmd->name, "pwd", ft_strlen(ex->cmd->name)))
-        return (ft_pwd(ex));
+        return (ft_pwd());
     else if (!ft_strncmp(ex->cmd->name, "unset", ft_strlen(ex->cmd->name)))
         return (ft_unset(ex));
     else

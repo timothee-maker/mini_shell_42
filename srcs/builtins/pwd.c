@@ -1,17 +1,11 @@
 #include "../../includes/minishell.h"
 
-void ft_pwd(t_exec *exec)
+void ft_pwd(void)
 {
-    t_env *var;
+    char	cwd[PATH_MAX];
 
-    var = exec->env;
-    while (var)
-    {
-        if(!ft_strncmp(var->name, "PWD", ft_strlen(var->name)))
-        {
-            ft_putendl_fd(var->value, exec->outfile);
-            return ;
-        }
-        var = var->next;
-    }
+	if (getcwd(cwd, PATH_MAX))
+		printf("%s\n", cwd);
+    else
+        perror("pwd");
 }

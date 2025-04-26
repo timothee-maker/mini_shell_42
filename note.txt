@@ -1,6 +1,6 @@
 a faire :
 faire marcher les builtins
-incorporer le $? (utiliser WEXITSTATUS et le fork)
+faire les signaux
 free tout en quittant le programme
 
 erreurs :
