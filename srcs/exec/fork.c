@@ -30,5 +30,4 @@ void parent_process(pid_t pid)
 
     status = 0;
 	waitpid(pid, &status, 0);
-    printf("status : %i\n", WEXITSTATUS(status));
 }

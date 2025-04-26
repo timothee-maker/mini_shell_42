@@ -5,17 +5,17 @@ void clear_IO(t_exec *exec, int IO)
     if (IO == 1)
     {
         close(exec->infile);
-        exec->infile = open(".infile", O_CREAT | O_RDWR | O_TRUNC, 0777);
+        exec->infile = open(exec->infile_path, O_CREAT | O_RDWR | O_TRUNC, 0777);
     }
     else if (IO == 2)
     {
         close(exec->outfile);
-        exec->outfile = open(".outfile", O_CREAT | O_RDWR | O_TRUNC, 0777);
+        exec->outfile = open(exec->outfile_path, O_CREAT | O_RDWR | O_TRUNC, 0777);
     }
     else if (IO == 3)
     {
         close(exec->fstdin);
-        exec->fstdin = open(".stdin", O_CREAT | O_RDWR | O_TRUNC, 0777);
+        exec->fstdin = open(exec->fstdin_path, O_CREAT | O_RDWR | O_TRUNC, 0777);
     }
     else
         printf("No IO file given to clean\n");

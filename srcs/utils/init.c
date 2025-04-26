@@ -9,13 +9,18 @@ static void check_pipe(t_list *list, t_cmd *res)
 t_exec *init_exec(char **envp)
 {
 	t_exec *res;
+    char cwd[PATH_MAX];
 
+    getcwd(cwd, PATH_MAX);
 	res = malloc(sizeof(t_exec));
 	res->cmd = NULL;
 	res->env = create_env(envp);
-	res->infile = open(".infile", O_RDWR | O_CREAT, 0777);
-	res->outfile = open(".outfile", O_RDWR | O_CREAT, 0777);
-    res->fstdin = open(".stdin", O_RDWR | O_CREAT, 0777);
+    res->infile_path = ft_strjoin(cwd, "/temp/.infile");
+	res->infile = open(res->infile_path, O_RDWR | O_CREAT, 0777);
+    res->outfile_path = ft_strjoin(cwd, "/temp/.outfile");
+	res->outfile = open(res->outfile_path, O_RDWR | O_CREAT, 0777);
+    res->fstdin_path = ft_strjoin(cwd, "/temp/.stdin");
+    res->fstdin = open(res->fstdin_path, O_RDWR | O_CREAT, 0777);
 	return (res);
 }
 

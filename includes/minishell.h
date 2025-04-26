@@ -90,6 +90,9 @@ typedef struct s_exec
 	int		infile;
 	int		outfile;
     int     fstdin;
+    char    *infile_path;
+    char    *outfile_path;
+    char    *fstdin_path;
 }	t_exec;
 
 // ______________________BUILTINS________________________

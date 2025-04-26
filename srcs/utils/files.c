@@ -51,17 +51,17 @@ void ft_reopen_IO(t_exec *exec, int IO)
 	if (IO == 1)
 	{
 		close(exec->infile);
-		exec->infile = open(".infile", O_RDWR);
+		exec->infile = open(exec->infile_path, O_RDWR);
 	}
 	else if (IO == 2)
 	{
 		close(exec->outfile);
-		exec->outfile = open(".outfile", O_RDWR);
+		exec->outfile = open(exec->outfile_path, O_RDWR);
 	}
     else if (IO == 3)
 	{
 		close(exec->fstdin);
-		exec->fstdin = open(".stdin", O_RDWR);
+		exec->fstdin = open(exec->fstdin_path, O_RDWR);
 	}
 	else
 	{

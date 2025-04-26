@@ -34,7 +34,7 @@ $(NAME): lib $(OBJS)
 	@echo "$(GREEN)$(NAME) compiled!$(DEF_COLOR)"
 
 clean: 
-	@rm -f $(OBJS) .infile .outfile .stdin
+	@rm -f $(OBJS) temp/.infile temp/.outfile temp/.stdin
 	@echo "$(BLUE)$(NAME) object files cleaned!$(DEF_COLOR)"
 
 fclean: clean
