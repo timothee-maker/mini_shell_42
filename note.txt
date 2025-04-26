@@ -1,5 +1,4 @@
 a faire :
-
 faire marcher les builtins
 incorporer le $? (utiliser WEXITSTATUS et le fork)
 free tout en quittant le programme

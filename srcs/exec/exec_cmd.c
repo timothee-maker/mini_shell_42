@@ -33,7 +33,7 @@ void exec_cmd(t_exec *exec)
 
 	pid = fork();
 	if (pid)
-		parent_process(pid);
+		parent_process(pid, exec);
 	else
     {
 		child_process(exec);

@@ -87,6 +87,7 @@ typedef struct s_exec
 {
 	t_cmd	*cmd;
 	t_env 	*env;
+    int     exit_status;
 	int		infile;
 	int		outfile;
     int     fstdin;
@@ -113,7 +114,7 @@ void    exec_builtin(t_exec *ex);
 
 // ------------------------FORK--------------------------
 void    child_process(t_exec *exec);
-void    parent_process(pid_t pid);
+void    parent_process(pid_t pid, t_exec *exec);
 char    **create_args(t_exec *exec);
 
 // ----------------------HEREDOC-------------------------

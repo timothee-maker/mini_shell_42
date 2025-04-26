@@ -47,7 +47,10 @@ void replace_env(t_list *list, t_exec *exec)
     {
         if (!ft_strncmp(elem->token, "ENV", ft_strlen(elem->token)))
         {
-            elem->arg = fetch_value(elem->arg, exec);
+            if (!ft_strncmp(elem->arg, "$?", ft_strlen(elem->arg)))
+                elem->arg = ft_itoa(exec->exit_status);
+            else
+                elem->arg = fetch_value(elem->arg, exec);
             elem->token = "ARG";
         }
         elem = elem->next;

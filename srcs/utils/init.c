@@ -13,6 +13,7 @@ t_exec *init_exec(char **envp)
 
     getcwd(cwd, PATH_MAX);
 	res = malloc(sizeof(t_exec));
+    res->exit_status = 0;
 	res->cmd = NULL;
 	res->env = create_env(envp);
     res->infile_path = ft_strjoin(cwd, "/temp/.infile");

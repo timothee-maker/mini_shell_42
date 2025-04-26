@@ -24,10 +24,11 @@ void child_process(t_exec *exec)
 	execve(exec->cmd->path, create_args(exec), env);
 }
 
-void parent_process(pid_t pid)
+void parent_process(pid_t pid, t_exec *exec)
 {
     int status;
 
     status = 0;
 	waitpid(pid, &status, 0);
+    exec->exit_status = WEXITSTATUS(status);
 }
