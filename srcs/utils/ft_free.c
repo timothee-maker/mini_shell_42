@@ -52,6 +52,14 @@ void free_cmd(t_cmd *cmd)
 void free_exec(t_exec *exec)
 {
 	free_env(exec->env);
+    free_cmd(exec->cmd);
 	close(exec->infile);
-	close(exec->outfile);
+    close(exec->outfile);
+    close(exec->fstdin);
+    unlink(exec->infile_path);
+    unlink(exec->outfile_path);
+    unlink(exec->fstdin_path);
+    free(exec->infile_path);
+    free(exec->outfile_path);
+    free(exec->fstdin_path);
 }

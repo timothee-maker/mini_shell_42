@@ -27,6 +27,7 @@ t_env	*create_env(char **envp)
 		var = malloc(sizeof(t_env));
 		var->name = get_var_name(envp[i]);
 		var->value = get_var_value(envp[i]);
+        var->exported = 0;
 		var->next = NULL;
 		if (temp != NULL)
             temp->next = var;

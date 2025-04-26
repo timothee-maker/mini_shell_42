@@ -1,8 +1,5 @@
 a faire :
-faire marcher les builtins
 faire les signaux
 free tout en quittant le programme
 
 erreurs :
-- cd qui accepte pas tous les types de path
-- export supprime la premiere env var exportee mais pas les autres

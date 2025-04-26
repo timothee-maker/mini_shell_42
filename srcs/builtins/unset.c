@@ -9,6 +9,11 @@ void ft_unset(t_exec *exec)
     
     var = exec->env;
     args = create_args(exec);
+    if (args[1] == NULL)
+    {
+        ft_putendl_fd("unset: not enough arguments", 2);
+        return ;
+    }
     var_name = args[1];
     prev = NULL;
     while(var)

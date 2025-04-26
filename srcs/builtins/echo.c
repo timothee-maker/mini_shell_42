@@ -9,7 +9,7 @@ void ft_echo(t_exec *exec)
     args = create_args(exec);
     newline = 1;
     i = 1;
-    if (!ft_strncmp(args[i], "-n", ft_strlen(args[i])))
+    if (args[i] != NULL && !ft_strncmp(args[i], "-n", ft_strlen(args[i])))
     {
         newline = 0;
         i++;

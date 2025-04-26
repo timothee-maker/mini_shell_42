@@ -2,6 +2,6 @@
 
 void ft_exit(t_exec *exec)
 {
-    (void) exec;
+    free_exec(exec);
     exit(EXIT_SUCCESS);
 }
