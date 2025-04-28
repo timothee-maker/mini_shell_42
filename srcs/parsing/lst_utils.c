@@ -91,6 +91,7 @@ void	destruction(t_list *liste)
 		liste = liste->next_list;
 		free(lst_asupprimer);
 	}
+    free(liste);
 }
 
 void	afficherliste(t_list *liste)
