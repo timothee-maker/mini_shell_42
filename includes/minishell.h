@@ -153,6 +153,9 @@ int     is_stdin_empty(t_exec *exec);
 // ----------------------FIND CMD------------------------
 char    *get_cmd_name(char *path);
 
+// ---------------------CUSTOM JOIN----------------------
+char	*ft_custom_join(char const *s1, char const *s2);
+
 // ------------------------FREE--------------------------
 void    free_tab(char **tab);
 void    free_env(t_env *env);

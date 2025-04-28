@@ -14,6 +14,8 @@ void exec_line(t_exec *exec, t_list *list)
         replace_env(list, exec);
 		fill_args(list, exec);
 		fill_heredoc(list, exec);
+        //ft_reopen_IO(exec, 1);
+        //printf("args : %s\n", get_file_content(exec->infile));
         if (exec->cmd->is_builtin == 1)
 		    exec_builtin(exec);
         else

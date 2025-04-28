@@ -39,8 +39,7 @@ char *get_file_content(int fd)
 	{
 		str = ft_calloc(sizeof(char), BUFFER_SIZE + 1);
 		bytes = read(fd2, str, BUFFER_SIZE);
-        free(res);
-		res = ft_strjoin(res, str);
+		res = ft_custom_join(res, str);
 		free(str);
 	}
 	close(fd2);

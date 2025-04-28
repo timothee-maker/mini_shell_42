@@ -24,8 +24,9 @@ void clear_IO(t_exec *exec, int IO)
 int is_stdin_empty(t_exec *exec)
 {
     int bytes;
+    char str[1];
 
-    bytes = read(exec->fstdin, NULL, 1);
+    bytes = read(exec->fstdin, str, 1);
     ft_reopen_IO(exec, 3);
     if (bytes)
         return (0);
