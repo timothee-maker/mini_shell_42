@@ -24,22 +24,20 @@ static t_env *get_var(t_exec *exec, char *name)
     return (res);
 }
 
-static void display_exported_var(t_exec *exec)
+static int	valid_identifier(char *str)
 {
-    t_env *var;
+	int	i;
 
-    var = exec->env;
-    while(var)
-    {
-        if (var->exported == 1)
-        {
-            ft_putstr_fd(var->name, exec->outfile);
-            ft_putstr_fd("=", exec->outfile);
-            ft_putstr_fd(var->value, exec->outfile);
-            ft_putstr_fd("\n", exec->outfile);
-        }
-        var = var->next;
-    }
+	i = 0;
+	if (!str[0] || (str[0] != '_' && !ft_isalpha(str[0])))
+		return (0);
+	while (str[i] && str[i] != '=')
+	{
+		if (!ft_isalnum(str[i]) && str[i] != '_')
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 void ft_export(t_exec *exec)
@@ -51,10 +49,15 @@ void ft_export(t_exec *exec)
 
     args = create_args(exec);
     if (args[1] == NULL)
-        display_exported_var(exec);
+        ft_env(exec);
     else
     {
         name = get_var_name(args[1]);
+        if (valid_identifier(name) == 0)
+        {
+            printf("export: \'%s\': not a valid identifier\n", args[1]);
+            return ;
+        }
         value = get_var_value(args[1]);
         var = get_var(exec, name);
         var->name = ft_strdup(name);

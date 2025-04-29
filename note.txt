@@ -11,11 +11,8 @@ Tests de l'exec :
 - CTRL+D fonctionne pas si ligne existante
 - CTRL+\ = zsh: quit (core dumped)  ./minishell
 - CTRL+Z = zsh: suspended  ./minishell
-- export : revoir les var exportees et gere le cas ou pas de valeur
-- export : check valid identifier (char speciaux, espaces ...)
-- cd renvoie bad adress si 0 arg (doit renvoyer a HOME)
 - revoir messages d'erreur sur cd
 - revoir messages d'erreur sur pwd
-- revoir l'execution des fichiers
+- revoir l'execution des fichiers (messages d'erreur)
 - gerer le too many arguments sur exit
 - revoir fonctionnement d'exit dans les pipe
