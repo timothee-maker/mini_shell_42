@@ -18,8 +18,11 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
-#include <signal.h> 
+# include <signal.h> 
 # include <termios.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <dirent.h>
 # include <linux/limits.h>
 # include <sys/types.h>
 # include <sys/stat.h>
