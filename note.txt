@@ -1,5 +1,32 @@
-a faire :
-faire les signaux
-free tout en quittant le programme
+Tests du parsing :
+- gerer les quotes
+- : \ () & ; et ! sont pas geres
+- affiche pas les erreurs de syntaxe
+- \ ne nullifie pas $ par ex
+- remplacer les env var meme collees aux autres mots du parsing
+- traduire les en var doit etre passe au parsing (cf test 328 du gdoc)
 
-erreurs :
+
+
+Tests de l'exec :
+- fix le -n de echo
+- segfault sur une env nulle ($) et la traiter comme ARG
+- $ trouve des vars qui n'exostent pas a cause de ft_strncmp
+- CTRL+C interrompt pas toutes les cmd
+- CTRL+D fonctionne pas si ligne existante
+- CTRL+\ = zsh: quit (core dumped)  ./minishell
+- CTRL+Z = zsh: suspended  ./minishell
+- env : gerer les ARG
+- export : revoir les var exportees et gere le cas ou pas de valeur
+- export : check valid identifier (char speciaux, espaces ...)
+- unset PATH ne fait pas crash la commande
+- unset marche pas
+- cd renvoie bad adress si 0 arg (doit renvoyer a HOME)
+- revoir messages d'erreur sur cd
+- revoir messages d'erreur sur pwd
+- revoir l'execution des fichiers
+- gerer le too many arguments sur exit
+- revoir fonctionnement d'exit dans les pipe
+
+
+

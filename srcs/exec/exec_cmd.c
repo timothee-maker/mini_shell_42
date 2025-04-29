@@ -7,8 +7,8 @@ void exec_line(t_exec *exec, t_list *list)
 		exec->cmd = init_cmd(list);
         if (!exec->cmd->name && exec->cmd->is_builtin == 0)
         {
-            ft_putstr_fd("command not found: ", 2);
-            ft_putendl_fd(list->first->arg, 2);
+            ft_putstr_fd(list->first->arg, 2);
+            ft_putendl_fd(": command not found", 2);
             return ;
         }
         replace_env(list, exec);
