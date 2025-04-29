@@ -15,7 +15,7 @@ static int get_env_lenght(t_env *env)
     return (i);
 }
 
-static char *fetch_value(char *name, t_exec *exec)
+char *fetch_value(char *name, t_exec *exec)
 {
     t_env *var;
     char *dup_name;
@@ -23,6 +23,8 @@ static char *fetch_value(char *name, t_exec *exec)
 
     var = exec->env;
     i = 1;
+    if (name == NULL)
+        return (NULL);
     dup_name = ft_calloc(sizeof(char), ft_strlen(name));
     while(name[i] != '\0')
     {
@@ -31,7 +33,7 @@ static char *fetch_value(char *name, t_exec *exec)
     }
     while(var)
     {
-        if (!ft_strncmp(var->name, dup_name, ft_strlen(var->name)))
+        if (!ft_strncmp(var->name, dup_name, ft_strlen(var->name) + ft_strlen(dup_name)))
             return (var->value);
         var = var->next;
     }
@@ -47,7 +49,12 @@ void replace_env(t_list *list, t_exec *exec)
     {
         if (!ft_strncmp(elem->token, "ENV", ft_strlen(elem->token)))
         {
-            if (!ft_strncmp(elem->arg, "$?", ft_strlen(elem->arg)))
+            if (!ft_strncmp(elem->arg, "$", ft_strlen(elem->arg) + ft_strlen("$")))
+            {
+                elem->token = "ARG";
+                elem->arg = ft_strdup("$");
+            }
+            else if (!ft_strncmp(elem->arg, "$?", ft_strlen(elem->arg) + ft_strlen("$?")))
                 elem->arg = ft_itoa(exec->exit_status);
             else
                 elem->arg = fetch_value(elem->arg, exec);

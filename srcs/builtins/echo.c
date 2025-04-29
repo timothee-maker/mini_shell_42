@@ -1,5 +1,22 @@
 #include "../../includes/minishell.h"
 
+static int is_newline(char *str)
+{
+    int i;
+    
+    i = 0;
+    if (str[i] && str[i] != '-')
+        return (0);
+    i++;
+    while(str[i] != '\0')
+    {
+        if (str[i] != 'n')
+            return (0);
+        i++;
+    }
+    return (1);
+}
+
 void ft_echo(t_exec *exec)
 {
     int newline;
@@ -9,7 +26,7 @@ void ft_echo(t_exec *exec)
     args = create_args(exec);
     newline = 1;
     i = 1;
-    if (args[i] != NULL && !ft_strncmp(args[i], "-n", ft_strlen(args[i])))
+    while (args[i] && is_newline(args[i]))
     {
         newline = 0;
         i++;

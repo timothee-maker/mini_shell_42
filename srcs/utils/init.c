@@ -25,7 +25,7 @@ t_exec *init_exec(char **envp)
 	return (res);
 }
 
-t_cmd *init_cmd(t_list *list)
+t_cmd *init_cmd(t_list *list, t_exec *exec)
 {
 	t_cmd		*res;
 	t_element	*elem;
@@ -44,7 +44,7 @@ t_cmd *init_cmd(t_list *list)
 		if (!ft_strncmp(elem->token, "CMD", ft_strlen(elem->token)))
 		{
 			res->name = get_cmd_name(elem->arg);
-			res->path = elem->arg;
+			res->path = find_path(res->name, exec);
 		}
         else if (!ft_strncmp(elem->token, "BUILTIN", ft_strlen(elem->token)))
         {

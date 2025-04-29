@@ -21,7 +21,11 @@ void child_process(t_exec *exec)
 	    dup2(exec->fstdin, STDIN_FILENO);
     if (exec->cmd->is_pipe != 0 || exec->cmd->outfiles != NULL)
 	    dup2(exec->outfile, STDOUT_FILENO);
-	execve(exec->cmd->path, create_args(exec), env);
+	if (execve(exec->cmd->path, create_args(exec), env) == -1)
+    {
+        ft_putstr_fd(exec->cmd->name, 2);
+        ft_putendl_fd(": command not found", 2);
+    }
 }
 
 void parent_process(pid_t pid, t_exec *exec)

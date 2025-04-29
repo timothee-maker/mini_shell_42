@@ -138,6 +138,7 @@ char	*get_var_name(char *str);
 char	*get_var_value(char *str);
 char    **str_env(t_exec *exec);
 void    replace_env(t_list *list, t_exec *exec);
+char    *fetch_value(char *name, t_exec *exec);
 
 // ------------------------FILES-------------------------
 int 	is_infile(t_element *elem);
@@ -152,6 +153,7 @@ int     is_stdin_empty(t_exec *exec);
 
 // ----------------------FIND CMD------------------------
 char    *get_cmd_name(char *path);
+char    *find_path(char *name, t_exec *exec);
 
 // ---------------------CUSTOM JOIN----------------------
 char	*ft_custom_join(char const *s1, char const *s2);
@@ -165,7 +167,7 @@ void    free_exec(t_exec *exec);
 
 // ------------------------INIT--------------------------
 t_exec 		*init_exec(char **envp);
-t_cmd 		*init_cmd(t_list *list);
+t_cmd 		*init_cmd(t_list *list, t_exec *exec);
 t_filenode 	*init_infiles(t_list *list);
 t_filenode 	*init_outfiles(t_list *list);
 
