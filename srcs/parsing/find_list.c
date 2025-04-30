@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_list.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timothee <timothee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 16:19:39 by tnolent           #+#    #+#             */
-/*   Updated: 2025/04/24 19:15:44 by timothee         ###   ########.fr       */
+/*   Updated: 2025/04/30 16:47:37 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	find_cmd(char *split, t_list *list, int index)
 
 	new_str = remove_quotes(split);
 	if (ft_strlen(new_str) == 0)
-		return (free(new_str), 0);
+		return (free(new_str), empty_string_case(split, list, index), 0);
 	if (access(new_str, X_OK) == 0 && list->cmd == 0)
 		return (add_token(list, ft_strdup(new_str), "CMD", index), list->cmd = 1, 1);
 	path = ft_split(getenv("PATH"), ':');
@@ -67,12 +67,14 @@ int	find_cmd(char *split, t_list *list, int index)
 				free_split(path), free(tmp_cmd), free(new_str), list->cmd = 1, 1);
 		free(tmp_cmd);
 	}
-	if (new_str[0] == '$')
+	if (new_str[0] == '$' && split[0] != '\'')
 		add_token(list, ft_strdup(split), "ENV", index);
-	else	
+	else
 		add_token(list, ft_strdup(split), "ARG", index);
 	return (free_split(path), free(new_str), 0);
 }
+
+
 
 int	find_files_redir(char *split, t_list *list, int index)
 {
