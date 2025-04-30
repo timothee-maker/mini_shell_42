@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:52:42 by tnolent           #+#    #+#             */
-/*   Updated: 2025/04/15 15:05:33 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/04/30 16:47:25 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,4 +119,11 @@ int	ft_strchr2(char *str1, char *str2)
 		i++;
 	}
 	return (0);
+}
+
+void	empty_string_case(char *split, t_list *list, int index)
+{
+	if (ft_strlen(split) == 0)
+		return ;
+	add_token(list, ft_strdup(split), "ARG", index);
 }
