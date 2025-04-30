@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_minishell.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timothee <timothee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 13:35:03 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/04/24 22:07:15 by timothee         ###   ########.fr       */
+/*   Updated: 2025/04/30 11:54:44 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,11 @@ void	quote_case(const char *s, t_split *split)
 	split->result[split->k][split->l++] = split->tmp;
 	while (s[split->i] && s[split->i] != split->tmp)
 	{
-		if (s[split->i] == '$' && split->tmp == '\"')
+		if (s[split->i] == '$' && split->tmp != '\'' && s[split->i - 1] != '\\')
+		{
+			printf("coucou\n");
 			dollar_case(s, split);
+		}
 		split->result[split->k][split->l++] = s[split->i++];
 	}
 	if (s[split->i])
