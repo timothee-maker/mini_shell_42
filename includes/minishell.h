@@ -101,13 +101,19 @@ typedef struct s_exec
 }	t_exec;
 
 // ______________________BUILTINS________________________
-void    ft_cd(t_exec *exec);
+int     ft_cd(t_exec *exec);
 void    ft_echo(t_exec *exec);
 void    ft_env(t_exec *exec);
 void    ft_exit(t_exec *exec);
 void    ft_export(t_exec *exec);
 void    ft_pwd(void);
 void    ft_unset(t_exec *exec);
+
+int     home_case(t_exec *exec, t_env *var);
+int     reverse_case(t_exec *exec, t_env *var);
+int     base_case(t_env *var, char **args);
+int     update_currpwd(t_env *var, char *path);
+int     update_oldpwd(t_env *var);
 
 // ________________________EXEC__________________________
 
