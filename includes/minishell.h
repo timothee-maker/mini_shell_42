@@ -106,7 +106,7 @@ void    ft_echo(t_exec *exec);
 void    ft_env(t_exec *exec);
 void    ft_exit(t_exec *exec);
 void    ft_export(t_exec *exec);
-void    ft_pwd(void);
+int    ft_pwd(t_exec *exec);
 void    ft_unset(t_exec *exec);
 
 int     home_case(t_exec *exec, t_env *var);
