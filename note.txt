@@ -11,9 +11,6 @@ Tests de l'exec :
 - CTRL+D fonctionne pas si ligne existante
 - CTRL+\ = zsh: quit (core dumped)  ./minishell
 - CTRL+Z = zsh: suspended  ./minishell
-- gerer le too many arguments sur exit
-- revoir fonctionnement d'exit dans les pipe
-- exit marche pas tjs
 
 Commande de debug :
 valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./minishell

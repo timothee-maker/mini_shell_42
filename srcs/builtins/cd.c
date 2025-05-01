@@ -52,8 +52,15 @@ int ft_cd(t_exec *exec)
 
     var = exec->env;
     args = create_args(exec);
+    if (args[1] != NULL && args[2] != NULL)
+    {
+        ft_putendl_fd("cd: too many arguments", 2);
+        return (2);
+    }
     if (!args[1])
+    {
         return (home_case(exec, var));
+    }
     else if (!ft_strncmp(args[1], "-", ft_strlen(args[1]) + 1))
         return (reverse_case(exec, var));
     else
