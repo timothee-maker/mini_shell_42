@@ -45,7 +45,7 @@ void exec_builtin(t_exec *ex)
     else if (!ft_strncmp(ex->cmd->name, "env", ft_strlen(ex->cmd->name)))
         return (ft_env(ex));
     else if (!ft_strncmp(ex->cmd->name, "exit", ft_strlen(ex->cmd->name)))
-        return (ft_exit(ex));
+        ft_exit(ex);
     else if (!ft_strncmp(ex->cmd->name, "export", ft_strlen(ex->cmd->name)))
         return (ft_export(ex));
     else if (!ft_strncmp(ex->cmd->name, "pwd", ft_strlen(ex->cmd->name)))

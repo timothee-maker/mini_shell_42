@@ -104,7 +104,7 @@ typedef struct s_exec
 int     ft_cd(t_exec *exec);
 void    ft_echo(t_exec *exec);
 void    ft_env(t_exec *exec);
-void    ft_exit(t_exec *exec);
+int    ft_exit(t_exec *exec);
 void    ft_export(t_exec *exec);
 int    ft_pwd(t_exec *exec);
 void    ft_unset(t_exec *exec);

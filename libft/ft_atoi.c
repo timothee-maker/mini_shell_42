@@ -26,6 +26,10 @@ int	ft_atoi(const char *nptr)
 			sign *= -1;
 		nptr++;
 	}
+    if ('0' > *nptr || *nptr > '9')
+    {
+        return (-1);
+    }
 	while ('0' <= *nptr && *nptr <= '9')
 	{
 		result *= 10;
