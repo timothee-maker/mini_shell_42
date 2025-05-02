@@ -39,17 +39,17 @@ void exec_cmd(t_exec *exec)
 void exec_builtin(t_exec *ex)
 {
     if (!ft_strncmp(ex->cmd->name, "cd", ft_strlen(ex->cmd->name)))
-        return (ft_cd(ex));
+        ft_cd(ex);
     else if (!ft_strncmp(ex->cmd->name, "echo", ft_strlen(ex->cmd->name)))
         return (ft_echo(ex));
     else if (!ft_strncmp(ex->cmd->name, "env", ft_strlen(ex->cmd->name)))
         return (ft_env(ex));
     else if (!ft_strncmp(ex->cmd->name, "exit", ft_strlen(ex->cmd->name)))
-        return (ft_exit(ex));
+        ft_exit(ex);
     else if (!ft_strncmp(ex->cmd->name, "export", ft_strlen(ex->cmd->name)))
         return (ft_export(ex));
     else if (!ft_strncmp(ex->cmd->name, "pwd", ft_strlen(ex->cmd->name)))
-        return (ft_pwd());
+        ft_pwd(ex);
     else if (!ft_strncmp(ex->cmd->name, "unset", ft_strlen(ex->cmd->name)))
         return (ft_unset(ex));
     else

@@ -6,7 +6,7 @@ SRC =	srcs/main.c \
 		srcs/parsing/signals.c \
 		srcs/exec/exec_cmd.c srcs/exec/fork.c srcs/exec/heredoc.c srcs/exec/output.c \
 		srcs/utils/args.c srcs/utils/env.c srcs/utils/env2.c srcs/utils/files.c srcs/utils/files2.c srcs/utils/find_cmd.c srcs/utils/ft_custom_join.c srcs/utils/ft_free.c srcs/utils/init.c \
-		srcs/builtins/cd.c srcs/builtins/echo.c srcs/builtins/env.c srcs/builtins/exit.c srcs/builtins/export.c srcs/builtins/pwd.c srcs/builtins/unset.c \
+		srcs/builtins/cd_cases.c srcs/builtins/cd.c srcs/builtins/echo.c srcs/builtins/env.c srcs/builtins/exit.c srcs/builtins/export.c srcs/builtins/pwd.c srcs/builtins/unset.c \
 
 OBJS = $(SRC:.c=.o)
 
