@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:52:42 by tnolent           #+#    #+#             */
-/*   Updated: 2025/04/30 16:47:25 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/02 11:12:36 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,39 @@ char	*remove_quotes(char *str)
 	return (new_str);
 }
 
+char	*remove_quotes_around(char *str)
+{
+	char		*new_str;
+	char 		tmp_quote;
+	size_t		i;
+	int			j;
+
+	j = 0;
+	i = 0;
+	tmp_quote = 0;
+	if (!ft_strchr2(QUOTES, str))
+		return (ft_strdup(str));
+	new_str = ft_calloc(ft_strlen(str), sizeof(char));
+	if (!new_str)
+		return (NULL);
+	while (str[i])
+	{
+		if (ft_strchr(QUOTES, str[i]))
+			tmp_quote = str[i++];
+		while (str[i] && str[i] != tmp_quote)
+		{
+			if (ft_strchr(QUOTES, str[i]) && (tmp_quote == 0))
+				tmp_quote = str[i++];
+			if (str[i] == tmp_quote)
+				break;
+			new_str[j++] = str[i++];
+		}
+		i++;
+		tmp_quote = 0;
+	}
+	return (new_str[j] = '\0', new_str);
+}
+
 int	ft_strchr2(char *str1, char *str2)
 {
 	int i;
@@ -125,5 +158,5 @@ void	empty_string_case(char *split, t_list *list, int index)
 {
 	if (ft_strlen(split) == 0)
 		return ;
-	add_token(list, ft_strdup(split), "ARG", index);
+	add_token(list, remove_quotes_around(split), "ARG", index);
 }
