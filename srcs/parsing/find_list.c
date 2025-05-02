@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 16:19:39 by tnolent           #+#    #+#             */
-/*   Updated: 2025/04/30 17:08:00 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/02 11:41:17 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	find_cmd(char *split, t_list *list, int index)
 		free(tmp_cmd);
 	}
 	if (new_str[0] == '$' && split[0] != '\'')
-		add_token(list, ft_strdup(split), "ENV", index);
+		add_token(list, remove_quotes_around(split), "ENV", index);
 	else
 		add_token(list, remove_quotes_around(split), "ARG", index);
 	return (free_split(path), free(new_str), 0);

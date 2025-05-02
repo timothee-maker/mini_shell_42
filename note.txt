@@ -1,4 +1,5 @@
 Tests du parsing :
+-revoir les cas de crash des malloc pour pouvoir tout free
 - gerer les quotes
 - : \ () & ; et ! sont pas geres
 - affiche pas les erreurs de syntaxe

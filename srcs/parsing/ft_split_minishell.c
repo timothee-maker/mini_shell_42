@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 13:35:03 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/04/30 13:50:41 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/02 11:55:02 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,11 @@ char	**ft_split_minishell(char const *s, char c)
 			if (split.l == 0)
 				split.result[split.k] = malloc(sizeof(char) * (ft_strlen(s) + 1));
 			while (!is_sep(s[split.i], c) && s[split.i])
+			{
 				split.result[split.k][split.l++] = s[split.i++];
+				if (is_sep(s[split.i], '$'))
+					break;
+			}
 			split.result[split.k++][split.l] = '\0';
 		}
 		else
@@ -58,8 +62,7 @@ void	dollar_case(const char *s, t_split *split)
 	split->result[split->k++][split->l] = '\0';
 	split->l = 0;
 	split->result[split->k] = malloc(sizeof(char) * (ft_strlen(s) + 1));
-	while (!is_sep(s[split->i], ' ') && s[split->i] &&
-		!is_sep(s[split->i], '\"') && !is_sep(s[split->i], '\''))
+	while (!is_sep(s[split->i], ' ') && s[split->i] && !is_sep(s[split->i], '\''))
 	{
 		split->result[split->k][split->l++] = s[split->i++];
 		if (is_sep(s[split->i], '$'))
@@ -67,7 +70,7 @@ void	dollar_case(const char *s, t_split *split)
 			split->result[split->k++][split->l] = '\0';  
 			split->result[split->k] = malloc(sizeof(char) * (ft_strlen(s) + 1));
 			if (!split->result)
-				exit(EXIT_FAILURE);
+				return ;
 			split->l = 0;
 		}
 	}

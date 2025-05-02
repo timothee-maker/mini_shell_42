@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:52:42 by tnolent           #+#    #+#             */
-/*   Updated: 2025/05/02 11:12:36 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/02 13:44:47 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,21 +113,27 @@ char	*remove_quotes_around(char *str)
 	tmp_quote = 0;
 	if (!ft_strchr2(QUOTES, str))
 		return (ft_strdup(str));
-	new_str = ft_calloc(ft_strlen(str), sizeof(char));
-	if (!new_str)
+	new_str = ft_calloc(ft_strlen(str) + 1, sizeof(char));
+	if (!new_str || !str)
 		return (NULL);
 	while (str[i])
 	{
 		if (ft_strchr(QUOTES, str[i]))
 			tmp_quote = str[i++];
-		while (str[i] && str[i] != tmp_quote)
+		while (str[i])
 		{
+			if (str[i] == tmp_quote)
+				break;
 			if (ft_strchr(QUOTES, str[i]) && (tmp_quote == 0))
 				tmp_quote = str[i++];
 			if (str[i] == tmp_quote)
 				break;
+			if (!str[i])
+				break;
 			new_str[j++] = str[i++];
 		}
+		if (!str[i])
+			break;
 		i++;
 		tmp_quote = 0;
 	}
