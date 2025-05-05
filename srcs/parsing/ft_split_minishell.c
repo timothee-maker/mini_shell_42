@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 13:35:03 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/05 10:29:20 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/05 17:00:51 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ char	**ft_split_minishell(char const *s, char c)
 				split.result[split.k] = malloc(sizeof(char) * (ft_strlen(s) + 1));
 			while (!is_sep(s[split.i], c) && s[split.i])
 			{
-				if (ft_strchr(QUOTES, s[split.i]))
+				if (split.tmp == s[split.i])
+					split.tmp = 0;
+				else if (ft_strchr(QUOTES, s[split.i]) && split.tmp == 0)
 					split.tmp = s[split.i];
 				if (s[split.i] == '\"' && split.dollar == 1)
 				{
@@ -86,11 +88,12 @@ void	quote_case(const char *s, t_split *split)
 	}
 	if (s[split->i])
 		split->result[split->k][split->l++] = s[split->i++];
-	if (is_sep(s[split->i], ' '))
+	if (is_sep(s[split->i], ' ') || s[split->i] == '$')
 	{
 		split->result[split->k++][split->l] = '\0';
 		split->l = 0;
 	}
+	split->tmp = 0;
 }
 
 void	dollar_case(const char *s, t_split *split)

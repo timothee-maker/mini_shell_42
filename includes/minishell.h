@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/04/30 17:01:34 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/05 11:03:58 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -229,6 +229,6 @@ char	*remove_quotes_around(char *str);
 void	empty_string_case(char *split, t_list *list, int index);
 char	*clean_line(char *line);
 int		ft_strchr2(char *str1, char *str2);
-
+int		check_valid_dollar(char *split);
 
 #endif

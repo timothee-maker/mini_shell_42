@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:52:42 by tnolent           #+#    #+#             */
-/*   Updated: 2025/05/02 13:44:47 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/05 11:21:50 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,4 +165,26 @@ void	empty_string_case(char *split, t_list *list, int index)
 	if (ft_strlen(split) == 0)
 		return ;
 	add_token(list, remove_quotes_around(split), "ARG", index);
+}
+
+int	check_valid_dollar(char *split)
+{
+	int		i;
+	char	tmp;
+
+	tmp = 0;
+	i = 0;
+	if (split[0] == '$')
+		return (1);
+	while (split[i])
+	{
+		if (tmp == split[i])
+			tmp = 0;	
+		if (ft_strchr(QUOTES, split[i]))
+			tmp = split[i];
+		if (split[i] == '$' && (tmp == '\"' || tmp == 0))
+			return (1);
+		i++;
+	}
+	return (0);
 }

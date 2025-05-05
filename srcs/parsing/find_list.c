@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 16:19:39 by tnolent           #+#    #+#             */
-/*   Updated: 2025/05/02 11:41:17 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/05 17:03:30 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	find_cmd(char *split, t_list *list, int index)
 	char		*new_str;
 	int			i;
 
-	new_str = remove_quotes(split);
+	new_str = remove_quotes_around(split);
 	if (ft_strlen(new_str) == 0)
 		return (free(new_str), empty_string_case(split, list, index), 0);
 	if (access(new_str, X_OK) == 0 && list->cmd == 0)
@@ -67,7 +67,7 @@ int	find_cmd(char *split, t_list *list, int index)
 				free_split(path), free(tmp_cmd), free(new_str), list->cmd = 1, 1);
 		free(tmp_cmd);
 	}
-	if (new_str[0] == '$' && split[0] != '\'')
+	if (new_str[0] == '$' && check_valid_dollar(split))
 		add_token(list, remove_quotes_around(split), "ENV", index);
 	else
 		add_token(list, remove_quotes_around(split), "ARG", index);
