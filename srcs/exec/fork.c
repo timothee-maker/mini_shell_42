@@ -26,10 +26,17 @@ void child_process(t_exec *exec)
         ft_reopen_IO(exec, 2);
 	    dup2(exec->outfile, STDOUT_FILENO);
     }
-	if (execve(exec->cmd->path, create_args(exec), env) == -1)
+    //printf("args :\n");
+    //int i = 0;
+    //while(exec->cmd->args[i])
+    //{
+    //    printf("%s\n", exec->cmd->args[i]);
+    //    i++;
+    //}
+	if (execve(exec->cmd->path, exec->cmd->args, env) == -1)
     {
         ft_putstr_fd(exec->cmd->name, 2);
-        ft_putendl_fd(": command not found", 2);
+        ft_putendl_fd(": unexepected error", 2);
     }
 }
 
@@ -40,4 +47,5 @@ void parent_process(pid_t pid, t_exec *exec)
     status = 0;
 	waitpid(pid, &status, 0);
     exec->exit_status = WEXITSTATUS(status);
+    redirect_output(exec);
 }

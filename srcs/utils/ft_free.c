@@ -50,6 +50,7 @@ void free_cmd(t_cmd *cmd)
 	    free(cmd->path);
 	free_filenode(cmd->infiles);
 	free_filenode(cmd->outfiles);
+    free_tab(cmd->args);
 	free(cmd);
 }
 

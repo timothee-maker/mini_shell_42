@@ -81,6 +81,7 @@ typedef struct s_cmd
 	char 		*name;
 	char 		*path;
 	char		*delimit;
+    char        **args;
 	int			is_builtin;
     int         is_pipe;
 	t_filenode 	*infiles;
@@ -102,6 +103,7 @@ typedef struct s_exec
 	int		infile;
 	int		outfile;
     int     fstdin;
+    int     pipe_nbr;
     char    *infile_path;
     char    *outfile_path;
     char    *fstdin_path;
@@ -188,7 +190,7 @@ t_exec 		*init_exec(char **envp);
 t_cmd 		*init_cmd(t_list *list, t_exec *exec);
 t_filenode 	*init_infiles(t_list *list);
 t_filenode 	*init_outfiles(t_list *list);
-t_pid       *init_pid(pid_t pid);
+void        *add_pid(pid_t pid, t_exec *exec);
 
 // ______________________ PARSING________________________
 

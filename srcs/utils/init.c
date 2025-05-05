@@ -17,6 +17,7 @@ t_exec *init_exec(char **envp)
     res->fstdin_path = ft_strjoin(cwd, "/temp/.stdin");
     res->fstdin = open(res->fstdin_path, O_RDWR | O_CREAT, 0777);
     res->pids = NULL;
+    res->pipe_nbr = 0;
 	return (res);
 }
 
@@ -32,6 +33,7 @@ t_cmd *init_cmd(t_list *list, t_exec *exec)
 	res->outfiles = init_outfiles(list);
     res->path = NULL;
     res->name = NULL;
+    res->args = NULL;
     check_pipe(list, res);
 	elem = list->first;
 	while (elem)
@@ -109,12 +111,22 @@ t_filenode *init_outfiles(t_list *list)
 	return (first);
 }
 
-t_pid   *init_pid(pid_t pid)
+void   *add_pid(pid_t pid, t_exec *exec)
 {
     t_pid *res;
+    t_pid *curr;
 
+    curr = exec->pids;
     res = malloc(sizeof(t_pid));
     res->pid = pid;
     res->next = NULL;
+    if (curr)
+    {
+        while(curr->next)
+            curr = curr->next;
+        curr->next = res;
+    }
+    else
+        exec->pids = res;
     return (res);
 }

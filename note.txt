@@ -17,7 +17,7 @@ Commande de debug :
 valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./minishell
 
 a refaire :
-- fonctionnement des pipes
+- fonctionnement des pipes (meme commande sur le is pipe)
 - check exit
 - messages d'erreur
 - creer directory temp au lancement

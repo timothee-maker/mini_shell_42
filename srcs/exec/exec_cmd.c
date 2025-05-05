@@ -2,20 +2,30 @@
 
 void exec_line(t_exec *exec, t_list *list)
 {
+    t_pid *curr_pid;
+
 	while (list)
 	{
 		exec->cmd = init_cmd(list, exec);
         replace_env(list, exec);
         fill_heredoc(list, exec);
 		fill_args(list, exec);
+        exec->cmd->args = create_args(exec);
+        exec->pipe_nbr += exec->cmd->is_pipe;
         if (exec->cmd->is_builtin == 1)
 		    exec_builtin(exec);
         else
             exec_cmd(exec);
-		redirect_output(exec);
-		free_cmd(exec->cmd);
+        clear_IO(exec, 1);
+		//free_cmd(exec->cmd);
 		list = list->next_list;
 	}
+    curr_pid = exec->pids;
+    while(curr_pid)
+    {
+        parent_process(curr_pid->pid, exec);
+        curr_pid = curr_pid->next;
+    }
     clear_IO(exec, 1);
     clear_IO(exec, 2);
     clear_IO(exec, 3);
@@ -27,7 +37,7 @@ void exec_cmd(t_exec *exec)
 
 	pid = fork();
 	if (pid)
-		parent_process(pid, exec);
+        add_pid(pid, exec);
 	else
     {
 		child_process(exec);

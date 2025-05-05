@@ -15,7 +15,7 @@ void redirect_output(t_exec *exec)
 	t_filenode *file;
 	char *output;
 	int fd;
-
+    
 	file = exec->cmd->outfiles;
 	ft_reopen_IO(exec, 2);
 	output = get_file_content(exec->outfile);
@@ -29,8 +29,11 @@ void redirect_output(t_exec *exec)
 	    ft_putstr_fd(output, fd);
 	    close(fd);
     }
-    if (exec->cmd->is_pipe != 0)
+    if (exec->pipe_nbr != 0)
+    {
+        exec->pipe_nbr--;
         ft_pipe(exec, output);
+    }
     else if (exec->cmd->outfiles == NULL)
         display_output(exec);
     free(output);
