@@ -1,11 +1,5 @@
 #include "minishell.h"
 
-static void check_pipe(t_list *list, t_cmd *res)
-{
-    if (list->next_list != NULL)
-        res->is_pipe = 1;
-}
-
 t_exec *init_exec(char **envp)
 {
 	t_exec *res;
@@ -22,6 +16,7 @@ t_exec *init_exec(char **envp)
 	res->outfile = open(res->outfile_path, O_RDWR | O_CREAT, 0777);
     res->fstdin_path = ft_strjoin(cwd, "/temp/.stdin");
     res->fstdin = open(res->fstdin_path, O_RDWR | O_CREAT, 0777);
+    res->pids = NULL;
 	return (res);
 }
 
@@ -112,4 +107,14 @@ t_filenode *init_outfiles(t_list *list)
 		el = el->next;
 	}
 	return (first);
+}
+
+t_pid   *init_pid(pid_t pid)
+{
+    t_pid *res;
+
+    res = malloc(sizeof(t_pid));
+    res->pid = pid;
+    res->next = NULL;
+    return (res);
 }

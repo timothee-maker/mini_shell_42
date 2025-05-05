@@ -26,6 +26,7 @@ int is_stdin_empty(t_exec *exec)
     int bytes;
     char str[1];
 
+    ft_reopen_IO(exec, 3);
     bytes = read(exec->fstdin, str, 1);
     ft_reopen_IO(exec, 3);
     if (bytes)

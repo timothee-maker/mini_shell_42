@@ -19,13 +19,16 @@ void redirect_output(t_exec *exec)
 	file = exec->cmd->outfiles;
 	ft_reopen_IO(exec, 2);
 	output = get_file_content(exec->outfile);
-	while (file)
-	{
-		fd = open(file->name, file->open_mode);
-		ft_putstr_fd(output, fd);
-		file = file->next;
-		close(fd);
-	}
+    if (file)
+    {
+        while (file->next != NULL)
+        {
+            file = file->next;
+        }
+	    fd = open(file->name, file->open_mode);
+	    ft_putstr_fd(output, fd);
+	    close(fd);
+    }
     if (exec->cmd->is_pipe != 0)
         ft_pipe(exec, output);
     else if (exec->cmd->outfiles == NULL)

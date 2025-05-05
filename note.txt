@@ -15,3 +15,9 @@ Tests de l'exec :
 
 Commande de debug :
 valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./minishell
+
+a refaire :
+- fonctionnement des pipes
+- check exit
+- messages d'erreur
+- creer directory temp au lancement

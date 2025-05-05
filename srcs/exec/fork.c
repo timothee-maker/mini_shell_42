@@ -18,9 +18,14 @@ void child_process(t_exec *exec)
 
     env = str_env(exec);
     if (!is_stdin_empty(exec))
+    {
 	    dup2(exec->fstdin, STDIN_FILENO);
+    }
     if (exec->cmd->is_pipe != 0 || exec->cmd->outfiles != NULL)
+    {
+        ft_reopen_IO(exec, 2);
 	    dup2(exec->outfile, STDOUT_FILENO);
+    }
 	if (execve(exec->cmd->path, create_args(exec), env) == -1)
     {
         ft_putstr_fd(exec->cmd->name, 2);

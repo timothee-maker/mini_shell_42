@@ -87,10 +87,17 @@ typedef struct s_cmd
 	t_filenode 	*outfiles;
 }	t_cmd;
 
+typedef struct s_pid
+{
+    pid_t           pid;
+    struct s_pid    *next;
+}   t_pid;
+
 typedef struct s_exec
 {
 	t_cmd	*cmd;
 	t_env 	*env;
+    t_pid   *pids;
     int     exit_status;
 	int		infile;
 	int		outfile;
@@ -140,6 +147,8 @@ void    ft_pipe(t_exec *exec, char *output);
 // ------------------------ARGS--------------------------
 void 	fill_args(t_list *list, t_exec *exec);
 int		is_sep(char c, char sep);
+void    fill_file(t_filenode  *currfile, t_exec *exec);
+void    check_pipe(t_list *list, t_cmd *res);
 
 // ------------------CREATE ENVIRONMENT------------------
 t_env	*create_env(char **envp);
@@ -179,6 +188,7 @@ t_exec 		*init_exec(char **envp);
 t_cmd 		*init_cmd(t_list *list, t_exec *exec);
 t_filenode 	*init_infiles(t_list *list);
 t_filenode 	*init_outfiles(t_list *list);
+t_pid       *init_pid(pid_t pid);
 
 // ______________________ PARSING________________________
 
