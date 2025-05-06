@@ -20,11 +20,8 @@
 # include <fcntl.h>
 # include <signal.h> 
 # include <termios.h>
-# include <sys/types.h>
-# include <sys/stat.h>
 # include <dirent.h>
 # include <linux/limits.h>
-# include <sys/types.h>
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/wait.h>
@@ -130,6 +127,8 @@ int     update_oldpwd(t_env *var);
 void    exec_line(t_exec *exec, t_list *list);
 void    exec_cmd(t_exec *exec);
 void    exec_builtin(t_exec *ex);
+char    *get_first_arg(t_list *list);
+int     get_last_outfile(t_filenode *files);
 
 // ------------------------FORK--------------------------
 void    child_process(t_exec *exec);
