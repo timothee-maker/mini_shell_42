@@ -1,12 +1,14 @@
 #include "minishell.h"
 
-void	minishell(char	*line, t_list *list)
+int		minishell(char	*line, t_list *list)
 {
 	char	**split;
 
     add_history(line);
 	line = clean_line(line);
 	split = ft_split_minishell(line, ' ');
+	if (!split)
+		return (0);
 	// printf("%s\n", line);
 	// int i = 0;
 	// while (split[i])
@@ -15,6 +17,7 @@ void	minishell(char	*line, t_list *list)
 	if (start_parse(split))
 		analyze_line(split, list);
 	free_split(split);
+	return (1);
 }
 
 void	analyze_line(char **split, t_list *list)

@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/04/30 17:01:34 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/05 17:38:37 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define OUT 2
 # define OUT_APPEND 3
 # define HERE_DOC 4
-# define ERROR_CHAR "<>|&"
+# define ERROR_CHAR ";&():"
 # define BUFFER_SIZE 1000
 
 /*lignes test*/
@@ -197,7 +197,7 @@ void        *add_pid(pid_t pid, t_exec *exec);
 void 	handle_sigint(int sig);
 
 // -------------------------CORE-------------------------
-void	minishell(char	*line, t_list *list);
+int		minishell(char	*line, t_list *list);
 void	analyze_line(char **split, t_list *list);
 
 // ----------------------FIND LIST-----------------------
@@ -230,6 +230,6 @@ char	*remove_quotes_around(char *str);
 void	empty_string_case(char *split, t_list *list, int index);
 char	*clean_line(char *line);
 int		ft_strchr2(char *str1, char *str2);
-
+int		check_valid_dollar(char *split);
 
 #endif
