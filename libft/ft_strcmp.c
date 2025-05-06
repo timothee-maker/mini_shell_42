@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   ft_strcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/17 17:10:35 by tnolent           #+#    #+#             */
-/*   Updated: 2025/05/06 13:57:44 by tnolent          ###   ########.fr       */
+/*   Created: 2025/05/06 14:43:46 by tnolent           #+#    #+#             */
+/*   Updated: 2025/05/06 14:44:25 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int			g_exit_status = 0;
-
-void handle_sigint(int sig)
+int	ft_strcmp(const char *s1, const char *s2)
 {
-	if (sig == SIGINT)
-	{
-		g_exit_status = 130;
-		write(1, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-		if (wait(NULL) != -1)
-			write(1, "\n", 1);
+	while ((*s1 || *s2))
+	{	
+		if (*s1 != *s2)
+			return (*(unsigned char *)s1 - *(unsigned char *)s2);
+		s1++;
+		s2++;
 	}
+	return (0);
 }

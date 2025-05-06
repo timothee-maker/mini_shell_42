@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:13:08 by tnolent           #+#    #+#             */
-/*   Updated: 2025/05/06 13:01:32 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/06 13:50:00 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		add_token(t_list *liste, char *arg, char *token, int index)
 
 	nouveau = malloc(sizeof(*nouveau));
 	if (!nouveau)
-		return (2);
+		exit(0);
 	nouveau->next = NULL;
 	nouveau->arg = arg;
 	nouveau->token = token;

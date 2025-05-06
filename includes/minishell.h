@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/05 17:38:37 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/06 13:26:42 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 # define BUFFER_SIZE 1000
 
 /*lignes test*/
-// <Makefile "/"usr""/bin/""ls"|grep a|cat>"/""dev/""stdout"|"e""c""h""o" "'hola que tal' $ZSH okay"
+// <Makefile "/""usr""/bin/""ls"|grep a|cat>"/""dev/""stdout"|"e""c""h""o" "'hola que tal' $ZSH okay"
 // cas defaillant : ls -la > outfile1 > outfile2 | grep < outfile3 > outfile2
 
 typedef struct s_element
@@ -200,19 +200,18 @@ void 	handle_sigint(int sig);
 
 // -------------------------CORE-------------------------
 int		minishell(char	*line, t_list *list);
-void	analyze_line(char **split, t_list *list);
+int		analyze_line(char **split, t_list *list);
 
 // ----------------------FIND LIST-----------------------
-int	    find_builtin(char *split, t_list *list, int index);
-int	    find_cmd(char *split, t_list *list, int index);
-int	    find_files_redir(char *split, t_list *list, int index);
+int	    find_builtin(char *new_str, t_list *list, int index);
+int	    find_cmd(char *split, t_list *list, int index, char *new_str);
+int	    find_files_redir(char *split, t_list *list, int index, char *new_str);
 void	find_file(char *split, t_list *list, int index, int redir);
-void	find_opt_arg(char *split, t_list *list, int index);
 
 // ----------------------LIST UTILS----------------------
 t_list	*initialisation(void);
 void	afficherliste(t_list *liste);
-void	add_token(t_list *liste, char *arg, char *token, int index);
+int		add_token(t_list *liste, char *arg, char *token, int index);
 void	destruction(t_list *liste);
 void	insertion_list(t_list *liste);
 
