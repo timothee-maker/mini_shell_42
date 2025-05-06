@@ -33,11 +33,11 @@ void ft_echo(t_exec *exec)
     }
     while (args[i])
     {
-        ft_putstr_fd(args[i], exec->outfile);
+        printf("%s", args[i]);
         i++;
         if (args[i] != NULL)
-            ft_putstr_fd(" ", exec->outfile);;
+            printf(" ");
     }
     if (newline)
-        ft_putstr_fd("\n", exec->outfile);
+        printf("\n");
 }

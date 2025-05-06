@@ -45,3 +45,10 @@ void check_pipe(t_list *list, t_cmd *res)
     if (list->next_list != NULL)
         res->is_pipe = 1;
 }
+
+int get_last_outfile(t_filenode *files)
+{
+    while(files->next)
+        files = files->next;
+    return (open(files->name, files->open_mode));
+}

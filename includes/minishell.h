@@ -150,6 +150,8 @@ void 	fill_args(t_list *list, t_exec *exec);
 int		is_sep(char c, char sep);
 void    fill_file(t_filenode  *currfile, t_exec *exec);
 void    check_pipe(t_list *list, t_cmd *res);
+char    *get_first_arg(t_list *list);
+int     get_last_outfile(t_filenode *files);
 
 // ------------------CREATE ENVIRONMENT------------------
 t_env	*create_env(char **envp);

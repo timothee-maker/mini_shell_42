@@ -22,5 +22,5 @@ int ft_exit(t_exec *exec)
         }
     }
     free_exec(exec);
-    exit(status);
+    exit((unsigned char) status);
 }

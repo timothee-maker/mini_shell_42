@@ -1,5 +1,19 @@
 #include "minishell.h"
 
+char *get_first_arg(t_list *list)
+{
+    t_element *elem;
+
+    elem = list->first;
+    while(elem)
+    {
+        if (!ft_strncmp(elem->token, "ARG", ft_strlen(elem->token)))
+            return (elem->arg);
+        elem = elem->next;
+    }
+    return (NULL);
+}
+
 t_exec *init_exec(char **envp)
 {
 	t_exec *res;
@@ -10,11 +24,11 @@ t_exec *init_exec(char **envp)
     res->exit_status = 0;
 	res->cmd = NULL;
 	res->env = create_env(envp);
-    res->infile_path = ft_strjoin(cwd, "/temp/.infile");
+    res->infile_path = ft_strjoin(cwd, "/.infile");
 	res->infile = open(res->infile_path, O_RDWR | O_CREAT, 0777);
-    res->outfile_path = ft_strjoin(cwd, "/temp/.outfile");
+    res->outfile_path = ft_strjoin(cwd, "/.outfile");
 	res->outfile = open(res->outfile_path, O_RDWR | O_CREAT, 0777);
-    res->fstdin_path = ft_strjoin(cwd, "/temp/.stdin");
+    res->fstdin_path = ft_strjoin(cwd, "/.stdin");
     res->fstdin = open(res->fstdin_path, O_RDWR | O_CREAT, 0777);
     res->pids = NULL;
     res->pipe_nbr = 0;
@@ -48,6 +62,8 @@ t_cmd *init_cmd(t_list *list, t_exec *exec)
             res->is_builtin = 1;
             res->name = elem->arg;
         }
+        else if (res->name == NULL)
+            res->name = get_first_arg(list);
 		elem = elem->next;
 	}
 	return (res);
