@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:13:08 by tnolent           #+#    #+#             */
-/*   Updated: 2025/04/17 14:36:12 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/06 13:01:32 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@ t_list	*initialisation(void)
 	return (liste);
 }
 
-void	add_token(t_list *liste, char *arg, char *token, int index)
+int		add_token(t_list *liste, char *arg, char *token, int index)
 {
 	t_element	*nouveau;
 	t_element	*actuel;
 
 	nouveau = malloc(sizeof(*nouveau));
-	if (!liste || !nouveau)
-		exit(0);
+	if (!nouveau)
+		return (2);
 	nouveau->next = NULL;
 	nouveau->arg = arg;
 	nouveau->token = token;
@@ -46,6 +46,7 @@ void	add_token(t_list *liste, char *arg, char *token, int index)
 			actuel = actuel->next;
 		actuel->next = nouveau;	
 	}
+	return (1);
 }
 
 void	insertion_list(t_list *liste)
@@ -54,8 +55,11 @@ void	insertion_list(t_list *liste)
 	t_list	*current;
 
 	new_list = malloc(sizeof(*new_list));
-	if (!liste || !new_list)
+	if (!new_list)
+	{
+		destruction(liste);
 		exit(0);
+	}
 	new_list->next_list = NULL;
 	new_list->first = NULL;
 	new_list->cmd = 0;
@@ -81,8 +85,8 @@ void	destruction(t_list *liste)
 	{		
 		while (liste->first != NULL)
 		{
-            //if (liste->first->arg != NULL)
-			//    free(liste->first->arg);
+			if (liste->first->arg != NULL)
+			   free(liste->first->arg);
 			asupprimer = liste->first;
 			liste->first = liste->first->next;
 			free(asupprimer);
@@ -106,7 +110,6 @@ void	afficherliste(t_list *liste)
 	{		
 		actuel = liste->first;
 		printf("liste [%d]\n", i++);
-		// printf("liste des infiles : %s, liste des outfiles : %s\n", liste->infile->token, liste->outfile->token);
 		while (actuel != NULL)
 		{
 			printf("[%d]=[%s]-[%s] \n", actuel->position, actuel->arg, actuel->token);

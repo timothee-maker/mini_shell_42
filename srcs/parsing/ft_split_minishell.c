@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 13:35:03 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/05 17:36:04 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/06 12:13:32 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,18 @@ typedef struct s_split
 
 int		quote_case(const char *s, t_split *split);
 int		dollar_case(const char *s, t_split *split);
-char	**ft_malloc_error(char **tab);
+int		init_split(t_split *split, char const *s);
+void	full_split(t_split *split, char const *s, char c);
 
 char	**ft_split_minishell(char const *s, char c)
 {
 	t_split	split;
 
-	split.i = 0;
-	split.k = 0;
-	split.tmp = 0;
-	split.dollar = 0;
-	split.result = (char **)malloc(sizeof(char *) * (ft_strlen(s) + 1));
-	if (!split.result || !s)
+	if (!init_split(&split, s))
 		return (free(split.result), NULL);
 	while (s[split.i])
 	{
 		split.l = 0;
-
 		if (ft_strchr(QUOTES, s[split.i]))
 		{
 			if (!quote_case(s, &split))
@@ -51,26 +46,8 @@ char	**ft_split_minishell(char const *s, char c)
 			if (split.l == 0)
 				split.result[split.k] = malloc(sizeof(char) * (ft_strlen(s) + 1));
 			if (!split.result[split.k])
-				return ((ft_malloc_error(split.result), NULL));
-			while (!is_sep(s[split.i], c) && s[split.i])
-			{
-				if (split.tmp == s[split.i])
-					split.tmp = 0;
-				else if (ft_strchr(QUOTES, s[split.i]) && split.tmp == 0)
-					split.tmp = s[split.i];
-				if (s[split.i] == '\"' && split.dollar == 1)
-				{
-					split.result[split.k][split.l++] = s[split.i++];
-					split.dollar = 0;
-					break;
-				}
-				split.result[split.k][split.l++] = s[split.i++];
-				if (is_sep(s[split.i], '$') && (split.tmp == '\"' || split.tmp == 0))
-				{
-					split.dollar = 1;
-					break;
-				}
-			}
+				return ((free_split(split.result), NULL));
+			full_split(&split, s, c);
 			split.result[split.k++][split.l] = '\0';
 		}
 		else
@@ -79,12 +56,47 @@ char	**ft_split_minishell(char const *s, char c)
 	return (split.result[split.k] = NULL, split.result);
 }
 
+void	full_split(t_split *split, char const *s, char c)
+{
+	while (!is_sep(s[split->i], c) && s[split->i])
+	{
+		if (split->tmp == s[split->i])
+			split->tmp = 0;
+		else if (ft_strchr(QUOTES, s[split->i]) && split->tmp == 0)
+			split->tmp = s[split->i];
+		if (s[split->i] == '\"' && split->dollar == 1)
+		{
+			split->result[split->k][split->l++] = s[split->i++];
+			split->dollar = 0;
+			break;
+		}
+		split->result[split->k][split->l++] = s[split->i++];
+		if (is_sep(s[split->i], '$') && (split->tmp == '\"' || split->tmp == 0))
+		{
+			split->dollar = 1;
+			break;
+		}
+	}
+}
+
+int		init_split(t_split *split, char const *s)
+{
+	split->i = 0;
+	split->k = 0;
+	split->tmp = 0;
+	split->dollar = 0;
+	split->result = (char **)malloc(sizeof(char *) * (ft_strlen(s) + 1));
+	if (!split->result)
+		return (0);
+	return (1);
+}
+
 int		quote_case(const char *s, t_split *split)
 {
 	split->tmp = s[split->i++];
 	split->result[split->k] = malloc(sizeof(char) * (ft_strlen(s) + 1));
 	if (!split->result[split->k])
-		return (ft_malloc_error(split->result), 0); 
+		return (free_split(split->result), 0); 
 	split->result[split->k][split->l++] = split->tmp;
 	while (s[split->i] && s[split->i] != split->tmp)
 	{
@@ -110,7 +122,7 @@ int		dollar_case(const char *s, t_split *split)
 	split->l = 0;
 	split->result[split->k] = malloc(sizeof(char) * (ft_strlen(s) + 1));
 	if (!split->result[split->k])
-		return (ft_malloc_error(split->result), 0); 
+		return (free_split(split->result), 0); 
 	while (!is_sep(s[split->i], ' ') && s[split->i] && !is_sep(s[split->i], '\''))
 	{
 		split->result[split->k][split->l++] = s[split->i++];
@@ -119,31 +131,19 @@ int		dollar_case(const char *s, t_split *split)
 			split->result[split->k++][split->l] = '\0';  
 			split->result[split->k] = malloc(sizeof(char) * (ft_strlen(s) + 1));
 			if (!split->result[split->k])
-				return (ft_malloc_error(split->result), 0);
+				return (free_split(split->result), 0);
 			split->l = 0;
 		}
 	}
 	split->result[split->k++][split->l] = '\0';  
 	split->result[split->k] = malloc(sizeof(char) * (ft_strlen(s) + 1));
 	if (!split->result[split->k])
-		return (ft_malloc_error(split->result), 0);
+		return (free_split(split->result), 0);
 	split->l = 0;
 	split->result[split->k][split->l++] = '\"';
 	return (1);
 }
 
-char	**ft_malloc_error(char **tab)
-{
-	size_t	i;
 
-	i = 0;
-	while (tab[i])
-	{
-		free(tab[i]);
-		i++;
-	}
-	free(tab);
-	return (NULL);
-}
 
 
