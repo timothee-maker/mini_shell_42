@@ -43,11 +43,9 @@ void parent_process(pid_t pid, t_exec *exec)
     int status;
 
     status = 0;
-    printf("waiting for %i ...\n", pid);
 	waitpid(pid, &status, 0);
     if (WIFEXITED(status))
     {
-        printf("%i is done\n", pid);
         redirect_output(exec);
         exec->exit_status = WEXITSTATUS(status);
     }

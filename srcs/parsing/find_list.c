@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 16:19:39 by tnolent           #+#    #+#             */
-/*   Updated: 2025/05/06 13:13:53 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/06 14:46:00 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,19 @@
 
 int	find_builtin(char *new_str, t_list *list, int index)
 {
-	if (strcmp(new_str, "export") == 0)
+	if (ft_strcmp(new_str, "export") == 0)
 		return (list->cmd = 1, add_token(list, ft_strdup(new_str), "BUILTIN", index));
-	else if (strcmp(new_str, "cd") == 0)
+	else if (ft_strcmp(new_str, "cd") == 0)
 		return (list->cmd = 1, add_token(list, ft_strdup(new_str), "BUILTIN", index));
-	else if (strcmp(new_str, "unset") == 0)
+	else if (ft_strcmp(new_str, "unset") == 0)
 		return (list->cmd = 1, add_token(list, ft_strdup(new_str), "BUILTIN", index));
-	else if (strcmp(new_str, "exit") == 0)
+	else if (ft_strcmp(new_str, "exit") == 0)
 		return (list->cmd = 1, add_token(list, ft_strdup(new_str), "BUILTIN", index));
-    else if (strcmp(new_str, "env") == 0)
+    else if (ft_strcmp(new_str, "env") == 0)
         return (list->cmd = 1, add_token(list, ft_strdup(new_str), "BUILTIN", index));
-    else if (strcmp(new_str, "pwd") == 0)
+    else if (ft_strcmp(new_str, "pwd") == 0)
         return (list->cmd = 1, add_token(list, ft_strdup(new_str), "BUILTIN", index));
-    else if (strcmp(new_str, "echo") == 0)
+    else if (ft_strcmp(new_str, "echo") == 0)
         return (list->cmd = 1, add_token(list, ft_strdup(new_str), "BUILTIN", index));
 	else
 		return (0);

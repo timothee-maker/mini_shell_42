@@ -24,7 +24,6 @@ void exec_line(t_exec *exec, t_list *list)
     curr_pid = exec->pids;
     while(curr_pid)
     {
-        printf("launching parent process for %i ...\n", curr_pid->pid);
         parent_process(curr_pid->pid, exec);
         curr_pid = curr_pid->next;
     }

@@ -25,7 +25,7 @@ int		minishell(char	*line, t_list *list)
 	return (1);
 }
 
-void	analyze_line(char **split, t_list *list)
+int		analyze_line(char **split, t_list *list)
 {
 	int		i;
 	int		position_element;
@@ -57,4 +57,5 @@ void	analyze_line(char **split, t_list *list)
 		i++;
 		position_element++;
 	}
+	return (1);
 }
