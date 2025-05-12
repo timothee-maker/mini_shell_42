@@ -21,7 +21,7 @@
 # include <signal.h> 
 # include <termios.h>
 # include <dirent.h>
-# include <linux/limits.h>
+# include <sys/param.h>
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/wait.h>
