@@ -19,8 +19,9 @@ int		minishell(char	*line, t_list *list)
 	// while (split[i])
 	// 	printf("[%s]", split[i++]);
 	free(line);
-	if (start_parse(split))
-		analyze_line(split, list);
+	if (!start_parse(split))
+		return (free_split(split), 1);
+	analyze_line(split, list);
 	free_split(split);
 	return (1);
 }
@@ -38,7 +39,7 @@ int		analyze_line(char **split, t_list *list)
 	while (split[i])
 	{
 		new_str = remove_quotes_around(split[i]);
-		if (ft_strchr(split[i], '|'))
+		if (ft_strchr(split[i], '|') && ft_strlen(new_str) == 1)
 		{
 			insertion_list(current);
 			current = current->next_list;

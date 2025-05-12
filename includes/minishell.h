@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/06 13:26:42 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/07 14:58:46 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -217,7 +217,7 @@ void	insertion_list(t_list *liste);
 
 // ----------------------- PARSING-----------------------
 int		start_parse(char **split);
-int		syntax_error(char **split, int len_split);
+int		syntax_error(char *split, int len_split, int position);
 int	    parse_one_case(char *split);
 char	*chr_str(char *str, char *to_find);
 char	**ft_split_minishell(char const *s, char c);

@@ -1,10 +1,6 @@
 Tests du parsing :
--revoir les cas de crash des malloc pour pouvoir tout free
-- gerer les quotes
 - : \ () & ; et ! sont pas geres
 - affiche pas les erreurs de syntaxe
-- \ ne nullifie pas $ par ex
-- remplacer les env var meme collees aux autres mots du parsing
 - traduire les env var doit etre passe au parsing (cf test 328 du gdoc)
 
 Tests de l'exec :
@@ -21,3 +17,8 @@ envoyer sur stdin dans le bon ordre
 check exit
 separer initialisation, lancement et catch
 changer structure de cmd pour une liste chainee
+
+Erreur : 
+echo caca > fichier1 : le fichier n'a aucune permissions de CHMOD
+echo coucou | echo caca : le pipe effectue les 2 commandes, il doit faire la premiere
+le Buildin export ecrit "export" avant la varible et les met entre quotes dans l'ordre alphabetique

@@ -6,11 +6,13 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 15:17:16 by tnolent           #+#    #+#             */
-/*   Updated: 2025/04/14 16:17:56 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/07 15:19:59 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
+
+int		is_in_quotes(int position, char *str);
 
 int		start_parse(char **split)
 {
@@ -21,32 +23,28 @@ int		start_parse(char **split)
 	i = 0;
 	while (split[i])
 	{
-		if (!syntax_error(split, len_split))
-		{
-			printf("Error synstax\n");
+		if (!syntax_error(split[i], len_split, i + 1))
 			return(0);
-		}
-		// else if (!valid_quote(split[i]))
-		// 	return (0);
 		i++;
 	}
 	return (1);
 }
 
-int		syntax_error(char **split, int len_split)
+int		syntax_error(char *split, int len_split, int position)
 {
 	int	i;
-
-	if ((len_split == 1 && chr_str(split[0], ERROR_CHAR)) || ft_strchr(split[len_split - 1], '|'))
-			return (0);
 
 	i = 0;
 	while (split[i])
 	{
-		if (ft_strchr(split[i], '|') && ft_strchr(split[i + 1], '|'))
+		if (len_split == position && ft_strchr(DELIMITER, split[i]) && !is_in_quotes(i, split))
+		{
+			printf("minishell : parse error near '%c'\n", split[i]);
 			return (0);
+		}
 		i++;
 	}
+	
 	return (1);
 }
 
@@ -84,4 +82,26 @@ char	*chr_str(char *str, char *to_find)
 		i++;
 	}
 	return (NULL);
+}
+
+int		is_in_quotes(int position, char *str)
+{
+	int		i;
+	char	tmp;
+
+	i = 0;
+	tmp = 0;
+	if (!str[position])
+		return (0);
+	while (str[i])
+	{
+		if (tmp == 0 && ft_strchr(QUOTES, str[i]))
+			tmp = str[i];
+		else if (ft_strchr(QUOTES, str[i]) && tmp)
+			tmp = 0;
+		if (i == position && tmp != 0)
+			return (1);
+		i++;
+	}
+	return (0);
 }
