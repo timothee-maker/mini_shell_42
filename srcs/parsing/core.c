@@ -1,7 +1,5 @@
 #include "minishell.h"
 
-int		end_parse(t_list *list);
-
 int		parsing(char	*line, t_list *list)
 {
 	char	**split;
@@ -17,7 +15,7 @@ int		parsing(char	*line, t_list *list)
 	// 	printf("[%s]", split[i++]);
 	free(line);
 	if (!start_parse(split))
-		return (free_split(split), 1);
+		return (free_split(split), -1);
 	analyze_line(split, list);
 	// if (!end_parse(list))
 	// 	return (free_split(split), 1);

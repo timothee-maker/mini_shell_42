@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/12 14:48:35 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/13 14:08:24 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,9 @@
 # include "../libft/libft.h"
 
 # define DELIMITER "|<>&"
-# define DELIMITER2 "|>&"
+# define DELIMITER2 "|&"
 # define QUOTES "\'\""
+# define NO_ENV "\'\"[]{} "
 # define NORMAL 0
 # define IN 1
 # define OUT 2
