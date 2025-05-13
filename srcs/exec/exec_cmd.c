@@ -14,6 +14,8 @@ void wait_status(t_exec *exec, t_cmd *cmd)
         else if (WIFSIGNALED(status))
             exec->exit_status = WTERMSIG(status) + 128;
     }
+    if (cmd->name == NULL)
+        return ;
     if (!ft_strncmp(cmd->name, "exit", ft_strlen(cmd->name) + 4) && !cmd->next
         && ((cmd->args[1] != NULL && ft_atoi(cmd->args[1]) >= 0) || 
         cmd->args[1] == NULL))
@@ -55,8 +57,13 @@ int exec_cmd(t_exec *exec, t_cmd *cmd)
         return (exec_builtin(exec, cmd));
     else if (cmd->path == NULL)
     {
-        printf("Command not found: %s\n", cmd->name);
-        return (2);
+        if (cmd->name)
+        {
+            printf("Command not found: %s\n", cmd->name);
+            return (2);
+        }
+        else
+            return (2);
     }
     else if (execve(cmd->path, cmd->args, str_env(exec)) == -1)
     {
