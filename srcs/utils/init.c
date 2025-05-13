@@ -8,7 +8,7 @@ char *get_first_arg(t_list *list)
     while(elem)
     {
         if (!ft_strncmp(elem->token, "ARG", ft_strlen(elem->token)))
-            return (elem->arg);
+            return (ft_strdup(elem->arg));
         elem = elem->next;
     }
     return (NULL);
@@ -26,12 +26,8 @@ t_exec *init_exec(char **envp)
 	res->env = create_env(envp);
     res->infile_path = ft_strjoin(cwd, "/.infile");
 	res->infile = open(res->infile_path, O_RDWR | O_CREAT, 0777);
-    res->outfile_path = ft_strjoin(cwd, "/.outfile");
-	res->outfile = open(res->outfile_path, O_RDWR | O_CREAT, 0777);
-    res->fstdin_path = ft_strjoin(cwd, "/.stdin");
-    res->fstdin = open(res->fstdin_path, O_RDWR | O_CREAT, 0777);
-    res->pids = NULL;
-    res->pipe_nbr = 0;
+    res->heredoc_path = ft_strjoin(cwd, "/.heredoc");
+	res->heredoc = open(res->heredoc_path, O_RDWR | O_CREAT, 0777);
 	return (res);
 }
 
@@ -42,13 +38,13 @@ t_cmd *init_cmd(t_list *list, t_exec *exec)
 
 	res = malloc(sizeof(t_cmd));
 	res->is_builtin = 0;
-    res->is_pipe = 0;
-	res->infiles = init_infiles(list);
-	res->outfiles = init_outfiles(list);
+    res->input = -1;
+    res->output = -1;
     res->path = NULL;
     res->name = NULL;
     res->args = NULL;
-    check_pipe(list, res);
+    res->prev = NULL;
+    res->next = NULL;
 	elem = list->first;
 	while (elem)
 	{
@@ -60,7 +56,7 @@ t_cmd *init_cmd(t_list *list, t_exec *exec)
         else if (!ft_strncmp(elem->token, "BUILTIN", ft_strlen(elem->token)))
         {
             res->is_builtin = 1;
-            res->name = elem->arg;
+            res->name = ft_strdup(elem->arg);
         }
         else if (res->name == NULL)
             res->name = get_first_arg(list);
@@ -69,80 +65,48 @@ t_cmd *init_cmd(t_list *list, t_exec *exec)
 	return (res);
 }
 
-t_filenode *init_infiles(t_list *list)
+t_cmd *assign_cmd(t_list *list, t_exec *exec)
 {
-	t_filenode	*res;
-	t_filenode	*first;
-	t_filenode	*temp;
-	t_element	*elem;
+    t_element *elem;
+    t_cmd *res;
 
-	elem = list->first;
-	temp = NULL;
-	first = NULL;
-	while (elem)
-	{
-		if (is_infile(elem))
-		{
-			res = malloc(sizeof(t_filenode));
-			res->name = elem->arg;
-			res->open_mode = O_RDWR;
-            res->next = NULL;
-			if (temp != NULL)
-				temp->next = res;
-			if (!first)
-				first = res;
-			temp = res;
-		}
-		elem = elem->next;
-	}
-	return (first);
-}
-
-t_filenode *init_outfiles(t_list *list)
-{
-	t_filenode *res;
-	t_filenode *first;
-	t_filenode *temp;
-	t_element *el;
-
-	el = list->first;
-	temp = NULL;
-	first = NULL;
-	while (el)
-	{
-		if (is_outfile(el))
-		{
-			res = malloc(sizeof(t_filenode));
-			res->name = el->arg;
-			res->open_mode = get_open_mode(el);
-			res->next = NULL;
-			if (temp != NULL)
-				temp->next = res;
-			if (!first)
-				first = res;
-			temp = res;
-		}
-		el = el->next;
-	}
-	return (first);
-}
-
-void   *add_pid(pid_t pid, t_exec *exec)
-{
-    t_pid *res;
-    t_pid *curr;
-
-    curr = exec->pids;
-    res = malloc(sizeof(t_pid));
-    res->pid = pid;
-    res->next = NULL;
-    if (curr)
+    res = init_cmd(list, exec);
+    elem = list->first;
+    while(elem)
     {
-        while(curr->next)
-            curr = curr->next;
-        curr->next = res;
+        if (!ft_strncmp(elem->token, "HERE-DOC", ft_strlen(elem->token)))
+        {
+            fill_heredoc(list, exec);
+            res->input = open(exec->heredoc_path, O_RDWR);
+            if (res->input == -1)
+            {
+                perror("Error opening heredoc file");
+                return (NULL);
+            }
+        }
+        else if (!ft_strncmp(elem->token, "INFILE", ft_strlen(elem->token)))
+            get_infile(elem->arg, res);
+        else if (!ft_strncmp(elem->token, "OUTFILE", ft_strlen(elem->token)))
+            get_outfile(elem->arg, res);
+        elem = elem->next;
     }
-    else
-        exec->pids = res;
+    fill_args(list, exec, res);
+    res->args = create_args(exec);
     return (res);
+}
+
+void add_command(t_exec *exec, t_cmd *cmd)
+{
+    t_cmd *temp;
+
+    if (exec->cmd == NULL)
+    {
+        exec->cmd = cmd;
+        return ;
+    }
+    temp = exec->cmd;
+    while (temp->next)
+        temp = temp->next;
+    temp->next = cmd;
+    cmd->prev = temp;
 }

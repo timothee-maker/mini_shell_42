@@ -1,26 +1,39 @@
 #include "../../includes/minishell.h"
 
-int ft_exit(t_exec *exec)
+int ft_exit(t_cmd *cmd)
 {
-    char **args;
     int status;
 
     status = 0;
-    args = create_args(exec);
-    if (args[1] != NULL)
+    if (cmd->args[1] != NULL)
     {
-        status = ft_atoi(args[1]);
+        status = ft_atoi(cmd->args[1]);
         if (status < 0)
         {
             ft_putendl_fd("exit: numeric argument required", 2);
-            return (2);
+            return (-1);
         }
-        if (args[2] != NULL)
+        if (cmd->args[2] != NULL)
         {
             ft_putendl_fd("exit: too many arguments", 2);
-            return (2);
+            return (-1);
         }
     }
-    free_exec(exec);
     exit((unsigned char) status);
+}
+
+void global_exit(t_exec *exec)
+{
+    int status;
+
+    status = exec->exit_status;
+    ft_free_cmd(exec->cmd);
+    exec->cmd = NULL;
+    unlink(exec->infile_path);
+    unlink(exec->heredoc_path);
+    free_env(exec->env);
+    free(exec->infile_path);
+    free(exec->heredoc_path);
+    free(exec);
+    exit(status);
 }

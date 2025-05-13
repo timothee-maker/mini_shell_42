@@ -18,6 +18,11 @@ Tests de l'exec :
 Commande de debug :
 valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./minishell
 
+Erreur : 
+le Buildin export ecrit "export" avant la varible et les met entre quotes dans l'ordre alphabetique
+nettoyer les fichiers et tout free
+mettre a la norme
+
 a refaire :
 envoyer sur stdin dans le bon ordre
 check exit

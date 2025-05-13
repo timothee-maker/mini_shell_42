@@ -5,17 +5,24 @@ static void read_hdoc(t_exec *exec, char *delimit)
     char *input;
 
     input = NULL;
-    clear_IO(exec, 3);
+    close(exec->heredoc);
+    exec->heredoc = open(exec->heredoc_path, O_RDWR | O_TRUNC, 0777);
+    if (exec->heredoc == -1)
+    {
+        perror("Error opening heredoc file");
+        return;
+    }
     input = readline("> ");
     if (ft_strncmp(input, delimit, ft_strlen(input)))
-        ft_putendl_fd(input, exec->fstdin);
+        ft_putendl_fd(input, exec->heredoc);
     while (ft_strncmp(input, delimit, ft_strlen(input)))
     {
         input = readline("> ");
         if (ft_strncmp(input, delimit, ft_strlen(input)))
-            ft_putendl_fd(input, exec->fstdin);
+            ft_putendl_fd(input, exec->heredoc);
     }
-    ft_reopen_IO(exec, 3);
+    close(exec->heredoc);
+    exec->heredoc = open(exec->heredoc_path, O_RDWR);
 }
 
 void fill_heredoc(t_list *list, t_exec *exec)

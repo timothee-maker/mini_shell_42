@@ -44,29 +44,26 @@ int update_oldpwd(t_env *var)
     return (1);
 }
 
-int ft_cd(t_exec *exec)
+int ft_cd(t_exec *exec, t_cmd *cmd)
 {
     int res;
     t_env *var;
-    char **args;
 
     var = exec->env;
-    args = create_args(exec);
-    if (args[1] != NULL && args[2] != NULL)
+    if (cmd->args[1] != NULL && cmd->args[2] != NULL)
     {
         ft_putendl_fd("cd: too many arguments", 2);
         return (2);
     }
-    if (!args[1])
+    if (!cmd->args[1])
     {
         return (home_case(exec, var));
     }
-    else if (!ft_strncmp(args[1], "-", ft_strlen(args[1]) + 1))
+    else if (!ft_strncmp(cmd->args[1], "-", ft_strlen(cmd->args[1]) + 1))
         return (reverse_case(exec, var));
     else
-        res = base_case(var, args);
+        res = base_case(var, cmd->args);
     if (res < 0)
         res *= -1;
-    free_tab(args);
     return res;
 }

@@ -1,52 +1,55 @@
 #include "minishell.h"
 
-//static void ft_sleep(double n)
-//{
-//    while(n > 0)
-//        n = n - 0.001;
-//}
-
-char **create_args(t_exec *exec)
+void ft_fork(t_exec *exec, t_cmd *cmd)
 {
-	char **res;
-	char *output;
+    pid_t pid;
 
-	ft_reopen_IO(exec, 1);
-	output = get_file_content(exec->infile);
-	res = ft_split_minishell(output, ' ');
-	free(output);
-	return (res);
+    pid = fork();
+    if (pid == -1)
+    {
+        perror("Fork error");
+        return ;
+    }
+    if (pid > 0)
+    {
+        cmd->pid = pid;
+        parent_process(cmd, exec->pipe);
+    }
+    else
+        child_process(cmd, exec->pipe, exec);
+    return ;
 }
 
-void child_process(t_exec *exec)
-{
-    int last_fd;
-    if (exec->cmd->outfiles != NULL)
-    {
-        last_fd = get_last_outfile(exec->cmd->outfiles);
-        dup2(last_fd, STDOUT_FILENO);
-        close(last_fd);
-    }
-    else if (exec->cmd->is_pipe != 0)
-	    dup2(exec->outfile, STDOUT_FILENO);
-	dup2(exec->fstdin, STDIN_FILENO);
-	if (execve(exec->cmd->path, exec->cmd->args, str_env(exec)) == -1)
-    {
-        ft_putstr_fd(exec->cmd->name, 2);
-        ft_putendl_fd(": command not found", 2);
-        exit(EXIT_FAILURE);
-    }
-}
-
-void parent_process(pid_t pid, t_exec *exec)
+void child_process(t_cmd *cmd, int pipe[2], t_exec *exec)
 {
     int status;
 
     status = 0;
-	waitpid(pid, &status, 0);
-    if (WIFEXITED(status))
+    close(pipe[0]);
+    if (cmd->input >= 0)
     {
-        redirect_output(exec);
-        exec->exit_status = WEXITSTATUS(status);
+        dup2(cmd->input, STDIN_FILENO);
+        close(cmd->input);
     }
+    if (cmd->output >= 0)
+    {
+        dup2(cmd->output, STDOUT_FILENO);
+        close(cmd->output);
+    }
+    else if (cmd->next != NULL)
+        dup2(pipe[1], STDOUT_FILENO);
+    close(pipe[1]);
+    status = exec_cmd(exec, cmd);
+    exit(status);
+}
+
+void parent_process(t_cmd *cmd, int pipe[2])
+{
+    close(pipe[1]);
+    if (cmd->input >= 0)
+        close(cmd->input);
+    if (cmd->input == -1)
+		cmd->input = pipe[0];
+    if (cmd->next != NULL && cmd->next->input == -1)
+        cmd->next->input = pipe[0];
 }

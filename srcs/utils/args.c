@@ -1,11 +1,29 @@
 #include "minishell.h"
 
-void fill_args(t_list *list, t_exec *exec)
+char **create_args(t_exec *exec)
+{
+	char **res;
+	char *output;
+
+	close(exec->infile);
+    exec->infile = open(exec->infile_path, O_RDWR | O_CREAT, 0777);
+	output = get_file_content(exec->infile);
+	res = ft_split_minishell(output, ' ');
+    if (res == NULL)
+    {
+        return (NULL);
+    }
+    close(exec->infile);
+    exec->infile = open(exec->infile_path, O_RDWR | O_CREAT | O_TRUNC, 0777);
+	free(output);
+	return (res);
+}
+
+void fill_args(t_list *list, t_exec *exec, t_cmd *cmd)
 {
     t_element   *elem;
-    t_filenode  *currfile;
 
-    ft_putstr_fd(exec->cmd->name, exec->infile);
+    ft_putstr_fd(cmd->name, exec->infile);
     ft_putstr_fd(" ", exec->infile);
     elem = list->first;
     while (elem)
@@ -17,38 +35,33 @@ void fill_args(t_list *list, t_exec *exec)
         }
         elem = elem->next;
     }
-    currfile = exec->cmd->infiles;
-    if (currfile)
-        fill_file(currfile, exec);
+    close(exec->infile);
+    exec->infile = open(exec->infile_path, O_RDWR | O_CREAT, 0777);
 }
 
-void fill_file(t_filenode  *currfile, t_exec *exec)
+void get_infile(char *filename, t_cmd *cmd)
 {
-    int         currfd;
-    char        *output;
-
-    while (currfile->next != NULL)
-        currfile = currfile->next;
-    currfd = open(currfile->name, currfile->open_mode);
-    clear_IO(exec, 3);
-    ft_reopen_IO(exec, 3);
-    output = get_file_content(currfd);
-    ft_reopen_IO(exec, 3);
-    ft_putstr_fd(output, exec->fstdin);
-    ft_reopen_IO(exec, 3);
-    close(currfd);
-    free(output);
+    int         fd;
+    
+    fd = open(filename, O_RDWR | O_TRUNC, 0777);
+    if (fd == -1)
+    {
+        perror("Error opening infile");
+        return;
+    }
+    cmd->input = fd;
 }
 
-void check_pipe(t_list *list, t_cmd *res)
+void get_outfile(char *filename, t_cmd *cmd)
 {
-    if (list->next_list != NULL)
-        res->is_pipe = 1;
+    int         fd;
+    
+    fd = open(filename, O_RDWR | O_TRUNC | O_CREAT, 0777);
+    if (fd == -1)
+    {
+        perror("Error opening outfile");
+        return;
+    }
+    cmd->output = fd;
 }
 
-int get_last_outfile(t_filenode *files)
-{
-    while(files->next)
-        files = files->next;
-    return (open(files->name, files->open_mode));
-}
