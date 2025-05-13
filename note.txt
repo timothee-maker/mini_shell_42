@@ -1,27 +1,20 @@
 Erreur : 
-echo caca > fichier1 : le fichier n'a aucune permissions de CHMOD
-echo coucou | echo caca : le pipe effectue les 2 commandes, il doit faire la premiere
-le Buildin export ecrit "export" avant la varible et les met entre quotes dans l'ordre alphabetique
-caca cat Makfile : si il y a un argument avant la commande, la ligne de commande marche quand meme 
-
-Tests du parsing :
-- : \ () & ; et ! sont pas geres
-- affiche pas les erreurs de syntaxe
-- traduire les env var doit etre passe au parsing (cf test 328 du gdoc)
 
 Tests de l'exec :
 - CTRL+C interrompt pas toutes les cmd
-- CTRL+D fonctionne pas si ligne existante
-- CTRL+\ = zsh: quit (core dumped)  ./minishell
-- CTRL+Z = zsh: suspended  ./minishell
 
 Commande de debug :
 valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./minishell
 
 Erreur : 
 le Buildin export ecrit "export" avant la varible et les met entre quotes dans l'ordre alphabetique
+caca cat Makfile : si il y a un argument avant la commande, la ligne de commande marche quand meme 
 nettoyer les fichiers et tout free
 mettre a la norme
+$> > ls | cat Makefile : a chaque fois qu'il y a un outfile, il faut le creer meme si il n'y a pas de comande
+<< hola : le heredoc marche meme sans commande
+echo ' $ ' | cat -e : le $ n'est pas entourer d'espaces
+
 
 a refaire :
 envoyer sur stdin dans le bon ordre
