@@ -1,20 +1,18 @@
 #include "../../includes/minishell.h"
 
-void ft_unset(t_exec *exec)
+int ft_unset(t_exec *exec, t_cmd *cmd)
 {
     t_env *var;
     t_env *prev;
     char *var_name;
-    char **args;
     
     var = exec->env;
-    args = create_args(exec);
-    if (args[1] == NULL)
+    if (cmd->args[1] == NULL)
     {
         ft_putendl_fd("unset: not enough arguments", 2);
-        return ;
+        return (2);
     }
-    var_name = args[1];
+    var_name = cmd->args[1];
     prev = NULL;
     while(var)
     {
@@ -25,9 +23,11 @@ void ft_unset(t_exec *exec)
             if (prev != NULL)
                 prev->next = var->next;
             free(var);
-            return ;
+            return (0);
         }
         prev = var;
         var = var->next;
     }
+    ft_putendl_fd("unset: did not found var", 2);
+    return (2);
 }

@@ -40,30 +40,28 @@ static int	valid_identifier(char *str)
 	return (1);
 }
 
-void ft_export(t_exec *exec)
+int ft_export(t_exec *exec, t_cmd *cmd)
 {
-    char    **args;
     char    *name;
     char    *value;
     t_env   *var;
 
-    args = create_args(exec);
-    if (args[1] == NULL)
+    if (cmd->args[1] == NULL)
         ft_env(exec);
     else
     {
-        name = get_var_name(args[1]);
+        name = get_var_name(cmd->args[1]);
         if (valid_identifier(name) == 0)
         {
-            printf("export: \'%s\': not a valid identifier\n", args[1]);
-            return ;
+            printf("export: \'%s\': not a valid identifier\n", cmd->args[1]);
+            return (2);
         }
-        value = get_var_value(args[1]);
+        value = get_var_value(cmd->args[1]);
         var = get_var(exec, name);
         var->name = ft_strdup(name);
         var->value = ft_strdup(value);
         free(name);
         free(value);
-        free_tab(args);
     }
+    return (0);
 }

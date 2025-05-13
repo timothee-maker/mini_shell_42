@@ -1,66 +1,79 @@
 #include "minishell.h"
 
+void wait_status(t_exec *exec, t_cmd *cmd)
+{
+    int status;
+
+    status = 0;
+    waitpid(cmd->pid, &status, 0);
+    if (WIFEXITED(status))
+        exec->exit_status = WEXITSTATUS(status);
+    else if (WIFSIGNALED(status))
+        exec->exit_status = WTERMSIG(status) + 128;
+}
+
 void exec_line(t_exec *exec, t_list *list)
 {
-    t_pid *curr_pid;
+    t_cmd *cmd;
 
 	while (list)
 	{
-		exec->cmd = init_cmd(list, exec);
         replace_env(list, exec);
-        fill_heredoc(list, exec);
-		fill_args(list, exec);
-        exec->cmd->args = create_args(exec);
-        exec->pipe_nbr += exec->cmd->is_pipe;
-        if (exec->cmd->is_builtin == 1)
-		    exec_builtin(exec);
-        else
-        {
-            exec_cmd(exec);
-        }
-        clear_IO(exec, 1);
-		list = list->next_list;
-	}
-    curr_pid = exec->pids;
-    while(curr_pid)
-    {
-        parent_process(curr_pid->pid, exec);
-        curr_pid = curr_pid->next;
+        cmd = assign_cmd(list, exec);
+        add_command(exec, cmd);
+        list = list->next_list;
     }
-    clear_IO(exec, 1);
-    clear_IO(exec, 2);
-    clear_IO(exec, 3);
+    cmd = exec->cmd;
+    while(cmd)
+    {
+        if (pipe(exec->pipe) == -1)
+			return (perror("Pipe error"));
+        ft_fork(exec, cmd);
+        cmd = cmd->next;
+    }
+    cmd = exec->cmd;
+    while(cmd)
+    {
+        wait_status(exec, cmd);
+        cmd = cmd->next;
+    }
+    ft_free_cmd(exec->cmd);
+    exec->cmd = NULL;
 }
 
-void exec_cmd(t_exec *exec)
+int exec_cmd(t_exec *exec, t_cmd *cmd)
 {
-	pid_t pid;
-
-	pid = fork();
-	if (pid)
-        add_pid(pid, exec);
-	else
+    if (cmd->is_builtin)
+        return (exec_builtin(exec, cmd));
+    else if (cmd->path == NULL)
     {
-		child_process(exec);
+        printf("Command not found: %s\n", cmd->name);
+        return (2);
     }
+    else if (execve(cmd->path, cmd->args, str_env(exec)) == -1)
+    {
+        perror("Execve error");
+        return (2);
+    }
+    return (0);
 }
 
-void exec_builtin(t_exec *ex)
+int exec_builtin(t_exec *ex, t_cmd *cmd)
 {
     if (!ft_strncmp(ex->cmd->name, "cd", ft_strlen(ex->cmd->name)))
-        ft_cd(ex);
+        return (ft_cd(ex, cmd));
     else if (!ft_strncmp(ex->cmd->name, "echo", ft_strlen(ex->cmd->name)))
-        return (ft_echo(ex));
+        return (ft_echo(cmd));
     else if (!ft_strncmp(ex->cmd->name, "env", ft_strlen(ex->cmd->name)))
         return (ft_env(ex));
     else if (!ft_strncmp(ex->cmd->name, "exit", ft_strlen(ex->cmd->name)))
-        ft_exit(ex);
+        return (ft_exit(cmd));
     else if (!ft_strncmp(ex->cmd->name, "export", ft_strlen(ex->cmd->name)))
-        return (ft_export(ex));
+        return (ft_export(ex, cmd));
     else if (!ft_strncmp(ex->cmd->name, "pwd", ft_strlen(ex->cmd->name)))
-        ft_pwd(ex);
+        return (ft_pwd(cmd));
     else if (!ft_strncmp(ex->cmd->name, "unset", ft_strlen(ex->cmd->name)))
-        return (ft_unset(ex));
+        return (ft_unset(ex, cmd));
     else
-        return ;
+        return (2);
 }

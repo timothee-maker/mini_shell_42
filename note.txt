@@ -22,3 +22,7 @@ Erreur :
 echo caca > fichier1 : le fichier n'a aucune permissions de CHMOD
 echo coucou | echo caca : le pipe effectue les 2 commandes, il doit faire la premiere
 le Buildin export ecrit "export" avant la varible et les met entre quotes dans l'ordre alphabetique
+nettoyer les fichiers et tout free
+mettre a la norme
+exit status (?)
+belek a exit avec mauvais arg (check exit status)

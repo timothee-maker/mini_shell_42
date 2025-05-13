@@ -17,27 +17,26 @@ static int is_newline(char *str)
     return (1);
 }
 
-void ft_echo(t_exec *exec)
+int ft_echo(t_cmd *cmd)
 {
     int newline;
     int i;
-    char **args;
 
-    args = create_args(exec);
     newline = 1;
     i = 1;
-    while (args[i] && is_newline(args[i]))
+    while (cmd->args[i] && is_newline(cmd->args[i]))
     {
         newline = 0;
         i++;
     }
-    while (args[i])
+    while (cmd->args[i])
     {
-        printf("%s", args[i]);
+        printf("%s", cmd->args[i]);
         i++;
-        if (args[i] != NULL)
+        if (cmd->args[i] != NULL)
             printf(" ");
     }
     if (newline)
         printf("\n");
+    return (0);
 }

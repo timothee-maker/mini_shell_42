@@ -77,12 +77,13 @@ typedef struct s_cmd
 {
 	char 		*name;
 	char 		*path;
-	char		*delimit;
     char        **args;
 	int			is_builtin;
-    int         is_pipe;
-	t_filenode 	*infiles;
-	t_filenode 	*outfiles;
+    int         input;
+    int         output;
+    pid_t        pid;
+    struct s_cmd    *prev;
+    struct s_cmd    *next;
 }	t_cmd;
 
 typedef struct s_pid
@@ -95,103 +96,49 @@ typedef struct s_exec
 {
 	t_cmd	*cmd;
 	t_env 	*env;
-    t_pid   *pids;
     int     exit_status;
-	int		infile;
-	int		outfile;
-    int     fstdin;
-    int     pipe_nbr;
-    char    *infile_path;
-    char    *outfile_path;
-    char    *fstdin_path;
+    int     infile;
+    int     heredoc;
+    char     *infile_path;
+    char     *heredoc_path;
+    int     pipe[2];
 }	t_exec;
 
 // ______________________BUILTINS________________________
-int     ft_cd(t_exec *exec);
-void    ft_echo(t_exec *exec);
-void    ft_env(t_exec *exec);
-int    ft_exit(t_exec *exec);
-void    ft_export(t_exec *exec);
-int    ft_pwd(t_exec *exec);
-void    ft_unset(t_exec *exec);
+int     ft_cd(t_exec *exec, t_cmd *cmd);
+int     ft_echo(t_cmd *cmd);
+int     ft_env(t_exec *exec);
+int     ft_exit(t_cmd *cmd);
+int     ft_export(t_exec *exec, t_cmd *cmd);
+int     ft_pwd(t_cmd *cmd);
+int     ft_unset(t_exec *exec, t_cmd *cmd);
 
 int     home_case(t_exec *exec, t_env *var);
 int     reverse_case(t_exec *exec, t_env *var);
 int     base_case(t_env *var, char **args);
 int     update_currpwd(t_env *var, char *path);
 int     update_oldpwd(t_env *var);
+void    global_exit(t_exec *exec);
+
 
 // ________________________EXEC__________________________
 
 // ----------------------EXEC CMD------------------------
 void    exec_line(t_exec *exec, t_list *list);
-void    exec_cmd(t_exec *exec);
-void    exec_builtin(t_exec *ex);
+int     exec_cmd(t_exec *exec, t_cmd *cmd);
+int     exec_builtin(t_exec *ex, t_cmd *cmd);
 char    *get_first_arg(t_list *list);
-int     get_last_outfile(t_filenode *files);
+t_cmd   *assign_cmd(t_list *list, t_exec *exec);
+void    add_command(t_exec *exec, t_cmd *cmd);
+void    wait_status(t_exec *exec, t_cmd *cmd);
 
 // ------------------------FORK--------------------------
-void    child_process(t_exec *exec);
-void    parent_process(pid_t pid, t_exec *exec);
 char    **create_args(t_exec *exec);
+void    ft_fork(t_exec *exec, t_cmd *cmd);
 
 // ----------------------HEREDOC-------------------------
 void 	fill_heredoc(t_list *list, t_exec *exec);
 
-// -----------------------OUTPUT-------------------------
-void    display_output(t_exec *exec);
-void    redirect_output(t_exec *exec);
-void    ft_pipe(t_exec *exec, char *output);
-
-// _______________________UTILS__________________________
-
-// ------------------------ARGS--------------------------
-void 	fill_args(t_list *list, t_exec *exec);
-int		is_sep(char c, char sep);
-void    fill_file(t_filenode  *currfile, t_exec *exec);
-void    check_pipe(t_list *list, t_cmd *res);
-char    *get_first_arg(t_list *list);
-int     get_last_outfile(t_filenode *files);
-
-// ------------------CREATE ENVIRONMENT------------------
-t_env	*create_env(char **envp);
-char	*get_var_name(char *str);
-char	*get_var_value(char *str);
-char    **str_env(t_exec *exec);
-void    replace_env(t_list *list, t_exec *exec);
-char    *fetch_value(char *name, t_exec *exec);
-
-// ------------------------FILES-------------------------
-int 	is_infile(t_element *elem);
-int 	is_outfile(t_element *elem);
-int 	get_open_mode(t_element *elem);
-char 	*get_file_content(int fd);
-void    ft_reopen_IO(t_exec *exec, int IO);
-
-// -----------------------FILES2-------------------------
-void    clear_IO(t_exec *exec, int IO);
-int     is_stdin_empty(t_exec *exec);
-
-// ----------------------FIND CMD------------------------
-char    *get_cmd_name(char *path);
-char    *find_path(char *name, t_exec *exec);
-
-// ---------------------CUSTOM JOIN----------------------
-char	*ft_custom_join(char const *s1, char const *s2);
-
-// ------------------------FREE--------------------------
-void    free_tab(char **tab);
-void    free_env(t_env *env);
-void    free_filenode(t_filenode *fnode);
-void    free_cmd(t_cmd *cmd);
-void    free_exec(t_exec *exec);
-
-// ------------------------INIT--------------------------
-t_exec 		*init_exec(char **envp);
-t_cmd 		*init_cmd(t_list *list, t_exec *exec);
-t_filenode 	*init_infiles(t_list *list);
-t_filenode 	*init_outfiles(t_list *list);
-void        *add_pid(pid_t pid, t_exec *exec);
 
 // ______________________ PARSING________________________
 
@@ -207,6 +154,7 @@ int	    find_builtin(char *new_str, t_list *list, int index);
 int	    find_cmd(char *split, t_list *list, int index, char *new_str);
 int	    find_files_redir(char *split, t_list *list, int index, char *new_str);
 void	find_file(char *split, t_list *list, int index, int redir);
+//void	find_opt_arg(char *split, t_list *list, int index);
 
 // ----------------------LIST UTILS----------------------
 t_list	*initialisation(void);
@@ -232,5 +180,46 @@ void	empty_string_case(char *split, t_list *list, int index);
 char	*clean_line(char *line);
 int		ft_strchr2(char *str1, char *str2);
 int		check_valid_dollar(char *split);
+
+
+// ________________________UTILS_________________________
+
+// ------------------------ARGS--------------------------
+void    fill_args(t_list *list, t_exec *exec, t_cmd *cmd);
+int		is_sep(char c, char sep);
+void    get_infile(char *filename, t_cmd *cmd);
+void    get_outfile(char *filename, t_cmd *cmd);
+
+void    child_process(t_cmd *cmd, int pipe[2], t_exec *exec);
+void    parent_process(t_cmd *cmd, int pipe[2], t_exec *exec);
+
+// ------------------CREATE ENVIRONMENT------------------
+t_env	*create_env(char **envp);
+char	*get_var_name(char *str);
+char	*get_var_value(char *str);
+char    **str_env(t_exec *exec);
+void    replace_env(t_list *list, t_exec *exec);
+char    *fetch_value(char *name, t_exec *exec);
+
+// ------------------------FILES-------------------------
+int 	is_infile(t_element *elem);
+int 	is_outfile(t_element *elem);
+char 	*get_file_content(int fd);
+
+// ----------------------FIND CMD------------------------
+char    *get_cmd_name(char *path);
+char    *find_path(char *name, t_exec *exec);
+
+// ---------------------CUSTOM JOIN----------------------
+char	*ft_custom_join(char const *s1, char const *s2);
+
+// ------------------------FREE--------------------------
+void    free_tab(char **tab);
+void    free_env(t_env *env);
+void    ft_free_cmd(t_cmd *cmd);
+
+// ------------------------INIT--------------------------
+t_exec 	*init_exec(char **envp);
+t_cmd 	*init_cmd(t_list *list, t_exec *exec);
 
 #endif
