@@ -39,9 +39,7 @@
 # define ERROR_CHAR ";&():"
 # define BUFFER_SIZE 1000
 
-/*lignes test*/
-// <Makefile "/""usr""/bin/""ls"|grep a|cat>"/""dev/""stdout"|"e""c""h""o" "'hola que tal' $ZSH okay"
-// cas defaillant : ls -la > outfile1 > outfile2 | grep < outfile3 > outfile2
+extern pid_t	g_pid;
 
 typedef struct s_element
 {
@@ -191,7 +189,7 @@ void    get_infile(char *filename, t_cmd *cmd);
 void    get_outfile(char *filename, t_cmd *cmd);
 
 void    child_process(t_cmd *cmd, int pipe[2], t_exec *exec);
-void    parent_process(t_cmd *cmd, int pipe[2], t_exec *exec);
+void    parent_process(t_cmd *cmd, int pipe[2]);
 
 // ------------------CREATE ENVIRONMENT------------------
 t_env	*create_env(char **envp);

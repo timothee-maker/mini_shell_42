@@ -4,7 +4,6 @@ void ft_fork(t_exec *exec, t_cmd *cmd)
 {
     pid_t pid;
 
-    //printf("Forking process for command: %s\n", cmd->name);
     pid = fork();
     if (pid == -1)
     {
@@ -14,7 +13,7 @@ void ft_fork(t_exec *exec, t_cmd *cmd)
     if (pid > 0)
     {
         cmd->pid = pid;
-        parent_process(cmd, exec->pipe, exec);
+        parent_process(cmd, exec->pipe);
     }
     else
         child_process(cmd, exec->pipe, exec);
@@ -44,7 +43,7 @@ void child_process(t_cmd *cmd, int pipe[2], t_exec *exec)
     exit(status);
 }
 
-void parent_process(t_cmd *cmd, int pipe[2], t_exec *exec)
+void parent_process(t_cmd *cmd, int pipe[2])
 {
     close(pipe[1]);
     if (cmd->input >= 0)
@@ -53,7 +52,4 @@ void parent_process(t_cmd *cmd, int pipe[2], t_exec *exec)
 		cmd->input = pipe[0];
     if (cmd->next != NULL && cmd->next->input == -1)
         cmd->next->input = pipe[0];
-    if (!ft_strncmp(cmd->name, "exit", ft_strlen(cmd->name) + 4) && !cmd->next 
-        && exec->exit_status >= 0)
-        global_exit(exec);
 }

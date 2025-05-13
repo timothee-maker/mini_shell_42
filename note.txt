@@ -12,17 +12,7 @@ Tests de l'exec :
 Commande de debug :
 valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./minishell
 
-a refaire :
-envoyer sur stdin dans le bon ordre
-check exit
-separer initialisation, lancement et catch
-changer structure de cmd pour une liste chainee
-
 Erreur : 
-echo caca > fichier1 : le fichier n'a aucune permissions de CHMOD
-echo coucou | echo caca : le pipe effectue les 2 commandes, il doit faire la premiere
 le Buildin export ecrit "export" avant la varible et les met entre quotes dans l'ordre alphabetique
 nettoyer les fichiers et tout free
 mettre a la norme
-exit status (?)
-belek a exit avec mauvais arg (check exit status)

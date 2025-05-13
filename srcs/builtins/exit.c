@@ -35,6 +35,5 @@ void global_exit(t_exec *exec)
     free(exec->infile_path);
     free(exec->heredoc_path);
     free(exec);
-    status = 0;
     exit(status);
 }
