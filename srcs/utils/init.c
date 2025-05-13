@@ -48,7 +48,7 @@ t_cmd *init_cmd(t_list *list, t_exec *exec)
 	elem = list->first;
 	while (elem)
 	{
-		if (!ft_strncmp(elem->token, "CMD", ft_strlen(elem->token)))
+		if (!ft_strncmp(elem->token, "CMD", ft_strlen(elem->token)) && elem == list->first)
 		{
 			res->name = get_cmd_name(elem->arg);
 			res->path = find_path(res->name, exec);

@@ -14,7 +14,6 @@ void wait_status(t_exec *exec, t_cmd *cmd)
         else if (WIFSIGNALED(status))
             exec->exit_status = WTERMSIG(status) + 128;
     }
-    printf("exit status: %d\n", exec->exit_status);
     if (!ft_strncmp(cmd->name, "exit", ft_strlen(cmd->name) + 4) && !cmd->next
         && ((cmd->args[1] != NULL && ft_atoi(cmd->args[1]) >= 0) || 
         cmd->args[1] == NULL))
