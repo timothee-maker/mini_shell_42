@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/07 14:58:46 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/12 14:48:35 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # include "../libft/libft.h"
 
 # define DELIMITER "|<>&"
+# define DELIMITER2 "|>&"
 # define QUOTES "\'\""
 # define NORMAL 0
 # define IN 1
@@ -199,7 +200,7 @@ void        *add_pid(pid_t pid, t_exec *exec);
 void 	handle_sigint(int sig);
 
 // -------------------------CORE-------------------------
-int		minishell(char	*line, t_list *list);
+int		parsing(char	*line, t_list *list);
 int		analyze_line(char **split, t_list *list);
 
 // ----------------------FIND LIST-----------------------

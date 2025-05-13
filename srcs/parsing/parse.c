@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 15:17:16 by tnolent           #+#    #+#             */
-/*   Updated: 2025/05/07 15:19:59 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/12 14:49:06 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ int		syntax_error(char *split, int len_split, int position)
 	while (split[i])
 	{
 		if (len_split == position && ft_strchr(DELIMITER, split[i]) && !is_in_quotes(i, split))
+		{
+			printf("minishell : parse error near '%c'\n", split[i]);
+			return (0);
+		}
+		if (position == 1 && ft_strchr(DELIMITER2, split[i]) && !is_in_quotes(i, split))
 		{
 			printf("minishell : parse error near '%c'\n", split[i]);
 			return (0);

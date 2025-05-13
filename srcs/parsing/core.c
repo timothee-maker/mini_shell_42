@@ -1,11 +1,8 @@
 #include "minishell.h"
 
-// typedef struct s_struct
-// {
-// 	char	**split;
-// }	t_struct;
+int		end_parse(t_list *list);
 
-int		minishell(char	*line, t_list *list)
+int		parsing(char	*line, t_list *list)
 {
 	char	**split;
 
@@ -22,9 +19,33 @@ int		minishell(char	*line, t_list *list)
 	if (!start_parse(split))
 		return (free_split(split), 1);
 	analyze_line(split, list);
+	// if (!end_parse(list))
+	// 	return (free_split(split), 1);
 	free_split(split);
 	return (1);
 }
+
+// int		end_parse(t_list *list)
+// {
+// 	t_list		*current;
+// 	t_element	*element;
+
+// 	current = list;
+// 	element = list->first;
+// 	while (current)
+// 	{
+// 		while (element)
+// 		{
+// 			// if (ft_strcmp("ARG", element->token) && element->position == 0)
+// 			// 	return (0);
+// 			// printf("token [%s]\n", element->token);
+// 			element = element->next;
+// 		}
+// 		current = list->next_list;
+// 		element = list->first;
+// 	}
+// 	return (1);
+// }
 
 int		analyze_line(char **split, t_list *list)
 {
