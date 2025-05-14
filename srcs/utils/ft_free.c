@@ -60,4 +60,5 @@ void free_exec(t_exec *exec)
     free(exec->infile_path);
     free(exec->heredoc_path);
     free(exec);
+    exec = NULL;
 }

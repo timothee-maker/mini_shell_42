@@ -4,11 +4,13 @@ char **create_args(t_exec *exec)
 {
 	char **res;
 	char *output;
+    char sep;
 
+    sep = ARG_SEP;
 	close(exec->infile);
     exec->infile = open(exec->infile_path, O_RDWR | O_CREAT, 0777);
 	output = get_file_content(exec->infile);
-	res = ft_split_minishell(output, ' ');
+	res = ft_split_minishell(output, sep);
     if (res == NULL)
     {
         return (NULL);
@@ -23,9 +25,11 @@ void fill_args(t_list *list, t_exec *exec, t_cmd *cmd)
 {
     t_element   *elem;
     char        *temp;
+    char        sep;
 
+    sep = ARG_SEP;
     ft_putstr_fd(cmd->name, exec->infile);
-    ft_putstr_fd(" ", exec->infile);
+    write(exec->infile, &sep, 1);
     elem = list->first;
     while (elem)
     {
@@ -33,7 +37,7 @@ void fill_args(t_list *list, t_exec *exec, t_cmd *cmd)
         if (!ft_strncmp(elem->token, "ARG", ft_strlen(elem->token)))
         {
             ft_putstr_fd(temp, exec->infile);
-            ft_putstr_fd(" ", exec->infile);
+            write(exec->infile, &sep, 1);
         }
         elem = elem->next;
         free(temp);
