@@ -16,3 +16,23 @@ char	*ft_custom_join(char const *s1, char const *s2)
     free((char *) s1);
 	return (res);
 }
+
+int is_special_str(char *str)
+{
+    if (str[0] == 2)
+        return (1);
+    return (0);   
+}
+
+char *remove_special_str(char *str)
+{
+    char *temp;
+    if (is_special_str(str))
+    {
+        str++;
+        temp = ft_strdup(str);
+        free(str);
+        return (temp);
+    }
+    return (str);
+}
