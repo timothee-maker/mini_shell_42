@@ -30,6 +30,7 @@
 # include "../libft/libft.h"
 
 # define DELIMITER "|<>&"
+# define ARG_SEP 3;
 # define DELIMITER2 "|&"
 # define QUOTES "\'\""
 # define NO_ENV "\'\"[]{} "
