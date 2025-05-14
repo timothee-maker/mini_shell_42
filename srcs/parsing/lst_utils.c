@@ -86,7 +86,10 @@ void	destruction(t_list *liste)
 		while (liste->first != NULL)
 		{
 			if (liste->first->arg != NULL)
+            {
 			   free(liste->first->arg);
+               liste->first->arg = NULL;
+            }
 			asupprimer = liste->first;
 			liste->first = liste->first->next;
 			free(asupprimer);

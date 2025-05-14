@@ -36,9 +36,13 @@ char *find_path(char *name, t_exec *exec)
         temp = ft_strjoin(path_tab[i], "/");
         temp = ft_custom_join(temp, name);
         if (access(temp, X_OK) == 0)
+        {
+            free_tab(path_tab);
             return (temp);
+        }
         free(temp);
         i++;
     }
+    free_tab(path_tab);
     return (NULL);
 }

@@ -30,19 +30,6 @@ void free_env(t_env *env)
 	}
 }
 
-void free_filenode(t_filenode *fnode)
-{
-	t_filenode *temp;
-
-	while (fnode != NULL)
-	{
-		free(fnode->name);
-		temp = fnode->next;
-		free(fnode);
-		fnode = temp;
-	}
-}
-
 void ft_free_cmd(t_cmd *cmd)
 {
     t_cmd *next;
@@ -63,4 +50,16 @@ void ft_free_cmd(t_cmd *cmd)
         cmd = NULL;
         cmd = next;
     }
+}
+
+void free_exec(t_exec *exec)
+{
+    ft_free_cmd(exec->cmd);
+    exec->cmd = NULL;
+    unlink(exec->infile_path);
+    unlink(exec->heredoc_path);
+    free_env(exec->env);
+    free(exec->infile_path);
+    free(exec->heredoc_path);
+    free(exec);
 }

@@ -1,5 +1,18 @@
 #include "minishell.h"
 
+static void display_env(t_exec *exec)
+{
+    t_env *var;
+
+    var = exec->env;
+    printf("--------DISPLAYING ENV--------\n");
+    while (var)
+    {
+        printf("%s=%s\n", var->name, var->value);
+        var = var->next;
+    }
+}
+
 void wait_status(t_exec *exec, t_cmd *cmd)
 {
     int status;
@@ -28,6 +41,7 @@ void exec_line(t_exec *exec, t_list *list)
 
 	while (list)
 	{
+        //display_env(exec);
         replace_env(list, exec);
         cmd = assign_cmd(list, exec);
         add_command(exec, cmd);
@@ -53,8 +67,13 @@ void exec_line(t_exec *exec, t_list *list)
 
 int exec_cmd(t_exec *exec, t_cmd *cmd)
 {
+    int status;
     if (cmd->is_builtin)
-        return (exec_builtin(exec, cmd));
+    {
+        status = exec_builtin(exec, cmd);
+        free_exec(exec);
+        return (status);
+    }
     else if (cmd->path == NULL)
     {
         if (cmd->name)

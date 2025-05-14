@@ -18,9 +18,4 @@ $> > ls | cat Makefile : a chaque fois qu'il y a un outfile, il faut le creer me
 echo ' $ ' | cat -e : le $ n'est pas entourer d'espaces
 echo $PWD : quand ont repette la commande plusieurs fois, ca segfault
 
-
-a refaire :
-envoyer sur stdin dans le bon ordre
-check exit
-separer initialisation, lancement et catch`
-changer structure de cmd pour une liste chainee
+utiliser une env var clear son contenu ?

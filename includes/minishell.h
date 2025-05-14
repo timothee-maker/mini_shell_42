@@ -66,13 +66,6 @@ typedef struct s_env
 	struct s_env	*next;
 }	t_env;
 
-typedef struct s_filenode
-{
-	char				*name;
-	int					open_mode;
-	struct s_filenode 	*next;
-}	t_filenode;
-
 typedef struct s_cmd
 {
 	char 		*name;
@@ -217,6 +210,7 @@ char	*ft_custom_join(char const *s1, char const *s2);
 void    free_tab(char **tab);
 void    free_env(t_env *env);
 void    ft_free_cmd(t_cmd *cmd);
+void    free_exec(t_exec *exec);
 
 // ------------------------INIT--------------------------
 t_exec 	*init_exec(char **envp);

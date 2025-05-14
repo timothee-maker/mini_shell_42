@@ -34,9 +34,13 @@ char *fetch_value(char *name, t_exec *exec)
     while(var)
     {
         if (!ft_strncmp(var->name, dup_name, ft_strlen(var->name) + ft_strlen(dup_name)))
+        {
+            free(dup_name);
             return (var->value);
+        }
         var = var->next;
     }
+    free(dup_name);
     return (NULL);
 }
 
