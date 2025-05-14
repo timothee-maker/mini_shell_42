@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/13 14:08:24 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/14 11:51:43 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ void 	fill_heredoc(t_list *list, t_exec *exec);
 void 	handle_sigint(int sig);
 
 // -------------------------CORE-------------------------
-int		parsing(char	*line, t_list *list);
+int		parsing(char *line, t_list *list, t_exec *exec);
 int		analyze_line(char **split, t_list *list);
 
 // ----------------------FIND LIST-----------------------
@@ -155,7 +155,6 @@ void	find_file(char *split, t_list *list, int index, int redir);
 t_list	*initialisation(void);
 void	afficherliste(t_list *liste);
 int		add_token(t_list *liste, char *arg, char *token, int index);
-void	destruction(t_list *liste);
 void	insertion_list(t_list *liste);
 
 // ----------------------- PARSING-----------------------
@@ -182,6 +181,7 @@ int		check_valid_dollar(char *split);
 // ------------------------ARGS--------------------------
 void    fill_args(t_list *list, t_exec *exec, t_cmd *cmd);
 int		is_sep(char c, char sep);
+int		is_in_quotes(int position, char *str);
 void    get_infile(char *filename, t_cmd *cmd);
 void    get_outfile(char *filename, t_cmd *cmd);
 
@@ -215,9 +215,12 @@ void    free_tab(char **tab);
 void    free_env(t_env *env);
 void    ft_free_cmd(t_cmd *cmd);
 void    free_exec(t_exec *exec);
-
+void	free_list(t_list *liste);
 // ------------------------INIT--------------------------
 t_exec 	*init_exec(char **envp);
 t_cmd 	*init_cmd(t_list *list, t_exec *exec);
+
+// ------------------------ERROR CASE---------------------
+void	error_parsing(char *line, t_list *list, t_exec *exec, char **split);
 
 #endif
