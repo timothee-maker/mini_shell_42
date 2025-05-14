@@ -6,20 +6,24 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:52:42 by tnolent           #+#    #+#             */
-/*   Updated: 2025/05/06 11:48:37 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/14 11:41:15 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    free_split(char **split)
+void	free_split(char **split)
 {
 	int i;
 
 	i = 0;
 	while (split[i])
-		free(split[i++]);
+	{
+		free(split[i]);
+		split[i++] = NULL;
+	}
 	free(split);
+	split = NULL;
 }
 
 char	*clean_line(char *line)

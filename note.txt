@@ -1,6 +1,4 @@
 Erreur : 
-echo $PWD"coucou"
-echo [$PWD]
 
 Tests de l'exec :
 - CTRL+C interrompt pas toutes les cmd
@@ -17,5 +15,9 @@ $> > ls | cat Makefile : a chaque fois qu'il y a un outfile, il faut le creer me
 << hola : le heredoc marche meme sans commande
 echo ' $ ' | cat -e : le $ n'est pas entourer d'espaces
 echo $PWD : quand ont repette la commande plusieurs fois, ca segfault
+le echo ne marche plus plusieurs fois d'affilee
 
 utiliser une env var clear son contenu ?
+Reefaire les strjoin pour la cmd
+
+<Makefile cat | echo bonsoir | >ls

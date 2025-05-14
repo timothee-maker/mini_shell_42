@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 13:35:03 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/06 12:13:32 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/14 11:41:37 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,18 +64,17 @@ void	full_split(t_split *split, char const *s, char c)
 			split->tmp = 0;
 		else if (ft_strchr(QUOTES, s[split->i]) && split->tmp == 0)
 			split->tmp = s[split->i];
-		if (s[split->i] == '\"' && split->dollar == 1)
+		if (ft_strchr(NO_ENV, s[split->i]) && split->dollar == 1)
 		{
-			split->result[split->k][split->l++] = s[split->i++];
 			split->dollar = 0;
 			break;
 		}
-		split->result[split->k][split->l++] = s[split->i++];
-		if (is_sep(s[split->i], '$') && (split->tmp == '\"' || split->tmp == 0))
+		if (is_sep(s[split->i], '$') && (split->tmp == '\"' || split->tmp == 0) && split->dollar == 0)
 		{
 			split->dollar = 1;
 			break;
 		}
+		split->result[split->k][split->l++] = s[split->i++];
 	}
 }
 
@@ -123,7 +122,7 @@ int		dollar_case(const char *s, t_split *split)
 	split->result[split->k] = malloc(sizeof(char) * (ft_strlen(s) + 1));
 	if (!split->result[split->k])
 		return (free_split(split->result), 0); 
-	while (!is_sep(s[split->i], ' ') && s[split->i] && !is_sep(s[split->i], '\''))
+	while (!ft_strchr(NO_ENV, s[split->i]) && s[split->i] && !is_sep(s[split->i], '\''))
 	{
 		split->result[split->k][split->l++] = s[split->i++];
 		if (is_sep(s[split->i], '$'))
@@ -143,7 +142,3 @@ int		dollar_case(const char *s, t_split *split)
 	split->result[split->k][split->l++] = '\"';
 	return (1);
 }
-
-
-
-

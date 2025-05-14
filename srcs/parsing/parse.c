@@ -6,13 +6,11 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 15:17:16 by tnolent           #+#    #+#             */
-/*   Updated: 2025/05/12 14:49:06 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/14 11:51:49 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int		is_in_quotes(int position, char *str);
 
 int		start_parse(char **split)
 {
@@ -68,45 +66,4 @@ int	parse_one_case(char *split)
 		i++;
 	}
 	return (1);
-}
-
-char	*chr_str(char *str, char *to_find)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (str[i])
-	{
-		j = 0;
-		while (to_find[j])
-		{
-			if (str[i] == to_find[j++])
-				return (str);
-		}
-		i++;
-	}
-	return (NULL);
-}
-
-int		is_in_quotes(int position, char *str)
-{
-	int		i;
-	char	tmp;
-
-	i = 0;
-	tmp = 0;
-	if (!str[position])
-		return (0);
-	while (str[i])
-	{
-		if (tmp == 0 && ft_strchr(QUOTES, str[i]))
-			tmp = str[i];
-		else if (ft_strchr(QUOTES, str[i]) && tmp)
-			tmp = 0;
-		if (i == position && tmp != 0)
-			return (1);
-		i++;
-	}
-	return (0);
 }
