@@ -36,7 +36,7 @@ char *fetch_value(char *name, t_exec *exec)
         if (!ft_strncmp(var->name, dup_name, ft_strlen(var->name) + ft_strlen(dup_name)))
         {
             free(dup_name);
-            return (var->value);
+            return (ft_strdup(var->value));
         }
         var = var->next;
     }

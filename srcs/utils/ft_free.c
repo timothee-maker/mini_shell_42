@@ -56,8 +56,6 @@ void free_exec(t_exec *exec)
 {
     ft_free_cmd(exec->cmd);
     exec->cmd = NULL;
-    unlink(exec->infile_path);
-    unlink(exec->heredoc_path);
     free_env(exec->env);
     free(exec->infile_path);
     free(exec->heredoc_path);
