@@ -31,6 +31,7 @@
 
 # define DELIMITER "|<>&"
 # define ARG_SEP 3;
+# define ENV_SEP 2;
 # define DELIMITER2 "|&"
 # define QUOTES "\'\""
 # define NO_ENV "\'\"[]{} "
@@ -206,6 +207,8 @@ char    *find_path(char *name, t_exec *exec);
 
 // ---------------------CUSTOM JOIN----------------------
 char	*ft_custom_join(char const *s1, char const *s2);
+int     is_special_str(char *str);
+char    *remove_special_str(char *str);
 
 // ------------------------FREE--------------------------
 void    free_tab(char **tab);

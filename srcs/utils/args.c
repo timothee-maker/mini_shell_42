@@ -10,7 +10,7 @@ char **create_args(t_exec *exec)
 	close(exec->infile);
     exec->infile = open(exec->infile_path, O_RDWR | O_CREAT, 0777);
 	output = get_file_content(exec->infile);
-	res = ft_split_minishell(output, sep);
+	res = ft_split(output, sep);
     if (res == NULL)
     {
         return (NULL);
@@ -34,7 +34,8 @@ void fill_args(t_list *list, t_exec *exec, t_cmd *cmd)
     while (elem)
     {
         temp = ft_strdup(elem->arg);
-        if (!ft_strncmp(elem->token, "ARG", ft_strlen(elem->token)))
+        if (!ft_strncmp(elem->token, "ARG", ft_strlen(elem->token)) 
+        || !ft_strncmp(elem->token, "ENV", ft_strlen(elem->token)))
         {
             ft_putstr_fd(temp, exec->infile);
             write(exec->infile, &sep, 1);
@@ -71,4 +72,3 @@ void get_outfile(char *filename, t_cmd *cmd)
     }
     cmd->output = fd;
 }
-
