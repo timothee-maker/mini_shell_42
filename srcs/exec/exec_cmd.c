@@ -80,19 +80,19 @@ int exec_cmd(t_exec *exec, t_cmd *cmd)
 
 int exec_builtin(t_exec *ex, t_cmd *cmd)
 {
-    if (!ft_strncmp(ex->cmd->name, "cd", ft_strlen(ex->cmd->name)))
+    if (!ft_strncmp(cmd->name, "cd", ft_strlen(cmd->name)))
         return (ft_cd(ex, cmd));
-    else if (!ft_strncmp(ex->cmd->name, "echo", ft_strlen(ex->cmd->name)))
+    else if (!ft_strncmp(cmd->name, "echo", ft_strlen(cmd->name)))
         return (ft_echo(cmd));
-    else if (!ft_strncmp(ex->cmd->name, "env", ft_strlen(ex->cmd->name)))
+    else if (!ft_strncmp(cmd->name, "env", ft_strlen(cmd->name)))
         return (ft_env(ex));
-    else if (!ft_strncmp(ex->cmd->name, "exit", ft_strlen(ex->cmd->name)))
+    else if (!ft_strncmp(cmd->name, "exit", ft_strlen(cmd->name)))
         return (ft_exit(cmd));
-    else if (!ft_strncmp(ex->cmd->name, "export", ft_strlen(ex->cmd->name)))
+    else if (!ft_strncmp(cmd->name, "export", ft_strlen(cmd->name)))
         return (ft_export(ex, cmd));
-    else if (!ft_strncmp(ex->cmd->name, "pwd", ft_strlen(ex->cmd->name)))
+    else if (!ft_strncmp(cmd->name, "pwd", ft_strlen(cmd->name)))
         return (ft_pwd(cmd));
-    else if (!ft_strncmp(ex->cmd->name, "unset", ft_strlen(ex->cmd->name)))
+    else if (!ft_strncmp(cmd->name, "unset", ft_strlen(cmd->name)))
         return (ft_unset(ex, cmd));
     else
         return (2);

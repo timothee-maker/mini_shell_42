@@ -35,6 +35,7 @@ t_cmd *init_cmd(t_list *list, t_exec *exec)
 {
 	t_cmd		*res;
 	t_element	*elem;
+    int         first;
 
 	res = malloc(sizeof(t_cmd));
 	res->is_builtin = 0;
@@ -46,9 +47,12 @@ t_cmd *init_cmd(t_list *list, t_exec *exec)
     res->prev = NULL;
     res->next = NULL;
 	elem = list->first;
+    first = 1;
 	while (elem)
 	{
-		if (!ft_strncmp(elem->token, "CMD", ft_strlen(elem->token)) && elem == list->first)
+        if (!ft_strcmp(elem->token, "ARG") || !ft_strcmp(elem->token, "ENV"))
+            first = 0;
+		else if (!ft_strncmp(elem->token, "CMD", ft_strlen(elem->token)) && elem == list->first)
 		{
 			res->name = get_cmd_name(elem->arg);
 			res->path = find_path(res->name, exec);

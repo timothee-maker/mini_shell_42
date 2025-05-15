@@ -41,7 +41,8 @@ fclean: clean
 	@rm -f $(NAME) libft/libft.a
 	@echo "$(CYAN)$(NAME) executable files cleaned!$(DEF_COLOR)"
 
-fast: all clean
+fast: re
+	@make clean
 	@clear
 
 re: fclean

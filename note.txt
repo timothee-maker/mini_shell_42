@@ -5,7 +5,7 @@ Erreur :
 nettoyer les fichiers et tout free
 mettre a la norme
 $> > ls | cat Makefile : a chaque fois qu'il y a un outfile, il faut le creer meme si il n'y a pas de comande
-<< hola : le heredoc marche meme sans commande
+<< hola ls : le heredoc lance pas la commande
 refaire export (segfault)
 
 <Makefile cat | echo bonsoir | >ls
