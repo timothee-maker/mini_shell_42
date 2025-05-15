@@ -1,23 +1,11 @@
-Erreur : 
-
-Tests de l'exec :
-- CTRL+C interrompt pas toutes les cmd
-
 Commande de debug :
 valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./minishell
 
 Erreur : 
-le Buildin export ecrit "export" avant la varible et les met entre quotes dans l'ordre alphabetique
-caca cat Makfile : si il y a un argument avant la commande, la ligne de commande marche quand meme 
 nettoyer les fichiers et tout free
 mettre a la norme
 $> > ls | cat Makefile : a chaque fois qu'il y a un outfile, il faut le creer meme si il n'y a pas de comande
 << hola : le heredoc marche meme sans commande
-echo ' $ ' | cat -e : le $ n'est pas entourer d'espaces
-echo $PWD : quand ont repette la commande plusieurs fois, ca segfault
-le echo ne marche plus plusieurs fois d'affilee
-
-utiliser une env var clear son contenu ?
-Reefaire les strjoin pour la cmd
+refaire export (segfault)
 
 <Makefile cat | echo bonsoir | >ls

@@ -34,8 +34,7 @@ void fill_args(t_list *list, t_exec *exec, t_cmd *cmd)
     while (elem)
     {
         temp = ft_strdup(elem->arg);
-        if (!ft_strncmp(elem->token, "ARG", ft_strlen(elem->token)) 
-        || !ft_strncmp(elem->token, "ENV", ft_strlen(elem->token)))
+        if (!ft_strcmp(elem->token, "ARG") || !ft_strcmp(elem->token, "ENV"))
         {
             ft_putstr_fd(temp, exec->infile);
             write(exec->infile, &sep, 1);
