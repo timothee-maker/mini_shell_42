@@ -61,7 +61,7 @@ t_cmd *init_cmd(t_list *list, t_exec *exec)
             res->is_builtin = 1;
             res->name = ft_strdup(elem->arg);
         }
-        else if (res->name == NULL && first)
+        else if (res->name == NULL && first && !ft_strcmp(elem->token, "ARG"))
         {
             first = 0;
             res->name = get_first_arg(list);
@@ -77,6 +77,7 @@ t_cmd *assign_cmd(t_list *list, t_exec *exec)
     t_cmd *res;
 
     res = init_cmd(list, exec);
+    printf("commands: %s\n", res->name);
     elem = list->first;
     while(elem)
     {

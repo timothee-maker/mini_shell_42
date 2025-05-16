@@ -1,5 +1,14 @@
 #include "../../includes/minishell.h"
 
+static int check_input(char *input, char *delimit)
+{
+    if (input[0] == '\0')
+        return (1);
+    if (ft_strcmp(input, delimit))
+        return (1);
+    return (0);
+}
+
 static void read_hdoc(t_exec *exec, char *delimit)
 {
     char *input;
@@ -13,9 +22,9 @@ static void read_hdoc(t_exec *exec, char *delimit)
         return;
     }
     input = readline("> ");
-    if (ft_strncmp(input, delimit, ft_strlen(input)))
+    if (check_input(input, delimit))
         ft_putendl_fd(input, exec->heredoc);
-    while (ft_strncmp(input, delimit, ft_strlen(input)))
+    while (check_input(input, delimit))
     {
         input = readline("> ");
         if (ft_strncmp(input, delimit, ft_strlen(input)))
