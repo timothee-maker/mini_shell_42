@@ -6,24 +6,25 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:52:42 by tnolent           #+#    #+#             */
-/*   Updated: 2025/05/14 11:41:15 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/16 13:59:10 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	free_split(char **split)
+void	free_split(l_split *split)
 {
-	int i;
+	l_split *current_split;
+	l_split *next;
 
-	i = 0;
-	while (split[i])
+	current_split = split;
+	while (current_split)
 	{
-		free(split[i]);
-		split[i++] = NULL;
+		next = current_split->next;
+		free(current_split->str);
+		free(current_split);
+		current_split = next;
 	}
-	free(split);
-	split = NULL;
 }
 
 char	*clean_line(char *line)
@@ -65,11 +66,23 @@ int	len_tab(char **split)
 		i++;
 	return (i);
 }
+int	len_list(l_split *split)
+{
+	int	i;
+
+	i = 0;
+	while (split)
+	{
+		i++;
+		split = split->next;
+	}
+	return (i);
+}
 
 int	valid_quote(char *split)
 {
-	char 	tmp;
-	int	len;
+	char	tmp;
+	int		len;
 
 	len = ft_strlen(split) - 1;
 	if (strchr(QUOTES, split[0]))

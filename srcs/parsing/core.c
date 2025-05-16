@@ -1,28 +1,19 @@
 #include "minishell.h"
 
-typedef struct s_token
-{
-	char	*new_str;
-	int		index;
-	int		position;
-}			t_token;
-
-int			find_token(char **split, t_list *current, t_token *token);
+int			find_token(l_split *split, t_list *current, t_token *token);
 
 int	parsing(char *line, t_list *list, t_exec *exec)
 {
-	char	**split;
+	l_split		*split;
 
 	split = NULL;
 	add_history(line);
 	if (!(line = clean_line(line)))
 		error_parsing(line, list, exec, split);
-	if (!(split = ft_split_minishell(line, ' ')))
+	split = ft_split_list_minishell(line, ' ');
+	if (!split)
 		error_parsing(line, list, exec, split);
-	// printf("%s\n", line);
-	// int i = 0;
-	// while (split[i])
-	// 	printf("[%s]", split[i++]);
+	// while (split){printf("[%s]", split->str);split = split->next;}
 	free(line);
 	line = NULL;
 	if (!start_parse(split))
@@ -33,45 +24,48 @@ int	parsing(char *line, t_list *list, t_exec *exec)
 	return (1);
 }
 
-int	analyze_line(char **split, t_list *list)
+int	analyze_line(l_split *split, t_list *list)
 {
 	t_list	*current;
 	t_token	token;
+	l_split	*current_split;
 
+	current_split = split;
 	current = list;
-	token.index = 0;
 	token.position = 0;
-	while (split[token.index])
+	while (current_split)
 	{
-		token.new_str = remove_quotes_around(split[token.index]);
-		if (ft_strchr(split[token.index], '|') && ft_strlen(token.new_str) == 1)
+		token.new_str = remove_quotes_around(current_split->str);
+		token.split = current_split->str;
+		if (ft_strchr(current_split->str, '|') && ft_strlen(token.new_str) == 1)
 		{
 			insertion_list(current);
 			current = current->next_list;
 			free(token.new_str);
-			token.new_str = remove_quotes_around(split[++token.index]);
+			token.new_str = remove_quotes_around(current_split->str);
+			current_split = current_split->next;
 			token.position = 0;
+			continue;
 		}
-		if (!find_token(split, current, &token))
+		if (!find_token(current_split, current, &token))
 			return (free(token.new_str), 0);
 		free(token.new_str);
-		token.index++;
 		token.position++;
+		current_split = current_split->next;
 	}
 	return (1);
 }
 
-int	find_token(char **split, t_list *current, t_token *token)
+int	find_token(l_split *split, t_list *current, t_token *token)
 {
 	int	is_good;
 
-	if (!(is_good = find_builtin(token->new_str, current, token->position)))
+	if (!(is_good = find_builtin(current, token)))
 	{
-		if (!(is_good = find_files_redir(split[token->index], current,
-					token->position, token->new_str)))
+		if (!(is_good = find_files_redir(current, split->str, 
+			token)))
 		{
-			is_good = find_cmd(split[token->index], current, token->position,
-					token->new_str);
+			is_good = find_cmd(current, split->str, token);
 		}
 	}
 	if (is_good == -1)

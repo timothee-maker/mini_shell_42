@@ -7,3 +7,4 @@ mettre a la norme
 refaire export (segfault)
 
 <Makefile cat | echo bonsoir | >ls
+> | echo bonsoir

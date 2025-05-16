@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/14 17:27:41 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/16 13:28:36 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,34 @@
 
 extern pid_t	g_pid;
 
+typedef struct s_split
+{
+	char			*str;
+	int				is_in_quotes;	
+	struct s_split	*next;
+} l_split;
+
+typedef struct s_split_parse
+{
+	int		i;
+	int		tmp;
+	int		dollar;
+	char	*buffer;
+	int		is_in_quotes;
+	l_split	*head;
+	l_split	*tail;
+}			t_split_parse;
+
 typedef struct s_element
 {
 	char				*arg;
 	char				*token;
 	int					position;
+    int                 is_in_quotes;
 	struct s_element	*next;
 }	t_element;
+
+
 
 typedef struct s_list
 {
@@ -59,6 +80,14 @@ typedef struct s_list
 	struct s_list	*next_list;
 	int				cmd;
 }	t_list;
+
+typedef struct s_token
+{
+	char	    *new_str;
+    char        *split;
+	int		    index;
+	int		    position;
+}	t_token;
 
 typedef struct s_env
 {
@@ -143,38 +172,64 @@ void 	handle_sigint(int sig);
 
 // -------------------------CORE-------------------------
 int		parsing(char *line, t_list *list, t_exec *exec);
-int		analyze_line(char **split, t_list *list);
+int		analyze_line(l_split *split, t_list *list);
 
 // ----------------------FIND LIST-----------------------
-int	    find_builtin(char *new_str, t_list *list, int index);
-int	    find_cmd(char *split, t_list *list, int index, char *new_str);
-int	    find_files_redir(char *split, t_list *list, int index, char *new_str);
-void	find_file(char *split, t_list *list, int index, int redir);
-int 	join_path(char **path, t_list *list, char *new_str, int index);
+int	    find_builtin(t_list *list, t_token *token);
+int	    find_cmd(t_list *list, char *split, t_token *token);
+int 	find_files_redir(t_list *list, char *split, t_token *token);
+void	find_file(t_list *list, int redir, t_token *token);
+int 	join_path(char **path, t_list *list, t_token *token);
 
 // ----------------------LIST UTILS----------------------
 t_list	*initialisation(void);
 void	afficherliste(t_list *liste);
-int		add_token(t_list *liste, char *arg, char *token, int index);
+// int		add_token(t_list *liste, char *arg, char *token, int index);
+int		add_token(t_list *liste, char *token, t_token *t_token);
 void	insertion_list(t_list *liste);
 
 // ----------------------- PARSING-----------------------
-int		start_parse(char **split);
+int		start_parse(l_split *split);
 int		syntax_error(char *split, int len_split, int position);
 int	    parse_one_case(char *split);
 char	*chr_str(char *str, char *to_find);
-char	**ft_split_minishell(char const *s, char c);
+// char	**ft_split_minishell(char const *s, char c);
+l_split *ft_split_list_minishell(const char *s, char sep);
 
 // -------------------------UTILS------------------------
 int	    len_tab(char **split);
 int	    valid_quote(char *split);
-void    free_split(char **split);
+void    free_split(l_split *split);
 char	*remove_quotes(char *str);
 char	*remove_quotes_around(char *str);
-void	empty_string_case(char *split, t_list *list, int index);
+void	empty_string_case(char *split, t_list *list, t_token *token);
 char	*clean_line(char *line);
 int		ft_strchr2(char *str1, char *str2);
 int		check_valid_dollar(char *split);
+int		len_list(l_split *split);
+
+// ------------------------SPLIT MINISHELL----------------
+void	init_split(t_split_parse *split);
+void	append_to_list(t_split_parse *split, const char *content);
+void	flush_buffer(t_split_parse *split);
+void	add_char(t_split_parse *split, char c);
+void	handle_dollar_case(const char *s, t_split_parse *split);
+void	handle_quote_case(const char *s, t_split_parse *split);
+
+// ------------------------ERROR CASE---------------------
+void	error_parsing(char *line, t_list *list, t_exec *exec, l_split *split);
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // ________________________UTILS_________________________
@@ -221,7 +276,6 @@ void	free_list(t_list *liste);
 t_exec 	*init_exec(char **envp);
 t_cmd 	*init_cmd(t_list *list, t_exec *exec);
 
-// ------------------------ERROR CASE---------------------
-void	error_parsing(char *line, t_list *list, t_exec *exec, char **split);
+
 
 #endif

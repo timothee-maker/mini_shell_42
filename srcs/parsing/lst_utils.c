@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:13:08 by tnolent           #+#    #+#             */
-/*   Updated: 2025/05/14 17:53:33 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/16 13:29:01 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_list	*initialisation(void)
 	return (liste);
 }
 
-int		add_token(t_list *liste, char *arg, char *token, int index)
+int		add_token(t_list *liste, char *token, t_token *t_token)
 {
 	t_element	*nouveau;
 	t_element	*actuel;
@@ -34,9 +34,10 @@ int		add_token(t_list *liste, char *arg, char *token, int index)
 	if (!nouveau)
 		return (-1);
 	nouveau->next = NULL;
-	nouveau->arg = arg;
+	nouveau->arg = ft_strdup(t_token->new_str);
 	nouveau->token = token;
-	nouveau->position = index;
+	nouveau->position = t_token->position;
+	nouveau->is_in_quotes = 0;
 	if (liste->first == NULL)
 		liste->first = nouveau;
 	else
@@ -116,6 +117,7 @@ void	afficherliste(t_list *liste)
 		while (actuel != NULL)
 		{
 			printf("[%d]=[%s]-[%s] \n", actuel->position, actuel->arg, actuel->token);
+			// printf("is in quote = [%d]\n", actuel->is_in_quotes);
 			actuel = actuel->next;
 		}
 		liste = liste->next_list;

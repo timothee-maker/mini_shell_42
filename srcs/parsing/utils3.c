@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-void	error_parsing(char *line, t_list *list, t_exec *exec, char **split)
+void	error_parsing(char *line, t_list *list, t_exec *exec, l_split *split)
 {
 	if (line)
 		free(line);

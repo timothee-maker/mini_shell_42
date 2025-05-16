@@ -6,23 +6,24 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 15:17:16 by tnolent           #+#    #+#             */
-/*   Updated: 2025/05/14 11:51:49 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/16 11:52:55 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		start_parse(char **split)
+int		start_parse(l_split *split)
 {
 	int	i;
 	int	len_split;
 	
-	len_split = len_tab(split);
+	len_split = len_list(split);
 	i = 0;
-	while (split[i])
+	while (split)
 	{
-		if (!syntax_error(split[i], len_split, i + 1))
+		if (!syntax_error(split->str, len_split, i + 1))
 			return(0);
+		split = split->next;
 		i++;
 	}
 	return (1);
