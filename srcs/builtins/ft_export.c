@@ -6,14 +6,11 @@ static t_env *get_var(t_exec *exec, char *name)
     t_env *res;
     
     var = exec->env;
-    while(var)
+    while(var->next != NULL)
     {
         if (!ft_strncmp(var->name, name, ft_strlen(name) + ft_strlen(var->name)))
             return (var);
-        if (var->next != NULL)
-            var = var->next;
-        else
-            break;
+        var = var->next;
     }
     res = malloc(sizeof(t_env));
     res->name = NULL;
@@ -105,7 +102,8 @@ int ft_export(t_exec *exec, t_cmd *cmd)
         value = get_var_value(cmd->args[1]);
         var = get_var(exec, name);
         var->name = ft_strdup(name);
-        var->value = ft_strdup(value);
+        if (value)
+            var->value = ft_strdup(value);
         free(name);
         free(value);
     }

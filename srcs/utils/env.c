@@ -88,7 +88,7 @@ char	*get_var_name(char *str)
 
 char	*get_var_value(char *str)
 {
-	while (*str != '=')
+	while (*str != '=' && *str != '\0')
 		str++;
 	str++;
 	return (no_quotes(str));

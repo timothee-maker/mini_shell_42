@@ -30,10 +30,15 @@ char **custom_env(t_exec *exec)
     {
         temp = NULL;
         name = ft_strdup(var->name);
-        temp = ft_custom_join(name, "=\"");
+        if (var->value)
+        {
+            temp = ft_custom_join(name, "=\"");
+            temp = ft_custom_join(temp, var->value);
+            temp = ft_custom_join(temp, "\"");
+        }
+        else
+            temp = ft_strdup(name);
         free(name);
-        temp = ft_custom_join(temp, var->value);
-        temp = ft_custom_join(temp, "\"");
         res[i] = temp;
         free(temp);
         i++;

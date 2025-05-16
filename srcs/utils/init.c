@@ -77,7 +77,6 @@ t_cmd *assign_cmd(t_list *list, t_exec *exec)
     t_cmd *res;
 
     res = init_cmd(list, exec);
-    printf("commands: %s\n", res->name);
     elem = list->first;
     while(elem)
     {

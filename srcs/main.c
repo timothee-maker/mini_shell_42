@@ -43,8 +43,8 @@ void	minishell(t_exec *exec)
 			liste = initialisation();
 			good = parsing(input, liste, exec);
 			afficherliste(liste);
-			// if (good == 1)
-			// 	exec_line(exec, liste);
+			if (good == 1)
+			    exec_line(exec, liste);
 			free_list(liste);
 		}
 	}

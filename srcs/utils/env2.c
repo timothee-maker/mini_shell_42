@@ -77,7 +77,7 @@ char **str_env(t_exec *exec)
     while(var)
     {
         temp = NULL;
-        temp = ft_custom_join(var->name, "=");
+        temp = ft_strjoin(var->name, "=");
         temp = ft_custom_join(temp, var->value);
         res[i] = temp;
         i++;

@@ -50,7 +50,9 @@ void get_infile(char *filename, t_cmd *cmd)
 {
     int         fd;
     
-    fd = open(filename, O_RDWR | O_TRUNC, 0777);
+    if (cmd->input != -1)
+        close(cmd->input);
+    fd = open(filename, O_RDONLY);
     if (fd == -1)
     {
         perror("Error opening infile");
@@ -67,7 +69,7 @@ void get_outfile(char *filename, t_cmd *cmd)
     if (cmd->output != -1 && last_fd != NULL)
         unlink(last_fd);
     last_fd = filename;
-    fd = open(filename, O_RDWR | O_TRUNC | O_CREAT, 0777);
+    fd = open(filename, O_WRONLY | O_TRUNC | O_CREAT, 0666);
     if (fd == -1)
     {
         perror("Error opening outfile");
