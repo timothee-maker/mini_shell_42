@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 16:19:39 by tnolent           #+#    #+#             */
-/*   Updated: 2025/05/16 11:50:44 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/16 15:29:11 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,10 @@ int	find_files_redir(t_list *list, char *split, t_token *token)
 		return (redir = IN, 1);
 	else if (ft_strchr(split, '>') && ft_strlen(split) == 1)
 		return (redir = OUT, 1);
-	else if (access(token->new_str, F_OK) == 0 && access(token->new_str, X_OK) != 0)
-		return (find_file(list, redir, token), redir = NORMAL, 1);
+	// else if (access(token->new_str, F_OK) == 0 && access(token->new_str, X_OK) != 0)
+	// 	return (find_file(list, redir, token), redir = NORMAL, 1);
+	else if (redir == IN || redir == OUT || redir == OUT_APPEND)
+	    return (find_file(list, redir, token), redir = NORMAL, 1);
 	else if (redir == HERE_DOC)
 		return (add_token(list, "DELIMITER", token),
 			redir = NORMAL, 1);
