@@ -56,8 +56,9 @@ t_cmd *init_cmd(t_list *list, t_exec *exec)
 			res->name = get_cmd_name(elem->arg);
 			res->path = find_path(res->name, exec);
 		}
-        else if (!ft_strncmp(elem->token, "BUILTIN", ft_strlen(elem->token)))
+        else if (!ft_strncmp(elem->token, "BUILTIN", ft_strlen(elem->token)) && first)
         {
+            first = 0;
             res->is_builtin = 1;
             res->name = ft_strdup(elem->arg);
         }
