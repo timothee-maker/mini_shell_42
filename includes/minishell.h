@@ -221,17 +221,6 @@ void	error_parsing(char *line, t_list *list, t_exec *exec, l_split *split);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 // ________________________UTILS_________________________
 
 // ------------------------ARGS--------------------------
@@ -240,6 +229,7 @@ int		is_sep(char c, char sep);
 int		is_in_quotes(int position, char *str);
 void    get_infile(char *filename, t_cmd *cmd);
 void    get_outfile(char *filename, t_cmd *cmd);
+void    get_outfile_append(char *filename, t_cmd *cmd);
 
 void    child_process(t_cmd *cmd, int pipe[2], t_exec *exec);
 void    parent_process(t_cmd *cmd, int pipe[2]);

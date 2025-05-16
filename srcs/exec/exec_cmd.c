@@ -64,7 +64,8 @@ int exec_cmd(t_exec *exec, t_cmd *cmd)
     {
         if (cmd->name)
         {
-            printf("Command not found: %s\n", cmd->name);
+            ft_putstr_fd("Command not found: ", 2);
+            ft_putendl_fd(cmd->name, 2);
             return (2);
         }
         else

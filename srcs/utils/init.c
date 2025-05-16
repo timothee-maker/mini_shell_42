@@ -95,6 +95,8 @@ t_cmd *assign_cmd(t_list *list, t_exec *exec)
             get_infile(elem->arg, res);
         else if (!ft_strncmp(elem->token, "OUTFILE", ft_strlen(elem->token)))
             get_outfile(elem->arg, res);
+        else if (!ft_strcmp(elem->token, "OUTFILE-APPEND"))
+            get_outfile_append(elem->arg, res);
         elem = elem->next;
     }
     fill_args(list, exec, res);

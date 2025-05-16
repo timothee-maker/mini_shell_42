@@ -18,6 +18,7 @@ static t_env *get_var(t_exec *exec, char *name)
     res->next = NULL;
     res->exported = 1;
     var->next = res;
+    printf("var->next = %p\n", var->next);
     return (res);
 }
 
@@ -104,6 +105,7 @@ int ft_export(t_exec *exec, t_cmd *cmd)
         var->name = ft_strdup(name);
         if (value)
             var->value = ft_strdup(value);
+        printf("export %s\n", var->name);
         free(name);
         free(value);
     }

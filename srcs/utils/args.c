@@ -77,3 +77,20 @@ void get_outfile(char *filename, t_cmd *cmd)
     }
     cmd->output = fd;
 }
+
+void get_outfile_append(char *filename, t_cmd *cmd)
+{
+    static char *last_fd = NULL;
+    int         fd;
+    
+    if (cmd->output != -1 && last_fd != NULL)
+        unlink(last_fd);
+    last_fd = filename;
+    fd = open(filename, O_WRONLY | O_APPEND | O_CREAT, 0666);
+    if (fd == -1)
+    {
+        perror("Error opening outfile");
+        return;
+    }
+    cmd->output = fd;
+}
