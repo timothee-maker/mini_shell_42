@@ -61,8 +61,12 @@ void get_infile(char *filename, t_cmd *cmd)
 
 void get_outfile(char *filename, t_cmd *cmd)
 {
+    static char *last_fd = NULL;
     int         fd;
     
+    if (cmd->output != -1 && last_fd != NULL)
+        unlink(last_fd);
+    last_fd = filename;
     fd = open(filename, O_RDWR | O_TRUNC | O_CREAT, 0777);
     if (fd == -1)
     {

@@ -73,13 +73,14 @@ static int no_args(t_exec *exec)
     int i;
 
     i = 0;
-    tab = str_env(exec);
+    tab = custom_env(exec);
     sort_tab(tab, len_tab(tab));
     while(tab[i])
     {
         printf("export %s\n", tab[i]);
         i++;
     }
+    free_tab(tab);
     return (0);
 }
 

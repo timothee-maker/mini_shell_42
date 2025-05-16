@@ -37,6 +37,7 @@ char *find_path(char *name, t_exec *exec)
         temp = ft_custom_join(temp, name);
         if (access(temp, X_OK) == 0)
         {
+            free(path);
             free_tab(path_tab);
             return (temp);
         }
@@ -44,5 +45,6 @@ char *find_path(char *name, t_exec *exec)
         i++;
     }
     free_tab(path_tab);
+    free(path);
     return (NULL);
 }

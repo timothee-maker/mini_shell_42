@@ -50,10 +50,9 @@ t_cmd *init_cmd(t_list *list, t_exec *exec)
     first = 1;
 	while (elem)
 	{
-        if (!ft_strcmp(elem->token, "ARG") || !ft_strcmp(elem->token, "ENV"))
-            first = 0;
-		else if (!ft_strncmp(elem->token, "CMD", ft_strlen(elem->token)) && elem == list->first)
+		if (!ft_strncmp(elem->token, "CMD", ft_strlen(elem->token)) && first)
 		{
+            first = 0;
 			res->name = get_cmd_name(elem->arg);
 			res->path = find_path(res->name, exec);
 		}
@@ -62,8 +61,11 @@ t_cmd *init_cmd(t_list *list, t_exec *exec)
             res->is_builtin = 1;
             res->name = ft_strdup(elem->arg);
         }
-        else if (res->name == NULL)
+        else if (res->name == NULL && first)
+        {
+            first = 0;
             res->name = get_first_arg(list);
+        }
 		elem = elem->next;
 	}
 	return (res);
