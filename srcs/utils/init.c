@@ -41,6 +41,7 @@ t_cmd *init_cmd(t_list *list, t_exec *exec)
 	res->is_builtin = 0;
     res->input = -1;
     res->output = -1;
+    res->pid = 0;
     res->path = NULL;
     res->name = NULL;
     res->args = NULL;

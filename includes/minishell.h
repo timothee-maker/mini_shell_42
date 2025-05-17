@@ -143,8 +143,6 @@ int     base_case(t_env *var, char **args);
 int     update_currpwd(t_env *var, char *path);
 int     update_oldpwd(t_env *var);
 void    global_exit(t_exec *exec);
-char    **custom_env(t_exec *exec);
-
 
 // ________________________EXEC__________________________
 
@@ -184,7 +182,6 @@ int 	join_path(char **path, t_list *list, t_token *token);
 // ----------------------LIST UTILS----------------------
 t_list	*initialisation(void);
 void	afficherliste(t_list *liste);
-// int		add_token(t_list *liste, char *arg, char *token, int index);
 int		add_token(t_list *liste, char *token, t_token *t_token);
 void	insertion_list(t_list *liste);
 
@@ -193,7 +190,6 @@ int		start_parse(l_split *split);
 int		syntax_error(char *split, int len_split, int position);
 int	    parse_one_case(char *split);
 char	*chr_str(char *str, char *to_find);
-// char	**ft_split_minishell(char const *s, char c);
 l_split *ft_split_list_minishell(const char *s, char sep);
 
 // -------------------------UTILS------------------------
@@ -262,10 +258,12 @@ void    free_env(t_env *env);
 void    ft_free_cmd(t_cmd *cmd);
 void    free_exec(t_exec *exec);
 void	free_list(t_list *liste);
+
 // ------------------------INIT--------------------------
 t_exec 	*init_exec(char **envp);
 t_cmd 	*init_cmd(t_list *list, t_exec *exec);
 
-
+// ------------------------LIST--------------------------
+void add_end_env(t_env *env, t_env *var);
 
 #endif

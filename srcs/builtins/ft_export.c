@@ -1,5 +1,29 @@
 #include "../../includes/minishell.h"
 
+static t_env *get_var(t_exec *exec, char *name)
+{
+    t_env *var;
+    t_env *res;
+    
+    var = exec->env;
+    while(var)
+    {
+        if (!ft_strncmp(var->name, name, ft_strlen(name) + ft_strlen(var->name)))
+            return (var);
+        if (var->next != NULL)
+            var = var->next;
+        else
+            break;
+    }
+    res = malloc(sizeof(t_env));
+    res->name = NULL;
+    res->value = NULL;
+    res->next = NULL;
+    res->exported = 1;
+    var->next = res;
+    return (res);
+}
+
 static int	valid_identifier(char *str)
 {
 	int	i;
@@ -16,39 +40,73 @@ static int	valid_identifier(char *str)
 	return (1);
 }
 
-static t_env *get_variable(char *name, t_env *env)
+static void	sort_tab(char **tab, int len)
 {
-    t_env *current;
-    char *dup;
+	int	i;
+	int	j;
+	int	diff;
+    char *temp;
 
-    current = env;
-    while (current)
+	i = 0;
+	while (i < len)
+	{
+		j = i + 1;
+		while (j < len)
+		{
+			diff = ft_strncmp(tab[i], tab[j], INT_MAX);
+			if (diff > 0)
+			{
+				temp = tab[i];
+	            tab[i] = tab[j];
+	            tab[j] = temp;
+				continue ;
+			}
+			j++;
+		}
+	i++;
+	}
+}
+
+static int no_args(t_exec *exec)
+{
+    char **tab;
+    int i;
+
+    i = 0;
+    tab = str_env(exec);
+    sort_tab(tab, len_tab(tab));
+    while(tab[i])
     {
-        dup = get_var_name(current->name);
-        if (!ft_strcmp(name, dup))
-        {
-            free(dup);
-            return (current);
-        }
-        free(dup);
-        current = current->next;
+        printf("export %s\n", tab[i]);
+        i++;
     }
-    return (NULL);
+    return (0);
 }
 
 int ft_export(t_exec *exec, t_cmd *cmd)
 {
-    t_env *var;
+    char    *name;
+    char    *value;
+    t_env   *var;
 
     if (cmd->args[1] == NULL)
-        return (0); // launch no args function
-    else if (!valid_identifier(cmd->args[1]))
-        ft_putstr_fd("export: invalid identifier\n", 2);
+    {
+        return(no_args(exec));
+    }
     else
     {
-        var = get_variable(cmd->args[1], exec->env);
-        if (!var)
-            return (0); // init new env
-        var->value = get_var_value(cmd->args[1]);
+        name = get_var_name(cmd->args[1]);
+        if (valid_identifier(name) == 0)
+        {
+            printf("export: \'%s\': not a valid identifier\n", cmd->args[1]);
+            return (2);
+        }
+        value = get_var_value(cmd->args[1]);
+        var = get_var(exec, name);
+        var->name = ft_strdup(name);
+        var->value = ft_strdup(value);
+        free(name);
+        free(value);
     }
+    return (0);
 }
