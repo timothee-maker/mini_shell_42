@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-t_cmd *first_cmd_init()
+t_cmd *first_cmd_init(void)
 {
     t_cmd *res;
 

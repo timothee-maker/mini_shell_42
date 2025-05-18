@@ -265,7 +265,7 @@ void	free_list(t_list *liste);
 // ------------------------INIT--------------------------
 t_exec 	*init_exec(char **envp);
 t_cmd 	*init_cmd(t_list *list, t_exec *exec);
-t_cmd   *first_cmd_init();
+t_cmd   *first_cmd_init(void);
 void    compare_cmd_tokens(t_cmd *res, t_element *elem, t_exec *exec, t_list *list);
 int    assign_loop(t_element *elem, t_list *list, t_exec *exec, t_cmd *res);
 
