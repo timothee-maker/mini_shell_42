@@ -265,6 +265,9 @@ void	free_list(t_list *liste);
 // ------------------------INIT--------------------------
 t_exec 	*init_exec(char **envp);
 t_cmd 	*init_cmd(t_list *list, t_exec *exec);
+t_cmd   *first_cmd_init();
+void    compare_cmd_tokens(t_cmd *res, t_element *elem, t_exec *exec, t_list *list);
+int    assign_loop(t_element *elem, t_list *list, t_exec *exec, t_cmd *res);
 
 // ------------------------LIST--------------------------
 void add_end_env(t_env *env, t_env *var);

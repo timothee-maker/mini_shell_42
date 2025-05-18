@@ -1,4 +1,16 @@
 #include "minishell.h"
+static void wait_loop(t_exec *exec)
+{
+    t_cmd *cmd;
+
+    cmd = exec->cmd;
+    while(cmd)
+    {
+        if (cmd->pid != 0)
+            wait_status(exec, cmd);
+        cmd = cmd->next;
+    }
+}
 
 void exec_line(t_exec *exec, t_list *list)
 {
@@ -22,13 +34,7 @@ void exec_line(t_exec *exec, t_list *list)
             ft_fork(exec, cmd);
         cmd = cmd->next;
     }
-    cmd = exec->cmd;
-    while(cmd)
-    {
-        if (cmd->pid != 0)
-            wait_status(exec, cmd);
-        cmd = cmd->next;
-    }
+    wait_loop(exec);
     ft_free_cmd(exec->cmd);
     exec->cmd = NULL;
 }
