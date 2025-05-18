@@ -96,12 +96,20 @@ int ft_export(t_exec *exec, t_cmd *cmd)
     else
     {
         name = get_var_name(cmd->args[1]);
+        value = get_var_value(cmd->args[1]);
+        if (name == NULL || value == NULL)
+        {
+            if (name)
+                free(name);
+            if (value)
+                free(value);
+            return (0);
+        }
         if (valid_identifier(name) == 0)
         {
             printf("export: \'%s\': not a valid identifier\n", cmd->args[1]);
             return (2);
         }
-        value = get_var_value(cmd->args[1]);
         var = get_var(exec, name);
         var->name = ft_strdup(name);
         var->value = ft_strdup(value);

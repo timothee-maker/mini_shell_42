@@ -132,7 +132,7 @@ typedef struct s_exec
 int     ft_cd(t_exec *exec, t_cmd *cmd);
 int     ft_echo(t_cmd *cmd);
 int     ft_env(t_exec *exec);
-int     ft_exit(t_cmd *cmd);
+int     ft_exit(t_cmd *cmd, t_exec *exec);
 int     ft_export(t_exec *exec, t_cmd *cmd);
 int     ft_pwd(t_cmd *cmd);
 int     ft_unset(t_exec *exec, t_cmd *cmd);
@@ -154,6 +154,9 @@ char    *get_first_arg(t_list *list);
 t_cmd   *assign_cmd(t_list *list, t_exec *exec);
 void    add_command(t_exec *exec, t_cmd *cmd);
 void    wait_status(t_exec *exec, t_cmd *cmd);
+int     is_single_builtin(t_cmd *cmd);
+void    exec_single_builtin(t_cmd *cmd, t_exec *exec);
+
 
 // ------------------------FORK--------------------------
 char    **create_args(t_exec *exec);

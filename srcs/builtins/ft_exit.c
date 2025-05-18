@@ -1,6 +1,6 @@
 #include "../../includes/minishell.h"
 
-int ft_exit(t_cmd *cmd)
+int ft_exit(t_cmd *cmd, t_exec *exec)
 {
     int status;
 
@@ -19,7 +19,9 @@ int ft_exit(t_cmd *cmd)
             return (-1);
         }
     }
-    exit((unsigned char) status);
+    exec->exit_status = (unsigned char) status;
+    global_exit(exec);
+    return (1);
 }
 
 void global_exit(t_exec *exec)

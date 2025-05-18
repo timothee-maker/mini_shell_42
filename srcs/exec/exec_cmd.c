@@ -16,13 +16,17 @@ void exec_line(t_exec *exec, t_list *list)
     {
         if (pipe(exec->pipe) == -1)
 			return (perror("Pipe error"));
-        ft_fork(exec, cmd);
+        if (is_single_builtin(cmd))
+            exec_single_builtin(cmd, exec);
+        else
+            ft_fork(exec, cmd);
         cmd = cmd->next;
     }
     cmd = exec->cmd;
     while(cmd)
     {
-        wait_status(exec, cmd);
+        if (cmd->pid != 0)
+            wait_status(exec, cmd);
         cmd = cmd->next;
     }
     ft_free_cmd(exec->cmd);
@@ -88,7 +92,7 @@ int exec_builtin(t_exec *ex, t_cmd *cmd)
     else if (!ft_strncmp(cmd->name, "env", ft_strlen(cmd->name)))
         return (ft_env(ex));
     else if (!ft_strncmp(cmd->name, "exit", ft_strlen(cmd->name)))
-        return (ft_exit(cmd));
+        return (ft_exit(cmd, ex));
     else if (!ft_strncmp(cmd->name, "export", ft_strlen(cmd->name)))
         return (ft_export(ex, cmd));
     else if (!ft_strncmp(cmd->name, "pwd", ft_strlen(cmd->name)))

@@ -16,10 +16,11 @@ int ft_unset(t_exec *exec, t_cmd *cmd)
     prev = NULL;
     while(var)
     {
-        if (!ft_strncmp(var->name, var_name, ft_strlen(var_name)))
+        if (!ft_strcmp(var->name, var_name))
         {
             free(var->name);
-            free(var->value);
+            if (var->value)
+                free(var->value);
             if (prev != NULL)
                 prev->next = var->next;
             free(var);
