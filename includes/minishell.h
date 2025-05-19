@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/16 13:28:36 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/16 16:26:20 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,6 @@ typedef struct s_element
 	struct s_element	*next;
 }	t_element;
 
-
-
 typedef struct s_list
 {
 	t_element		*first;
@@ -87,6 +85,7 @@ typedef struct s_token
     char        *split;
 	int		    index;
 	int		    position;
+	int			redir;
 }	t_token;
 
 typedef struct s_env

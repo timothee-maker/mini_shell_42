@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 16:19:39 by tnolent           #+#    #+#             */
-/*   Updated: 2025/05/16 15:29:11 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/16 16:30:05 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,29 +60,27 @@ int	find_files_redir(t_list *list, char *split, t_token *token)
 {
 	static int	redir;
 
-	if (token->position == 0)
+	if (token->position == 0 || token->redir == 0)
 		redir = 0;
 	if (ft_strncmp(">>", split, 2) == 0)
-		return (redir = OUT_APPEND, 1);
+		return (redir = OUT_APPEND, token->redir = 1, 1);
 	else if (ft_strncmp("<<", split, 2) == 0)
-		return (redir = HERE_DOC, find_file(list, redir, token), 1);
+		return (redir = HERE_DOC, token->redir = 1, find_file(list, redir, token), 1);
 	else if (ft_strchr(split, '<') && ft_strlen(split) == 1)
-		return (redir = IN, 1);
+		return (redir = IN, token->redir = 1, 1);
 	else if (ft_strchr(split, '>') && ft_strlen(split) == 1)
-		return (redir = OUT, 1);
-	// else if (access(token->new_str, F_OK) == 0 && access(token->new_str, X_OK) != 0)
-	// 	return (find_file(list, redir, token), redir = NORMAL, 1);
+		return (redir = OUT, token->redir = 1, 1);
 	else if (redir == IN || redir == OUT || redir == OUT_APPEND)
-	    return (find_file(list, redir, token), redir = NORMAL, 1);
+	    return (find_file(list, redir, token), redir = NORMAL, token->redir = 1, 1);
 	else if (redir == HERE_DOC)
 		return (add_token(list, "DELIMITER", token),
-			redir = NORMAL, 1);
+			redir = NORMAL, token->redir = 1, 1);
 	else if (redir == OUT_APPEND)
 		return (add_token(list, "OUTFILE-APPEND", token),
-			redir = NORMAL, 1);
+			redir = NORMAL, token->redir = 1, 1);
 	else if (redir == OUT)
 		return (add_token(list, "OUTFILE", token),
-			redir = NORMAL, 1);
+			redir = NORMAL, token->redir = 1, 1);
 	else
 		return (redir = NORMAL, 0);
 }

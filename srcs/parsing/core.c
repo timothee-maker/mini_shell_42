@@ -1,10 +1,10 @@
 #include "minishell.h"
 
-int			find_token(l_split *split, t_list *current, t_token *token);
+int	handle_token(l_split *split, t_list *current, t_token *token);
 
 int	parsing(char *line, t_list *list, t_exec *exec)
 {
-	l_split		*split;
+	l_split	*split;
 
 	split = NULL;
 	add_history(line);
@@ -33,6 +33,7 @@ int	analyze_line(l_split *split, t_list *list)
 	current_split = split;
 	current = list;
 	token.position = 0;
+	token.redir = 0;
 	while (current_split)
 	{
 		token.new_str = remove_quotes_around(current_split->str);
@@ -45,9 +46,10 @@ int	analyze_line(l_split *split, t_list *list)
 			token.new_str = remove_quotes_around(current_split->str);
 			current_split = current_split->next;
 			token.position = 0;
-			continue;
+			token.redir = 0;
+			continue ;
 		}
-		if (!find_token(current_split, current, &token))
+		if (!handle_token(current_split, current, &token))
 			return (free(token.new_str), 0);
 		free(token.new_str);
 		token.position++;
@@ -56,14 +58,15 @@ int	analyze_line(l_split *split, t_list *list)
 	return (1);
 }
 
-int	find_token(l_split *split, t_list *current, t_token *token)
+// int	handle_pipe(l_split *split)
+
+int	handle_token(l_split *split, t_list *current, t_token *token)
 {
 	int	is_good;
 
 	if (!(is_good = find_builtin(current, token)))
 	{
-		if (!(is_good = find_files_redir(current, split->str, 
-			token)))
+		if (!(is_good = find_files_redir(current, split->str, token)))
 		{
 			is_good = find_cmd(current, split->str, token);
 		}

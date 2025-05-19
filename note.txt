@@ -8,3 +8,6 @@ refaire export (segfault)
 
 <Makefile cat | echo bonsoir | >ls
 > | echo bonsoir
+
+to do : 
+norminette find list - fontion qui prend le redir et le reste
