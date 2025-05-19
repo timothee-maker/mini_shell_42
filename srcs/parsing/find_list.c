@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 16:19:39 by tnolent           #+#    #+#             */
-/*   Updated: 2025/05/19 13:22:12 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/19 14:48:18 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,13 @@ int	find_files_redir(t_list *list, t_token *token)
 	if (ft_strncmp(">>", token->split->str, 2) == 0)
 		return (redir = OUT_APPEND, token->redir = 1, 1);
 	else if (ft_strncmp("<<", token->split->str, 2) == 0)
-		return (redir = HERE_DOC, token->redir = 1, find_file(list, redir, token), 1);
-	else if (ft_strchr(token->split->str, '<') && ft_strlen(token->split->str) == 1)
+		return (redir = 4, token->redir = 1, find_file(list, redir, token), 1);
+	else if (token->split->str[0] == '<')
 		return (redir = IN, token->redir = 1, 1);
-	else if (ft_strchr(token->split->str, '>') && ft_strlen(token->split->str) == 1)
+	else if (token->split->str[0] == '>')
 		return (redir = OUT, token->redir = 1, 1);
 	else if (redir == IN || redir == OUT || redir == OUT_APPEND)
-	    return (find_file(list, redir, token), redir = NORMAL, token->redir = 1, 1);
+		return (find_file(list, redir, token), redir = 0, token->redir = 1, 1);
 	else if (redir == HERE_DOC)
 		return (add_token(list, "DELIMITER", token),
 			redir = NORMAL, token->redir = 1, 1);

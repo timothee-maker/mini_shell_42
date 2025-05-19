@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 13:35:03 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/19 13:20:51 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/19 16:08:47 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,10 @@ l_split	*ft_split_list_minishell(const char *s, char sep)
 		if (ft_strchr(QUOTES, s[split.i]))
 			handle_quote_case(s, &split);
 		else if (s[split.i] == '$' && (!split.tmp || split.tmp == '\"'))
-		{
 			handle_dollar_case(s, &split);
-		}
 		else if (!is_sep(s[split.i], sep))
 		{
-			while (s[split.i] && !is_sep(s[split.i], sep))
-			{
-				if (ft_strchr(QUOTES, s[split.i]))
-					handle_quote_case(s, &split);
-				else if (s[split.i] == '$' && (!split.tmp || split.tmp == '\"'))
-					handle_dollar_case(s, &split);
-				else
-					add_char(&split, s[split.i++]);
-			}
+			fill_list(&split, s, sep);
 			flush_buffer(&split);
 		}
 		else
@@ -49,7 +39,10 @@ void	add_char(t_split_parse *split, char c)
 	int		len;
 	char	*new_buf;
 
-	len = split->buffer ? ft_strlen(split->buffer) : 0;
+	if (split->buffer)
+		len = ft_strlen(split->buffer);
+	else
+		len = 0;
 	new_buf = malloc(len + 2);
 	if (!new_buf)
 		return ;

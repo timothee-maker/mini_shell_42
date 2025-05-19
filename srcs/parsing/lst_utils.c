@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:13:08 by tnolent           #+#    #+#             */
-/*   Updated: 2025/05/19 12:53:28 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/19 15:53:00 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_list	*initialisation(void)
 	return (liste);
 }
 
-int		add_token(t_list *liste, char *token, t_token *t_token)
+int	add_token(t_list *liste, char *token, t_token *t_token)
 {
 	t_element	*nouveau;
 	t_element	*actuel;
@@ -45,7 +45,7 @@ int		add_token(t_list *liste, char *token, t_token *t_token)
 		actuel = liste->first;
 		while (actuel->next != NULL)
 			actuel = actuel->next;
-		actuel->next = nouveau;	
+		actuel->next = nouveau;
 	}
 	return (1);
 }
@@ -71,7 +71,7 @@ void	insertion_list(t_list *liste)
 		current = liste->next_list;
 		while (current->next_list != NULL)
 			current = current->next_list;
-		current->next_list = new_list;	
+		current->next_list = new_list;
 	}
 }
 
@@ -83,14 +83,14 @@ void	free_list(t_list *liste)
 	if (liste == NULL)
 		exit(EXIT_FAILURE);
 	while (liste != NULL)
-	{		
+	{
 		while (liste->first != NULL)
 		{
 			if (liste->first->arg != NULL)
-            {
-			   free(liste->first->arg);
-               liste->first->arg = NULL;
-            }
+			{
+				free(liste->first->arg);
+				liste->first->arg = NULL;
+			}
 			asupprimer = liste->first;
 			liste->first = liste->first->next;
 			free(asupprimer);
@@ -99,7 +99,7 @@ void	free_list(t_list *liste)
 		liste = liste->next_list;
 		free(lst_asupprimer);
 	}
-    free(liste);
+	free(liste);
 }
 
 void	afficherliste(t_list *liste)
@@ -111,13 +111,13 @@ void	afficherliste(t_list *liste)
 		exit(0);
 	i = 0;
 	while (liste != NULL)
-	{		
+	{
 		actuel = liste->first;
 		printf("liste [%d]\n", i++);
 		while (actuel != NULL)
 		{
-			printf("[%d]=[%s]-[%s] \n", actuel->position, actuel->arg, actuel->token);
-			// printf("is in quote = [%d]\n", actuel->is_in_quotes);
+			printf("[%d]=[%s]-[%s] \n", actuel->position, actuel->arg,
+				actuel->token);
 			actuel = actuel->next;
 		}
 		liste = liste->next_list;

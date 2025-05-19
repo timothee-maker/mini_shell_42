@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils3.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/19 15:31:59 by tnolent           #+#    #+#             */
+/*   Updated: 2025/05/19 15:54:15 by tnolent          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minishell.h"
 
 void	error_parsing(char *line, t_list *list, t_exec *exec, l_split *split)
@@ -33,7 +45,7 @@ char	*chr_str(char *str, char *to_find)
 	return (NULL);
 }
 
-int		is_in_quotes(int position, char *str)
+int	is_in_quotes(int position, char *str)
 {
 	int		i;
 	char	tmp;
@@ -55,3 +67,17 @@ int		is_in_quotes(int position, char *str)
 	return (0);
 }
 
+int	valid_quote(char *split)
+{
+	char	tmp;
+	int		len;
+
+	len = ft_strlen(split) - 1;
+	if (strchr(QUOTES, split[0]))
+		tmp = split[0];
+	else
+		return (1);
+	if (split[len] == tmp && len != tmp)
+		return (1);
+	return (0);
+}

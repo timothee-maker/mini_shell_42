@@ -6,16 +6,18 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 11:52:42 by tnolent           #+#    #+#             */
-/*   Updated: 2025/05/16 13:59:10 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/19 15:53:53 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static int	sep_delimiter(int i, int j, char *new_line, char *line);
+
 void	free_split(l_split *split)
 {
-	l_split *current_split;
-	l_split *next;
+	l_split	*current_split;
+	l_split	*next;
 
 	current_split = split;
 	while (current_split)
@@ -38,6 +40,12 @@ char	*clean_line(char *line)
 		return (NULL);
 	i = 0;
 	j = 0;
+	j = sep_delimiter(i, j, new_line, line);
+	return (new_line[j] = '\0', new_line);
+}
+
+static int	sep_delimiter(int i, int j, char *new_line, char *line)
+{
 	while (line[i])
 	{
 		if (ft_strchr(DELIMITER, line[i]))
@@ -54,7 +62,7 @@ char	*clean_line(char *line)
 			new_line[j++] = line[i];
 		i++;
 	}
-	return (new_line[j] = '\0', new_line);
+	return (j);
 }
 
 int	len_tab(char **split)
@@ -66,6 +74,7 @@ int	len_tab(char **split)
 		i++;
 	return (i);
 }
+
 int	len_list(l_split *split)
 {
 	int	i;
@@ -77,19 +86,4 @@ int	len_list(l_split *split)
 		split = split->next;
 	}
 	return (i);
-}
-
-int	valid_quote(char *split)
-{
-	char	tmp;
-	int		len;
-
-	len = ft_strlen(split) - 1;
-	if (strchr(QUOTES, split[0]))
-		tmp = split[0];
-	else
-		return (1);
-	if (split[len] == tmp && len != tmp)
-		return (1);
-	return (0);
 }

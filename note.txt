@@ -14,3 +14,5 @@ norminette find list - fontion qui prend le redir et le reste
 Comande test : 
  "e""c""h""o " "$PWD"$PWD'$PWD'
  
+// while (split){printf("[%s][env = %d]", split->str,
+// split->env_context);split = split->next;}
