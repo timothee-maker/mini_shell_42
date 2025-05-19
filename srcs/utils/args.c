@@ -33,14 +33,17 @@ void fill_args(t_list *list, t_exec *exec, t_cmd *cmd)
     elem = list->first;
     while (elem)
     {
-        temp = ft_strdup(elem->arg);
+        temp = NULL;
+        if (elem->arg)
+            temp = ft_strdup(elem->arg);
         if (!ft_strcmp(elem->token, "ARG") || !ft_strcmp(elem->token, "ENV"))
         {
             ft_putstr_fd(temp, exec->infile);
             write(exec->infile, &sep, 1);
         }
         elem = elem->next;
-        free(temp);
+        if (temp)
+            free(temp);
     }
     close(exec->infile);
     exec->infile = open(exec->infile_path, O_RDWR | O_CREAT, 0777);
