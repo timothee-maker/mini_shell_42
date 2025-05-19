@@ -10,3 +10,7 @@ mettre a la norme
 
 to do : 
 norminette find list - fontion qui prend le redir et le reste
+
+Comande test : 
+ "e""c""h""o " "$PWD"$PWD'$PWD'
+ 

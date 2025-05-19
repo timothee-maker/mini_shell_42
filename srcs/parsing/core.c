@@ -1,6 +1,6 @@
 #include "minishell.h"
 
-int	handle_token(l_split *split, t_list *current, t_token *token);
+int	handle_token(t_list *current, t_token *token);
 
 int	parsing(char *line, t_list *list, t_exec *exec)
 {
@@ -13,7 +13,7 @@ int	parsing(char *line, t_list *list, t_exec *exec)
 	split = ft_split_list_minishell(line, ' ');
 	if (!split)
 		error_parsing(line, list, exec, split);
-	// while (split){printf("[%s]", split->str);split = split->next;}
+	// while (split){printf("[%s][env = %d]", split->str, split->env_context);split = split->next;}
 	free(line);
 	line = NULL;
 	if (!start_parse(split))
@@ -36,39 +36,34 @@ int	analyze_line(l_split *split, t_list *list)
 	token.redir = 0;
 	while (current_split)
 	{
-		token.new_str = remove_quotes_around(current_split->str);
-		token.split = current_split->str;
-		if (ft_strchr(current_split->str, '|') && ft_strlen(token.new_str) == 1)
+		token.split = current_split;
+		if (ft_strchr(current_split->str, '|') && ft_strlen(token.split->str) == 1)
 		{
 			insertion_list(current);
 			current = current->next_list;
-			free(token.new_str);
-			token.new_str = remove_quotes_around(current_split->str);
 			current_split = current_split->next;
 			token.position = 0;
 			token.redir = 0;
 			continue ;
 		}
-		if (!handle_token(current_split, current, &token))
-			return (free(token.new_str), 0);
-		free(token.new_str);
+		if (!handle_token(current, &token))
+			return (0);
 		token.position++;
 		current_split = current_split->next;
 	}
 	return (1);
 }
 
-// int	handle_pipe(l_split *split)
 
-int	handle_token(l_split *split, t_list *current, t_token *token)
+int	handle_token(t_list *current, t_token *token)
 {
 	int	is_good;
 
 	if (!(is_good = find_builtin(current, token)))
 	{
-		if (!(is_good = find_files_redir(current, split->str, token)))
+		if (!(is_good = find_files_redir(current, token)))
 		{
-			is_good = find_cmd(current, split->str, token);
+			is_good = find_cmd(current, token);
 		}
 	}
 	if (is_good == -1)

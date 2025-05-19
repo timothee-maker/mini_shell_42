@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/16 16:26:20 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/19 12:53:21 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_split
 {
 	char			*str;
 	int				is_in_quotes;	
+	int				env_context;
 	struct s_split	*next;
 } l_split;
 
@@ -59,6 +60,7 @@ typedef struct s_split_parse
 	int		dollar;
 	char	*buffer;
 	int		is_in_quotes;
+	int		env_context;
 	l_split	*head;
 	l_split	*tail;
 }			t_split_parse;
@@ -68,7 +70,7 @@ typedef struct s_element
 	char				*arg;
 	char				*token;
 	int					position;
-    int                 is_in_quotes;
+    int                 env_context;
 	struct s_element	*next;
 }	t_element;
 
@@ -81,8 +83,7 @@ typedef struct s_list
 
 typedef struct s_token
 {
-	char	    *new_str;
-    char        *split;
+    l_split		*split;
 	int		    index;
 	int		    position;
 	int			redir;
@@ -176,8 +177,8 @@ int		analyze_line(l_split *split, t_list *list);
 
 // ----------------------FIND LIST-----------------------
 int	    find_builtin(t_list *list, t_token *token);
-int	    find_cmd(t_list *list, char *split, t_token *token);
-int 	find_files_redir(t_list *list, char *split, t_token *token);
+int	    find_cmd(t_list *list, t_token *token);
+int 	find_files_redir(t_list *list, t_token *token);
 void	find_file(t_list *list, int redir, t_token *token);
 int 	join_path(char **path, t_list *list, t_token *token);
 

@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 11:43:31 by tnolent           #+#    #+#             */
-/*   Updated: 2025/05/15 14:43:34 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/19 12:57:08 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,29 +98,29 @@ void	empty_string_case(char *split, t_list *list, t_token *token)
 {
 	if (ft_strlen(split) == 0)
 		return ;
-	free(token->new_str);
-	token->new_str = remove_quotes_around(split);
+	free(token->split->str);
+	token->split->str = remove_quotes_around(split);
 	add_token(list, "ARG", token);
 }
 
-int	check_valid_dollar(char *split)
-{
-	int		i;
-	char	tmp;
+// int	check_valid_dollar(char *split)
+// {
+// 	int		i;
+// 	char	tmp;
 
-	tmp = 0;
-	i = 0;
-	if (split[0] == '$')
-		return (1);
-	while (split[i])
-	{
-		if (tmp == split[i])
-			tmp = 0;	
-		if (ft_strchr(QUOTES, split[i]))
-			tmp = split[i];
-		if (split[i] == '$' && (tmp == '\"' || tmp == 0))
-			return (1);
-		i++;
-	}
-	return (0);
-}
+// 	tmp = 0;
+// 	i = 0;
+// 	if (split[0] == '$')
+// 		return (1);
+// 	while (split[i])
+// 	{
+// 		if (tmp == split[i])
+// 			tmp = 0;	
+// 		if (ft_strchr(QUOTES, split[i]))
+// 			tmp = split[i];
+// 		if (split[i] == '$' && (tmp == '\"' || tmp == 0))
+// 			return (1);
+// 		i++;
+// 	}
+// 	return (0);
+// }

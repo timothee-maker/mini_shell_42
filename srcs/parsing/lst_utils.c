@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:13:08 by tnolent           #+#    #+#             */
-/*   Updated: 2025/05/16 13:29:01 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/19 12:53:28 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ int		add_token(t_list *liste, char *token, t_token *t_token)
 	if (!nouveau)
 		return (-1);
 	nouveau->next = NULL;
-	nouveau->arg = ft_strdup(t_token->new_str);
+	nouveau->arg = ft_strdup(t_token->split->str);
 	nouveau->token = token;
 	nouveau->position = t_token->position;
-	nouveau->is_in_quotes = 0;
+	nouveau->env_context = 0;
 	if (liste->first == NULL)
 		liste->first = nouveau;
 	else

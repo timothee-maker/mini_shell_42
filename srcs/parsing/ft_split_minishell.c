@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 13:35:03 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/16 13:04:46 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/19 13:20:51 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,14 @@ l_split	*ft_split_list_minishell(const char *s, char sep)
 		else if (!is_sep(s[split.i], sep))
 		{
 			while (s[split.i] && !is_sep(s[split.i], sep))
-				add_char(&split, s[split.i++]);
+			{
+				if (ft_strchr(QUOTES, s[split.i]))
+					handle_quote_case(s, &split);
+				else if (s[split.i] == '$' && (!split.tmp || split.tmp == '\"'))
+					handle_dollar_case(s, &split);
+				else
+					add_char(&split, s[split.i++]);
+			}
 			flush_buffer(&split);
 		}
 		else
@@ -60,18 +67,24 @@ void	add_char(t_split_parse *split, char c)
 
 void	handle_dollar_case(const char *s, t_split_parse *split)
 {
-	add_char(split, '\"');
+	int	start_context;
+
+	start_context = 1;
+	if (split->tmp == '\'')
+		start_context = 2;
+	else if (split->tmp == '\"')
+		start_context = 3;
 	flush_buffer(split);
+	split->env_context = start_context;
 	while (s[split->i] && !ft_strchr(NO_ENV, s[split->i]))
 		add_char(split, s[split->i++]);
 	flush_buffer(split);
-	add_char(split, '\"');
+	split->env_context = 0;
 }
 
 void	handle_quote_case(const char *s, t_split_parse *split)
 {
 	split->tmp = s[split->i++];
-	add_char(split, split->tmp);
 	while (s[split->i] && s[split->i] != split->tmp)
 	{
 		if (s[split->i] == '$' && split->tmp != '\'')
@@ -83,10 +96,11 @@ void	handle_quote_case(const char *s, t_split_parse *split)
 			add_char(split, s[split->i++]);
 	}
 	if (s[split->i])
-		add_char(split, s[split->i++]);
-	flush_buffer(split);
+		split->i++;
 	split->is_in_quotes = 0;
 	split->tmp = 0;
+	if (s[split->i] && is_sep(s[split->i], ' '))
+		flush_buffer(split);
 }
 
 // typedef struct s_split
@@ -122,7 +136,7 @@ void	handle_quote_case(const char *s, t_split_parse *split)
 // 		{
 // 			if (split.l == 0)
 // 				split.result[split.k] = malloc(sizeof(char) * (ft_strlen(s)
-							// + 1));
+// + 1));
 // 			if (!split.result[split.k])
 // 				return ((free_split(split.result), NULL));
 // 			full_split(&split, s, c);
@@ -148,7 +162,7 @@ void	handle_quote_case(const char *s, t_split_parse *split)
 // 			break ;
 // 		}
 // 		if (is_sep(s[split->i], '$') && (split->tmp == '\"' || split->tmp == 0)
-			// && split->dollar == 0)
+// && split->dollar == 0)
 // 		{
 // 			split->dollar = 1;
 // 			break ;
@@ -202,7 +216,7 @@ void	handle_quote_case(const char *s, t_split_parse *split)
 // 	if (!split->result[split->k])
 // 		return (free_split(split->result), 0);
 // 	while (!ft_strchr(NO_ENV, s[split->i]) && s[split->i]
-		// && !is_sep(s[split->i], '\''))
+// && !is_sep(s[split->i], '\''))
 // 	{
 // 		split->result[split->k][split->l++] = s[split->i++];
 // 		if (is_sep(s[split->i], '$'))
