@@ -33,14 +33,17 @@ void fill_args(t_list *list, t_exec *exec, t_cmd *cmd)
     elem = list->first;
     while (elem)
     {
-        temp = ft_strdup(elem->arg);
+        temp = NULL;
+        if (elem->arg)
+            temp = ft_strdup(elem->arg);
         if (!ft_strcmp(elem->token, "ARG") || !ft_strcmp(elem->token, "ENV"))
         {
             ft_putstr_fd(temp, exec->infile);
             write(exec->infile, &sep, 1);
         }
         elem = elem->next;
-        free(temp);
+        if (temp)
+            free(temp);
     }
     close(exec->infile);
     exec->infile = open(exec->infile_path, O_RDWR | O_CREAT, 0777);
@@ -70,6 +73,23 @@ void get_outfile(char *filename, t_cmd *cmd)
         unlink(last_fd);
     last_fd = filename;
     fd = open(filename, O_WRONLY | O_TRUNC | O_CREAT, 0666);
+    if (fd == -1)
+    {
+        perror("Error opening outfile");
+        return;
+    }
+    cmd->output = fd;
+}
+
+void get_outfile_append(char *filename, t_cmd *cmd)
+{
+    static char *last_fd = NULL;
+    int         fd;
+    
+    if (cmd->output != -1 && last_fd != NULL)
+        unlink(last_fd);
+    last_fd = filename;
+    fd = open(filename, O_WRONLY | O_APPEND | O_CREAT, 0666);
     if (fd == -1)
     {
         perror("Error opening outfile");

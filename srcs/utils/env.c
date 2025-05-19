@@ -90,6 +90,11 @@ char	*get_var_value(char *str)
 {
 	while (*str != '=' && *str != '\0')
 		str++;
-	str++;
-	return (no_quotes(str));
+    if (*str == '=')
+	    str++;
+    else if (*str == '\0')
+    {
+        return (NULL);
+    }
+    return (no_quotes(str));
 }

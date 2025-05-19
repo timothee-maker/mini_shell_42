@@ -1,4 +1,16 @@
 #include "minishell.h"
+static void wait_loop(t_exec *exec)
+{
+    t_cmd *cmd;
+
+    cmd = exec->cmd;
+    while(cmd)
+    {
+        if (cmd->pid != 0)
+            wait_status(exec, cmd);
+        cmd = cmd->next;
+    }
+}
 
 void exec_line(t_exec *exec, t_list *list)
 {
@@ -16,15 +28,13 @@ void exec_line(t_exec *exec, t_list *list)
     {
         if (pipe(exec->pipe) == -1)
 			return (perror("Pipe error"));
-        ft_fork(exec, cmd);
+        if (is_single_builtin(cmd))
+            exec_single_builtin(cmd, exec);
+        else
+            ft_fork(exec, cmd);
         cmd = cmd->next;
     }
-    cmd = exec->cmd;
-    while(cmd)
-    {
-        wait_status(exec, cmd);
-        cmd = cmd->next;
-    }
+    wait_loop(exec);
     ft_free_cmd(exec->cmd);
     exec->cmd = NULL;
 }
@@ -64,7 +74,8 @@ int exec_cmd(t_exec *exec, t_cmd *cmd)
     {
         if (cmd->name)
         {
-            printf("Command not found: %s\n", cmd->name);
+            ft_putstr_fd("Command not found: ", 2);
+            ft_putendl_fd(cmd->name, 2);
             return (2);
         }
         else
@@ -87,7 +98,7 @@ int exec_builtin(t_exec *ex, t_cmd *cmd)
     else if (!ft_strncmp(cmd->name, "env", ft_strlen(cmd->name)))
         return (ft_env(ex));
     else if (!ft_strncmp(cmd->name, "exit", ft_strlen(cmd->name)))
-        return (ft_exit(cmd));
+        return (ft_exit(cmd, ex));
     else if (!ft_strncmp(cmd->name, "export", ft_strlen(cmd->name)))
         return (ft_export(ex, cmd));
     else if (!ft_strncmp(cmd->name, "pwd", ft_strlen(cmd->name)))

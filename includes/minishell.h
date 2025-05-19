@@ -131,7 +131,7 @@ typedef struct s_exec
 int     ft_cd(t_exec *exec, t_cmd *cmd);
 int     ft_echo(t_cmd *cmd);
 int     ft_env(t_exec *exec);
-int     ft_exit(t_cmd *cmd);
+int     ft_exit(t_cmd *cmd, t_exec *exec);
 int     ft_export(t_exec *exec, t_cmd *cmd);
 int     ft_pwd(t_cmd *cmd);
 int     ft_unset(t_exec *exec, t_cmd *cmd);
@@ -142,8 +142,6 @@ int     base_case(t_env *var, char **args);
 int     update_currpwd(t_env *var, char *path);
 int     update_oldpwd(t_env *var);
 void    global_exit(t_exec *exec);
-char    **custom_env(t_exec *exec);
-
 
 // ________________________EXEC__________________________
 
@@ -155,6 +153,9 @@ char    *get_first_arg(t_list *list);
 t_cmd   *assign_cmd(t_list *list, t_exec *exec);
 void    add_command(t_exec *exec, t_cmd *cmd);
 void    wait_status(t_exec *exec, t_cmd *cmd);
+int     is_single_builtin(t_cmd *cmd);
+void    exec_single_builtin(t_cmd *cmd, t_exec *exec);
+
 
 // ------------------------FORK--------------------------
 char    **create_args(t_exec *exec);
@@ -183,7 +184,6 @@ int 	join_path(char **path, t_list *list, t_token *token);
 // ----------------------LIST UTILS----------------------
 t_list	*initialisation(void);
 void	afficherliste(t_list *liste);
-// int		add_token(t_list *liste, char *arg, char *token, int index);
 int		add_token(t_list *liste, char *token, t_token *t_token);
 void	insertion_list(t_list *liste);
 
@@ -192,7 +192,6 @@ int		start_parse(l_split *split);
 int		syntax_error(char *split, int len_split, int position);
 int	    parse_one_case(char *split);
 char	*chr_str(char *str, char *to_find);
-// char	**ft_split_minishell(char const *s, char c);
 l_split *ft_split_list_minishell(const char *s, char sep);
 
 // -------------------------UTILS------------------------
@@ -220,17 +219,6 @@ void	error_parsing(char *line, t_list *list, t_exec *exec, l_split *split);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 // ________________________UTILS_________________________
 
 // ------------------------ARGS--------------------------
@@ -239,6 +227,7 @@ int		is_sep(char c, char sep);
 int		is_in_quotes(int position, char *str);
 void    get_infile(char *filename, t_cmd *cmd);
 void    get_outfile(char *filename, t_cmd *cmd);
+void    get_outfile_append(char *filename, t_cmd *cmd);
 
 void    child_process(t_cmd *cmd, int pipe[2], t_exec *exec);
 void    parent_process(t_cmd *cmd, int pipe[2]);
@@ -271,10 +260,15 @@ void    free_env(t_env *env);
 void    ft_free_cmd(t_cmd *cmd);
 void    free_exec(t_exec *exec);
 void	free_list(t_list *liste);
+
 // ------------------------INIT--------------------------
 t_exec 	*init_exec(char **envp);
 t_cmd 	*init_cmd(t_list *list, t_exec *exec);
+t_cmd   *first_cmd_init(void);
+void    compare_cmd_tokens(t_cmd *res, t_element *elem, t_exec *exec, t_list *list);
+int    assign_loop(t_element *elem, t_list *list, t_exec *exec, t_cmd *res);
 
-
+// ------------------------LIST--------------------------
+void add_end_env(t_env *env, t_env *var);
 
 #endif

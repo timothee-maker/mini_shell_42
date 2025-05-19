@@ -31,7 +31,7 @@ char *find_path(char *name, t_exec *exec)
         return (NULL);
     path_tab = ft_split(path, ':');
     i = 0;
-    while (path_tab[i])
+    while (path_tab[i++])
     {
         temp = ft_strjoin(path_tab[i], "/");
         temp = ft_custom_join(temp, name);
@@ -42,7 +42,6 @@ char *find_path(char *name, t_exec *exec)
             return (temp);
         }
         free(temp);
-        i++;
     }
     free_tab(path_tab);
     free(path);

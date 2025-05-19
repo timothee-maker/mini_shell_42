@@ -6,11 +6,14 @@ static t_env *get_var(t_exec *exec, char *name)
     t_env *res;
     
     var = exec->env;
-    while(var->next != NULL)
+    while(var)
     {
         if (!ft_strncmp(var->name, name, ft_strlen(name) + ft_strlen(var->name)))
             return (var);
-        var = var->next;
+        if (var->next != NULL)
+            var = var->next;
+        else
+            break;
     }
     res = malloc(sizeof(t_env));
     res->name = NULL;
@@ -70,14 +73,13 @@ static int no_args(t_exec *exec)
     int i;
 
     i = 0;
-    tab = custom_env(exec);
+    tab = str_env(exec);
     sort_tab(tab, len_tab(tab));
     while(tab[i])
     {
         printf("export %s\n", tab[i]);
         i++;
     }
-    free_tab(tab);
     return (0);
 }
 
@@ -94,16 +96,23 @@ int ft_export(t_exec *exec, t_cmd *cmd)
     else
     {
         name = get_var_name(cmd->args[1]);
+        value = get_var_value(cmd->args[1]);
+        if (name == NULL || value == NULL)
+        {
+            if (name)
+                free(name);
+            if (value)
+                free(value);
+            return (0);
+        }
         if (valid_identifier(name) == 0)
         {
             printf("export: \'%s\': not a valid identifier\n", cmd->args[1]);
             return (2);
         }
-        value = get_var_value(cmd->args[1]);
         var = get_var(exec, name);
         var->name = ft_strdup(name);
-        if (value)
-            var->value = ft_strdup(value);
+        var->value = ft_strdup(value);
         free(name);
         free(value);
     }
