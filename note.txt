@@ -3,13 +3,9 @@ valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./
 
 Erreur : 
 nettoyer les fichiers et tout free
-mettre a la norme
-
-<Makefile cat | echo bonsoir | >ls
-> | echo bonsoir
-
-to do : 
+mettre a la norme 
 norminette find list - fontion qui prend le redir et le reste
+verifier que les signaux free tout
  
 // while (split){printf("[%s][env = %d]", split->str,
 // split->env_context);split = split->next;}
