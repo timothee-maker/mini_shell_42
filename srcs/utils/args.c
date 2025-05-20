@@ -24,27 +24,13 @@ char **create_args(t_exec *exec)
 void fill_args(t_list *list, t_exec *exec, t_cmd *cmd)
 {
     t_element   *elem;
-    char        *temp;
     char        sep;
 
     sep = ARG_SEP;
     ft_putstr_fd(cmd->name, exec->infile);
     write(exec->infile, &sep, 1);
     elem = list->first;
-    while (elem)
-    {
-        temp = NULL;
-        if (elem->arg)
-            temp = ft_strdup(elem->arg);
-        if (!ft_strcmp(elem->token, "ARG") || !ft_strcmp(elem->token, "ENV"))
-        {
-            ft_putstr_fd(temp, exec->infile);
-            write(exec->infile, &sep, 1);
-        }
-        elem = elem->next;
-        if (temp)
-            free(temp);
-    }
+    args_loop(elem, exec, sep);
     close(exec->infile);
     exec->infile = open(exec->infile_path, O_RDWR | O_CREAT, 0777);
 }

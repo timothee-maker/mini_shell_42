@@ -234,6 +234,7 @@ void					get_outfile_append(char *filename, t_cmd *cmd);
 
 void					child_process(t_cmd *cmd, int pipe[2], t_exec *exec);
 void					parent_process(t_cmd *cmd, int pipe[2]);
+void                    args_loop(t_element *elem, t_exec *exec, char sep);
 
 // ------------------CREATE ENVIRONMENT------------------
 t_env					*create_env(char **envp);

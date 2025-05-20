@@ -51,11 +51,12 @@ void replace_env(t_list *list, t_exec *exec)
     elem = list->first;
     while (elem)
     {
-        if (!ft_strncmp(elem->token, "ENV", ft_strlen(elem->token)))
+        if (!ft_strcmp(elem->token, "ENV") 
+            || !ft_strcmp(elem->token, "ENV-INQUOTE"))
         {
-            if (!ft_strncmp(elem->arg, "$", ft_strlen(elem->arg) + ft_strlen("$")))
+            if (!ft_strcmp(elem->arg, "$"))
                 elem->arg = ft_strdup("$");
-            else if (!ft_strncmp(elem->arg, "$?", ft_strlen(elem->arg) + ft_strlen("$?")))
+            else if (!ft_strcmp(elem->arg, "$?"))
                 elem->arg = ft_itoa(exec->exit_status);
             else
                 elem->arg = fetch_value(elem->arg, exec);
