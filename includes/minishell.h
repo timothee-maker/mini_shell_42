@@ -143,6 +143,7 @@ int						base_case(t_env *var, char **args);
 int						update_currpwd(t_env *var, char *path);
 int						update_oldpwd(t_env *var);
 void					global_exit(t_exec *exec);
+int                     export_next(t_cmd *cmd, t_exec *exec);
 
 // ________________________EXEC__________________________
 
