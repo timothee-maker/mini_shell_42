@@ -70,7 +70,9 @@ int	export_next(t_cmd *cmd, t_exec *exec)
 	}
 	if (valid_identifier(name) == 0)
 	{
-		printf("export: \'%s\': not a valid identifier\n", cmd->args[1]);
+		ft_putstr_fd("export: ", 2);
+        ft_putstr_fd(cmd->args[1], 2);
+        ft_putstr_fd(": not a valid identifier\n", 2);
 		return (2);
 	}
 	var = get_var(exec, name);

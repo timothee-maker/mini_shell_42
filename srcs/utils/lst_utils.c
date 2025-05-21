@@ -22,5 +22,4 @@ void	add_end_env(t_env *env, t_env *var)
 		current = current->next;
 	}
 	current->next = var;
-	printf("added var at the end (%s\n)", var->name);
 }
