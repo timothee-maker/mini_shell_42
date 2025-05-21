@@ -41,11 +41,13 @@ void	minishell(t_exec *exec)
 		if (input[0] != '\0')
 		{
 			liste = initialisation();
+			exec->liste = liste;
 			good = parsing(input, liste, exec);
 			afficherliste(liste);
 			if (good == 1)
 				exec_line(exec, liste);
 			free_list(liste);
+			exec->liste = NULL;
 		}
 	}
 }

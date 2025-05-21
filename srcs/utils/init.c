@@ -40,6 +40,7 @@ t_exec	*init_exec(char **envp)
 	res->infile = open(res->infile_path, O_RDWR | O_CREAT, 0777);
 	res->heredoc_path = ft_strjoin(cwd, "/.heredoc");
 	res->heredoc = open(res->heredoc_path, O_RDWR | O_CREAT, 0777);
+	res->liste = NULL;
 	return (res);
 }
 

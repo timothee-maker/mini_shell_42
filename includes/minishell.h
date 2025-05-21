@@ -120,6 +120,7 @@ typedef struct s_exec
 {
 	t_cmd				*cmd;
 	t_env				*env;
+	t_list				*liste;
 	int					exit_status;
 	int					infile;
 	int					heredoc;

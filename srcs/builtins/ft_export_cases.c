@@ -12,6 +12,13 @@
 
 #include "../../includes/minishell.h"
 
+static void	put_error(char *s1, char *s2, char *s3)
+{
+	ft_putstr_fd(s1, 2);
+	ft_putstr_fd(s2, 2);
+	ft_putstr_fd(s3, 2);
+}
+
 static int	valid_identifier(char *str)
 {
 	int	i;
@@ -70,9 +77,7 @@ int	export_next(t_cmd *cmd, t_exec *exec)
 	}
 	if (valid_identifier(name) == 0)
 	{
-		ft_putstr_fd("export: ", 2);
-        ft_putstr_fd(cmd->args[1], 2);
-        ft_putstr_fd(": not a valid identifier\n", 2);
+		put_error("export: ", cmd->args[1], ": not a valid identifier\n");
 		return (2);
 	}
 	var = get_var(exec, name);

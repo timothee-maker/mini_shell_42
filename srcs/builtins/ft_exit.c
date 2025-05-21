@@ -48,6 +48,10 @@ void	global_exit(t_exec *exec)
 	free_env(exec->env);
 	free(exec->infile_path);
 	free(exec->heredoc_path);
+	if (exec->liste)
+	{
+		free_list(exec->liste);
+	}
 	free(exec);
 	exec = NULL;
 	printf("exit\n");
