@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	start_parse(l_split *split)
+int	start_parse(t_split *split)
 {
 	int	i;
 	int	len_split;

@@ -15,10 +15,10 @@ void	ft_putstr_fd(char *str, int fd)
 {
 	int	i;
 
-    if (str == NULL)
-    {
-        return ;
-    }
+	if (str == NULL)
+	{
+		return ;
+	}
 	if (fd < 0)
 		return ;
 	i = 0;

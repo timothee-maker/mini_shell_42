@@ -16,10 +16,10 @@ t_env	*create_env(char **envp)
 {
 	int		i;
 	t_env	*first;
-    t_env   *var;
+	t_env	*var;
 	t_env	*temp;
 
-    temp = NULL;
+	temp = NULL;
 	first = NULL;
 	i = 0;
 	while (envp[i])
@@ -27,13 +27,13 @@ t_env	*create_env(char **envp)
 		var = malloc(sizeof(t_env));
 		var->name = get_var_name(envp[i]);
 		var->value = get_var_value(envp[i]);
-        var->exported = 0;
+		var->exported = 0;
 		var->next = NULL;
 		if (temp != NULL)
-            temp->next = var;
-        if (first == NULL)
-            first = var;
-        temp = var;
+			temp->next = var;
+		if (first == NULL)
+			first = var;
+		temp = var;
 		i++;
 	}
 	return (first);
@@ -90,11 +90,11 @@ char	*get_var_value(char *str)
 {
 	while (*str != '=' && *str != '\0')
 		str++;
-    if (*str == '=')
-	    str++;
-    else if (*str == '\0')
-    {
-        return (NULL);
-    }
-    return (no_quotes(str));
+	if (*str == '=')
+		str++;
+	else if (*str == '\0')
+	{
+		return (NULL);
+	}
+	return (no_quotes(str));
 }

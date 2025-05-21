@@ -14,10 +14,10 @@
 
 static int	sep_delimiter(int i, int j, char *new_line, char *line);
 
-void	free_split(l_split *split)
+void	free_split(t_split *split)
 {
-	l_split	*current_split;
-	l_split	*next;
+	t_split	*current_split;
+	t_split	*next;
 
 	current_split = split;
 	while (current_split)
@@ -75,7 +75,7 @@ int	len_tab(char **split)
 	return (i);
 }
 
-int	len_list(l_split *split)
+int	len_list(t_split *split)
 {
 	int	i;
 

@@ -1,13 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   files.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: lde-guil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/05/21 09:12:01 by lde-guil          #+#    #+#             */
+/*   Updated: 2025/05/21 09:12:03 by lde-guil         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../includes/minishell.h"
 
-int is_infile(t_element *elem)
+int	is_infile(t_element *elem)
 {
 	if (!ft_strncmp(elem->token, "INFILE", ft_strlen(elem->token)))
 		return (1);
 	return (0);
 }
 
-int is_outfile(t_element *elem)
+int	is_outfile(t_element *elem)
 {
 	if (!ft_strncmp(elem->token, "OUTFILE", ft_strlen(elem->token)))
 		return (1);
@@ -16,7 +28,7 @@ int is_outfile(t_element *elem)
 	return (0);
 }
 
-char *get_file_content(int fd)
+char	*get_file_content(int fd)
 {
 	char	*res;
 	char	*str;
