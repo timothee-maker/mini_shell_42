@@ -9,7 +9,7 @@ mettre a la norme
 > | echo bonsoir
 
 to do : 
-norminette find list - fontion qui prend le redir et le reste
+faire les signaux
 
 Comande test : 
  "e""c""h""o " "$PWD"$PWD'$PWD'

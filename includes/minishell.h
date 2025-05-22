@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/19 16:07:58 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/20 10:28:39 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,13 +197,11 @@ l_split					*ft_split_list_minishell(const char *s, char sep);
 int						len_tab(char **split);
 int						valid_quote(char *split);
 void					free_split(l_split *split);
-char					*remove_quotes(char *str);
 char					*remove_quotes_around(char *str);
 void					empty_string_case(char *split, t_list *list,
 							t_token *token);
 char					*clean_line(char *line);
 int						ft_strchr2(char *str1, char *str2);
-// int		check_valid_dollar(char *split);
 int						len_list(l_split *split);
 void					init_token(t_token *token);
 

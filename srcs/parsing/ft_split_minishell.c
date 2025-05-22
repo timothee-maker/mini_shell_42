@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 13:35:03 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/19 16:08:47 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/20 11:01:39 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,17 @@ void	handle_dollar_case(const char *s, t_split_parse *split)
 {
 	int	start_context;
 
-	start_context = 1;
 	if (split->tmp == '\'')
 		start_context = 2;
 	else if (split->tmp == '\"')
 		start_context = 3;
-	flush_buffer(split);
+	else
+		start_context = 1;
+	if (start_context == 1 || start_context == 3)
+		flush_buffer(split);
 	split->env_context = start_context;
-	while (s[split->i] && !ft_strchr(NO_ENV, s[split->i]))
+	add_char(split, s[split->i++]);
+	while (s[split->i] && !ft_strchr(NO_ENV, s[split->i]) && s[split->i] != '$')
 		add_char(split, s[split->i++]);
 	flush_buffer(split);
 	split->env_context = 0;
