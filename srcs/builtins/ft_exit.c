@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 14:18:14 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/22 08:56:50 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/22 15:47:26 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_exit(t_cmd *cmd, t_exec *exec)
 			return (-1);
 		}
 	}
-	exec->exit_status = (unsigned char) status;
+	exec->exit_status = (unsigned char)status;
 	global_exit(exec);
 	return (1);
 }
@@ -55,6 +55,5 @@ void	global_exit(t_exec *exec)
 	}
 	free(exec);
 	exec = NULL;
-
 	exit(status);
 }
