@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lde-guil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 14:18:14 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/20 14:18:16 by lde-guil         ###   ########.fr       */
+/*   Updated: 2025/05/22 08:56:50 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,10 @@ void	global_exit(t_exec *exec)
 	if (exec->liste)
 	{
 		free_list(exec->liste);
+		printf("exit\n");
 	}
 	free(exec);
 	exec = NULL;
-	printf("exit\n");
+
 	exit(status);
 }

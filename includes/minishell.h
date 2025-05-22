@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/22 08:15:36 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/22 15:19:40 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 # define ERROR_CHAR ";&():"
 # define BUFFER_SIZE 1000
 
-extern pid_t			g_pid;
+extern int				g_exit_status;
 
 typedef struct s_split
 {
@@ -145,6 +145,7 @@ int						update_currpwd(t_env *var, char *path);
 int						update_oldpwd(t_env *var);
 void					global_exit(t_exec *exec);
 int						export_next(t_cmd *cmd, t_exec *exec);
+void					child_hdoc(t_exec *exec, t_element *elem);
 
 // ________________________EXEC__________________________
 

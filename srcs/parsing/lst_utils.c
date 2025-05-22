@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:13:08 by tnolent           #+#    #+#             */
-/*   Updated: 2025/05/19 15:53:00 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/22 08:59:22 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ void	free_list(t_list *liste)
 		free(lst_asupprimer);
 	}
 	free(liste);
+	liste = NULL;
 }
 
 void	afficherliste(t_list *liste)
