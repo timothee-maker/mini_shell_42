@@ -58,7 +58,7 @@ char	*ft_strchr(const char *s, int c);
 
 char	*ft_strdup(const char *s);
 
-int	ft_strcmp(const char *s1, const char *s2);
+int		ft_strcmp(const char *s1, const char *s2);
 
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 

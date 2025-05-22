@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/20 10:28:39 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/22 08:15:36 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_split
 	int					is_in_quotes;
 	int					env_context;
 	struct s_split		*next;
-}						l_split;
+}						t_split;
 
 typedef struct s_split_parse
 {
@@ -61,8 +61,8 @@ typedef struct s_split_parse
 	char				*buffer;
 	int					is_in_quotes;
 	int					env_context;
-	l_split				*head;
-	l_split				*tail;
+	t_split				*head;
+	t_split				*tail;
 }						t_split_parse;
 
 typedef struct s_element
@@ -83,7 +83,7 @@ typedef struct s_list
 
 typedef struct s_token
 {
-	l_split				*split;
+	t_split				*split;
 	int					index;
 	int					position;
 	int					redir;
@@ -120,6 +120,7 @@ typedef struct s_exec
 {
 	t_cmd				*cmd;
 	t_env				*env;
+	t_list				*liste;
 	int					exit_status;
 	int					infile;
 	int					heredoc;
@@ -143,6 +144,7 @@ int						base_case(t_env *var, char **args);
 int						update_currpwd(t_env *var, char *path);
 int						update_oldpwd(t_env *var);
 void					global_exit(t_exec *exec);
+int						export_next(t_cmd *cmd, t_exec *exec);
 
 // ________________________EXEC__________________________
 
@@ -171,7 +173,7 @@ void					handle_sigint(int sig);
 
 // -------------------------CORE-------------------------
 int						parsing(char *line, t_list *list, t_exec *exec);
-int						analyze_line(l_split *split, t_list *list);
+int						analyze_line(t_split *split, t_list *list);
 
 // ----------------------FIND LIST-----------------------
 int						find_builtin(t_list *list, t_token *token);
@@ -187,22 +189,22 @@ int						add_token(t_list *liste, char *token, t_token *t_token);
 void					insertion_list(t_list *liste);
 
 // ----------------------- PARSING-----------------------
-int						start_parse(l_split *split);
+int						start_parse(t_split *split);
 int						syntax_error(char *split, int len_split, int position);
 int						parse_one_case(char *split);
 char					*chr_str(char *str, char *to_find);
-l_split					*ft_split_list_minishell(const char *s, char sep);
+t_split					*ft_split_list_minishell(const char *s, char sep);
 
 // -------------------------UTILS------------------------
 int						len_tab(char **split);
 int						valid_quote(char *split);
-void					free_split(l_split *split);
+void					free_split(t_split *split);
 char					*remove_quotes_around(char *str);
 void					empty_string_case(char *split, t_list *list,
 							t_token *token);
 char					*clean_line(char *line);
 int						ft_strchr2(char *str1, char *str2);
-int						len_list(l_split *split);
+int						len_list(t_split *split);
 void					init_token(t_token *token);
 
 // ------------------------SPLIT MINISHELL----------------
@@ -215,10 +217,9 @@ void					handle_dollar_case(const char *s, t_split_parse *split);
 void					handle_quote_case(const char *s, t_split_parse *split);
 void					fill_list(t_split_parse *split, const char *s, char c);
 
-
 // ------------------------ERROR CASE---------------------
 void					error_parsing(char *line, t_list *list, t_exec *exec,
-							l_split *split);
+							t_split *split);
 
 // ________________________UTILS_________________________
 
@@ -232,7 +233,7 @@ void					get_outfile_append(char *filename, t_cmd *cmd);
 
 void					child_process(t_cmd *cmd, int pipe[2], t_exec *exec);
 void					parent_process(t_cmd *cmd, int pipe[2]);
-void                    args_loop(t_element *elem, t_exec *exec, char sep);
+void					args_loop(t_element *elem, t_exec *exec, char sep);
 
 // ------------------CREATE ENVIRONMENT------------------
 t_env					*create_env(char **envp);

@@ -16,7 +16,7 @@ static int	handle_token(t_list *current, t_token *token);
 
 int	parsing(char *line, t_list *list, t_exec *exec)
 {
-	l_split	*split;
+	t_split	*split;
 
 	split = NULL;
 	add_history(line);
@@ -36,11 +36,11 @@ int	parsing(char *line, t_list *list, t_exec *exec)
 	return (1);
 }
 
-int	analyze_line(l_split *split, t_list *list)
+int	analyze_line(t_split *split, t_list *list)
 {
 	t_list	*current;
 	t_token	token;
-	l_split	*current_split;
+	t_split	*current_split;
 
 	current_split = split;
 	current = list;

@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-l_split	*ft_split_list_minishell(const char *s, char sep)
+t_split	*ft_split_list_minishell(const char *s, char sep)
 {
 	t_split_parse	split;
 

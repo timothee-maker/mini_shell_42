@@ -2,8 +2,6 @@ Commande de debug :
 valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./minishell
 
 Erreur : 
-nettoyer les fichiers et tout free
-mettre a la norme
 
 <Makefile cat | echo bonsoir | >ls
 > | echo bonsoir
