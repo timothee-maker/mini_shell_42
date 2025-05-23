@@ -2,15 +2,26 @@ Commande de debug :
 valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./minishell
 
 Erreur : 
-
-<Makefile cat | echo bonsoir | >ls
+ls > /dev/stdout | echo caca
 > | echo bonsoir
+lancer minishell dans minishell
 
 to do : 
 faire les signaux
+Mettre les variables d'en dans le parsing ?
+ex : export HOLA=$HOME
+gerer les leaks quand il y a des pipes
 
 Comande test : 
  "e""c""h""o " "$PWD"$PWD'$PWD'
  
 // while (split){printf("[%s][env = %d]", split->str,
 // split->env_context);split = split->next;}
+
+
+problemes avec les ">" dans les echo
+faire les tests du tester
+revoir le CTRL-C dans les longue commandes
+
+test a revoir (800 test minishell)
+247 a 249 - 260 - 264
