@@ -5,6 +5,8 @@ Erreur :
 ls > /dev/stdout | echo caca
 > | echo bonsoir
 lancer minishell dans minishell
+> | echo bonsoir (faut mettre syntaxe error, pour l'instant ca execute le echo)
+
 
 to do : 
 faire les signaux
@@ -12,8 +14,12 @@ Mettre les variables d'en dans le parsing ?
 ex : export HOLA=$HOME
 gerer les leaks quand il y a des pipes
 
+heredoc :
+CTRL-C doit s'afficher en face du readline, pas en dessous
+Revenir a la ligne apres le CTRL-C
+
 Comande test : 
- "e""c""h""o " "$PWD"$PWD'$PWD'
+ "e""c""h""o" "$PWD"$PWD'$PWD'
  
 // while (split){printf("[%s][env = %d]", split->str,
 // split->env_context);split = split->next;}

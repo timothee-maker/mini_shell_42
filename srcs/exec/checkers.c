@@ -23,10 +23,19 @@ int	is_single_builtin(t_cmd *cmd)
 
 void	exec_single_builtin(t_cmd *cmd, t_exec *exec)
 {
+	int	stdout_backup;
+
+	stdout_backup = -1;
 	if (cmd->output >= 0)
 	{
+		stdout_backup = dup(1);
 		dup2(cmd->output, STDOUT_FILENO);
 		close(cmd->output);
 	}
 	exec_builtin(exec, cmd);
+	if (cmd->output >= 0)
+	{
+		dup2(stdout_backup, STDOUT_FILENO);
+		close(stdout_backup);
+	}
 }
