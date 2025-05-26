@@ -29,6 +29,7 @@ void	exec_line(t_exec *exec, t_list *list)
 {
 	t_cmd	*cmd;
 
+    reopen_IO(exec);
 	while (list)
 	{
 		replace_env(list, exec);

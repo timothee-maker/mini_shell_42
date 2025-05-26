@@ -48,3 +48,11 @@ char	*get_file_content(int fd)
 	close(fd2);
 	return (res);
 }
+
+void reopen_IO(t_exec *exec)
+{
+    close(exec->infile);
+    close(exec->heredoc);
+    exec->infile = open(exec->infile_path, O_RDWR | O_CREAT, 0777);
+    exec->heredoc = open(exec->heredoc_path, O_RDWR | O_CREAT, 0777);
+}

@@ -248,6 +248,7 @@ char					*fetch_value(char *name, t_exec *exec);
 int						is_infile(t_element *elem);
 int						is_outfile(t_element *elem);
 char					*get_file_content(int fd);
+void                    reopen_IO(t_exec *exec);
 
 // ----------------------FIND CMD------------------------
 char					*get_cmd_name(char *path);
