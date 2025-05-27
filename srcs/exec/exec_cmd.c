@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:14:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/27 10:38:52 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/27 12:37:18 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,6 @@ void	exec_line(t_exec *exec, t_list *list)
 	if (!fill_cmd(list, exec, cmd))
 		return ;
     reopen_IO(exec);
-	while (list)
-	{
-		replace_env(list, exec);
-		cmd = assign_cmd(list, exec);
-		add_command(exec, cmd);
-		list = list->next_list;
-	}
 	cmd = exec->cmd;
 	while (cmd)
 	{
@@ -101,7 +94,7 @@ int	exec_cmd(t_exec *exec, t_cmd *cmd)
 	if (cmd->is_builtin)
 	{
 		status = exec_builtin(exec, cmd);
-		return (free_list(exec->liste), free_exec(exec), status);
+		return (free_exec(exec), status);
 	}
 	else if (cmd->path == NULL)
 	{
@@ -109,7 +102,7 @@ int	exec_cmd(t_exec *exec, t_cmd *cmd)
 		{
 			ft_putstr_fd("Command not found: ", 2);
 			ft_putendl_fd(cmd->name, 2);
-			return (free_list(exec->liste), free_exec(exec), 2);
+			return (free_exec(exec), 2);
 		}
 		else
 			return (2);
@@ -117,7 +110,7 @@ int	exec_cmd(t_exec *exec, t_cmd *cmd)
 	else if (execve(cmd->path, cmd->args, str_env(exec)) == -1)
 	{
 		perror("Execve error");
-		return (free_list(exec->liste), free_exec(exec), 2);
+		return (free_exec(exec), 2);
 	}
 	return (0);
 }
