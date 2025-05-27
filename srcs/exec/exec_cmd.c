@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:14:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/26 15:12:25 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/27 10:38:52 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,14 @@ void	exec_line(t_exec *exec, t_list *list)
 	cmd = NULL;
 	if (!fill_cmd(list, exec, cmd))
 		return ;
+    reopen_IO(exec);
+	while (list)
+	{
+		replace_env(list, exec);
+		cmd = assign_cmd(list, exec);
+		add_command(exec, cmd);
+		list = list->next_list;
+	}
 	cmd = exec->cmd;
 	while (cmd)
 	{

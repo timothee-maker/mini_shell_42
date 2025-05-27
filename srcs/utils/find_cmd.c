@@ -12,6 +12,33 @@
 
 #include "minishell.h"
 
+static char *path_loop(char *path, char **path_tab, char *name, int i)
+{
+    char	*temp;
+
+    temp = NULL;
+    if (access(name, X_OK) == 0)
+    {
+        return (ft_strdup(name));
+    }
+    if (path_tab[i])
+    {
+        temp = ft_strjoin(path_tab[i], "/");
+        temp = ft_custom_join(temp, name);
+    }
+    if (temp)
+    {
+        if (access(temp, X_OK) == 0)
+        {
+            free(path);
+            free_tab(path_tab);
+            return (temp);
+        }
+        free(temp);
+    }
+    return (NULL);
+}
+
 char	*get_cmd_name(char *path)
 {
 	int		i;
@@ -45,15 +72,9 @@ char	*find_path(char *name, t_exec *exec)
 	i = 0;
 	while (path_tab[i++])
 	{
-		temp = ft_strjoin(path_tab[i], "/");
-		temp = ft_custom_join(temp, name);
-		if (access(temp, X_OK) == 0)
-		{
-			free(path);
-			free_tab(path_tab);
-			return (temp);
-		}
-		free(temp);
+        temp = path_loop(path, path_tab, name, i);
+		if (temp)
+            return (temp);
 	}
 	free_tab(path_tab);
 	free(path);
