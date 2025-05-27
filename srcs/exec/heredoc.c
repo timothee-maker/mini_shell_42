@@ -6,11 +6,13 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:18:02 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/26 16:01:02 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/27 15:06:40 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int			here_doc_exit(int pid);
 
 static int	check_input(char *input, char *delimit)
 {
@@ -52,11 +54,10 @@ static int	read_hdoc(t_exec *exec, char *delimit)
 	return (1);
 }
 
-void	fill_heredoc(t_list *list, t_exec *exec)
+int	fill_heredoc(t_list *list, t_exec *exec)
 {
 	t_element	*elem;
 	pid_t		pid;
-	int			status;
 
 	elem = list->first;
 	while (elem)
@@ -69,16 +70,34 @@ void	fill_heredoc(t_list *list, t_exec *exec)
 				pid = fork();
 				if (pid == 0)
 					child_hdoc(exec, elem);
-				waitpid(pid, &status, 0);
-				if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-				{
-					g_exit_status = 130;
-					return ;
-				}
 			}
 		}
 		elem = elem->next;
 	}
+	here_doc_exit(pid);
+	return (1);
+}
+
+int	here_doc_exit(int pid)
+{
+	int	status;
+
+	signal(SIGINT, SIG_IGN);
+	waitpid(pid, &status, 0);
+	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
+	{
+		g_exit_status = 130;
+		restore_signals();
+		return (-1);
+	}
+	if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
+	{
+		g_exit_status = 130;
+		restore_signals();
+		return (-1);
+	}
+	restore_signals();
+	return (1);
 }
 
 void	child_hdoc(t_exec *exec, t_element *elem)
@@ -86,6 +105,8 @@ void	child_hdoc(t_exec *exec, t_element *elem)
 	default_sig();
 	setup_heredoc();
 	if (!read_hdoc(exec, elem->arg))
+		free_exec(exec);
 		exit(1);
+	free_exec(exec);
 	exit(0);
 }
