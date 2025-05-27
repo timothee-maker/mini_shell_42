@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:18:02 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/22 15:23:00 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/26 16:01:02 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ void	fill_heredoc(t_list *list, t_exec *exec)
 
 void	child_hdoc(t_exec *exec, t_element *elem)
 {
-	signal(SIGINT, SIG_DFL);
+	default_sig();
+	setup_heredoc();
 	if (!read_hdoc(exec, elem->arg))
 		exit(1);
 	exit(0);

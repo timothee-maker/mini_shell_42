@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/22 15:19:40 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/26 11:11:13 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ void					child_hdoc(t_exec *exec, t_element *elem);
 // ________________________EXEC__________________________
 
 // ----------------------EXEC CMD------------------------
+
 void					exec_line(t_exec *exec, t_list *list);
 int						exec_cmd(t_exec *exec, t_cmd *cmd);
 int						exec_builtin(t_exec *ex, t_cmd *cmd);
@@ -171,6 +172,9 @@ void					fill_heredoc(t_list *list, t_exec *exec);
 
 //--------------------------SIGNAUX-----------------------
 void					handle_sigint(int sig);
+void					default_sig(void);
+void					handle_here_doc(int sig);
+void					setup_heredoc(void);
 
 // -------------------------CORE-------------------------
 int						parsing(char *line, t_list *list, t_exec *exec);

@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:13:08 by tnolent           #+#    #+#             */
-/*   Updated: 2025/05/22 08:59:22 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/26 14:29:51 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,11 @@ void	free_list(t_list *liste)
 
 	if (liste == NULL)
 		exit(EXIT_FAILURE);
-	while (liste != NULL)
+	while (liste)
 	{
-		while (liste->first != NULL)
+		while (liste->first)
 		{
-			if (liste->first->arg != NULL)
+			if (liste->first->arg)
 			{
 				free(liste->first->arg);
 				liste->first->arg = NULL;

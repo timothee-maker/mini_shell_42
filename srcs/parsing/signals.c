@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:10:35 by tnolent           #+#    #+#             */
-/*   Updated: 2025/05/20 13:31:52 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/26 12:50:18 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,25 @@ void	handle_sigint(int sig)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		if (wait(NULL) != -1)
-			write(1, "\n", 1);
 	}
 }
+
+void	default_sig(void)
+{
+	signal(SIGINT, SIG_DFL);
+	signal(SIGQUIT, SIG_DFL);
+}
+
+void	handle_here_doc(int sig)
+{
+	if (sig == SIGINT)
+		exit(130);
+}
+
+void	setup_heredoc(void)
+{
+	signal(SIGINT, handle_here_doc);
+	signal(SIGQUIT, SIG_IGN);
+}
+
+

@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lde-guil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:14:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/20 09:14:50 by lde-guil         ###   ########.fr       */
+/*   Updated: 2025/05/26 15:12:25 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int		fill_cmd(t_list *list, t_exec *exec, t_cmd *cmd);
 
 static void	wait_loop(t_exec *exec)
 {
@@ -29,13 +31,9 @@ void	exec_line(t_exec *exec, t_list *list)
 {
 	t_cmd	*cmd;
 
-	while (list)
-	{
-		replace_env(list, exec);
-		cmd = assign_cmd(list, exec);
-		add_command(exec, cmd);
-		list = list->next_list;
-	}
+	cmd = NULL;
+	if (!fill_cmd(list, exec, cmd))
+		return ;
 	cmd = exec->cmd;
 	while (cmd)
 	{
@@ -50,6 +48,20 @@ void	exec_line(t_exec *exec, t_list *list)
 	wait_loop(exec);
 	ft_free_cmd(exec->cmd);
 	exec->cmd = NULL;
+}
+
+int		fill_cmd(t_list *list, t_exec *exec, t_cmd *cmd)
+{
+	while (list)
+	{
+		replace_env(list, exec);
+		cmd = assign_cmd(list, exec);
+		if (g_exit_status == 130)
+			return (0);
+		add_command(exec, cmd);
+		list = list->next_list;
+	}
+	return (1);
 }
 
 void	wait_status(t_exec *exec, t_cmd *cmd)
@@ -81,8 +93,7 @@ int	exec_cmd(t_exec *exec, t_cmd *cmd)
 	if (cmd->is_builtin)
 	{
 		status = exec_builtin(exec, cmd);
-		free_exec(exec);
-		return (status);
+		return (free_list(exec->liste), free_exec(exec), status);
 	}
 	else if (cmd->path == NULL)
 	{
@@ -90,7 +101,7 @@ int	exec_cmd(t_exec *exec, t_cmd *cmd)
 		{
 			ft_putstr_fd("Command not found: ", 2);
 			ft_putendl_fd(cmd->name, 2);
-			return (2);
+			return (free_list(exec->liste), free_exec(exec), 2);
 		}
 		else
 			return (2);
@@ -98,7 +109,7 @@ int	exec_cmd(t_exec *exec, t_cmd *cmd)
 	else if (execve(cmd->path, cmd->args, str_env(exec)) == -1)
 	{
 		perror("Execve error");
-		return (2);
+		return (free_list(exec->liste), free_exec(exec), 2);
 	}
 	return (0);
 }

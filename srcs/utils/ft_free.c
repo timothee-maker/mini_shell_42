@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lde-guil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 09:16:53 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/21 09:16:54 by lde-guil         ###   ########.fr       */
+/*   Updated: 2025/05/26 15:43:29 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 void	free_tab(char **tab)
 {
@@ -66,11 +66,17 @@ void	ft_free_cmd(t_cmd *cmd)
 
 void	free_exec(t_exec *exec)
 {
-	ft_free_cmd(exec->cmd);
-	exec->cmd = NULL;
-	free_env(exec->env);
-	free(exec->infile_path);
-	free(exec->heredoc_path);
+	if (!exec)
+		return ;
+	if (exec->heredoc_path)
+		free(exec->heredoc_path);
+	if (exec->infile_path)
+		free(exec->infile_path);
+	if (exec->env)
+		free_env(exec->env);
+	if (exec->heredoc != -1)
+		close(exec->heredoc);
+	if (exec->infile != -1)
+		close(exec->infile);
 	free(exec);
-	exec = NULL;
 }

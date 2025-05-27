@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 16:19:39 by tnolent           #+#    #+#             */
-/*   Updated: 2025/05/19 14:48:18 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/23 17:05:44 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,14 @@ int	find_cmd(t_list *list, t_token *token)
 		return (empty_string_case(token->split->str, list, token), 0);
 	if (access(token->split->str, X_OK) == 0 && list->cmd == 0)
 		return (list->cmd = 1, add_token(list, "CMD", token));
-	path = ft_split(getenv("PATH"), ':');
-	is_good = join_path(path, list, token);
-	if (is_good == -1 || is_good == 1)
-		return (is_good);
+	if (getenv("PATH"))
+	{
+		path = ft_split(getenv("PATH"), ':');
+		is_good = join_path(path, list, token);
+		if (is_good == -1 || is_good == 1)
+			return (is_good);
+		free_tab(path);
+	}
 	if (token->split->str[0] == '$' && token->split->env_context == 1)
 		is_good = add_token(list, "ENV", token);
 	else if (token->split->env_context == 3)
@@ -55,7 +59,7 @@ int	find_cmd(t_list *list, t_token *token)
 		is_good = add_token(list, "ARG", token);
 	if (is_good == 1)
 		is_good = 0;
-	return (free_tab(path), is_good);
+	return (is_good);
 }
 
 int	find_files_redir(t_list *list, t_token *token)

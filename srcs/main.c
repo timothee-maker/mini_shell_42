@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:25:47 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/20 14:17:57 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/26 15:48:55 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
+	if (!isatty(0) || !isatty(1))
+		return (printf("Erreur\n"), 1);
 	exec = init_exec(envp);
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, SIG_IGN);
@@ -43,11 +45,13 @@ void	minishell(t_exec *exec)
 			liste = initialisation();
 			exec->liste = liste;
 			good = parsing(input, liste, exec);
-			afficherliste(liste);
+			// afficherliste(liste);
 			if (good == 1)
 				exec_line(exec, liste);
 			free_list(liste);
 			exec->liste = NULL;
+			g_exit_status = 0;
 		}
 	}
+	global_exit(exec);
 }

@@ -4,12 +4,11 @@ valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./
 Erreur : 
 ls > /dev/stdout | echo caca
 > | echo bonsoir
-lancer minishell dans minishell
+lancer un programme dans minishell
 > | echo bonsoir (faut mettre syntaxe error, pour l'instant ca execute le echo)
 
 
 to do : 
-faire les signaux
 Mettre les variables d'en dans le parsing ?
 ex : export HOLA=$HOME
 gerer les leaks quand il y a des pipes
@@ -20,14 +19,12 @@ Revenir a la ligne apres le CTRL-C
 
 Comande test : 
  "e""c""h""o" "$PWD"$PWD'$PWD'
- 
-// while (split){printf("[%s][env = %d]", split->str,
-// split->env_context);split = split->next;}
 
-
-problemes avec les ">" dans les echo
 faire les tests du tester
 revoir le CTRL-C dans les longue commandes
 
 test a revoir (800 test minishell)
 247 a 249 - 260 - 264
+
+// while (split){printf("[%s][env = %d]", split->str,
+// split->env_context);split = split->next;}
