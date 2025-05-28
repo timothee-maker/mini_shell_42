@@ -38,10 +38,4 @@ void	handle_here_doc(int sig)
 		exit(130);
 }
 
-void	setup_heredoc(void)
-{
-	signal(SIGINT, handle_here_doc);
-	signal(SIGQUIT, SIG_IGN);
-}
-
 

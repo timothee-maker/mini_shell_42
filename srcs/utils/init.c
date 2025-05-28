@@ -35,6 +35,7 @@ t_exec	*init_exec(char **envp)
 	res = malloc(sizeof(t_exec));
 	res->exit_status = 0;
 	res->cmd = NULL;
+    res->temp_cmd = NULL;
 	res->env = create_env(envp);
 	res->infile_path = ft_strjoin(cwd, "/.infile");
 	res->infile = open(res->infile_path, O_RDWR | O_CREAT, 0777);
@@ -61,11 +62,13 @@ t_cmd	*assign_cmd(t_list *list, t_exec *exec)
 	t_cmd		*res;
 
 	res = init_cmd(list, exec);
+    exec->temp_cmd = res;
 	elem = list->first;
 	if (assign_loop(elem, list, exec, res))
 		return (NULL);
 	fill_args(list, exec, res);
 	res->args = create_args(exec);
+    exec->temp_cmd = NULL;
 	return (res);
 }
 

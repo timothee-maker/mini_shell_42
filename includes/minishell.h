@@ -118,6 +118,7 @@ typedef struct s_pid
 
 typedef struct s_exec
 {
+    t_cmd               *temp_cmd;
 	t_cmd				*cmd;
 	t_env				*env;
 	t_list				*liste;
@@ -166,15 +167,15 @@ char					**create_args(t_exec *exec);
 void					ft_fork(t_exec *exec, t_cmd *cmd);
 
 // ----------------------HEREDOC-------------------------
-void					fill_heredoc(t_list *list, t_exec *exec);
+int					    fill_heredoc(t_list *list, t_exec *exec);
 
 // ______________________ PARSING________________________
 
 //--------------------------SIGNAUX-----------------------
 void					handle_sigint(int sig);
 void					default_sig(void);
-void					handle_here_doc(int sig);
-void					setup_heredoc(void);
+//void					handle_here_doc(int sig);
+//void					setup_heredoc(void);
 
 // -------------------------CORE-------------------------
 int						parsing(char *line, t_list *list, t_exec *exec);
