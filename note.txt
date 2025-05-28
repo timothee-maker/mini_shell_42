@@ -2,16 +2,14 @@ Commande de debug :
 valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./minishell
 
 Erreur : 
-ls > /dev/stdout | echo caca
-> | echo bonsoir
-lancer un programme dans minishell
 > | echo bonsoir (faut mettre syntaxe error, pour l'instant ca execute le echo)
+si pas de commandes sur le heredocs, quitter l'exec
 
 
 to do : 
-Mettre les variables d'en dans le parsing ?
-ex : export HOLA=$HOME
-gerer les leaks quand il y a des pipes
+gerer les leaks quand echo utilise les variables d'env
+gerer les signaux quand CTRL-C sur une commande 
+gerer CTRL-\ sur une commande
 
 heredoc :
 CTRL-C doit s'afficher en face du readline, pas en dessous

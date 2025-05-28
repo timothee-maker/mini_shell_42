@@ -6,13 +6,13 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:14:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/27 12:37:18 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/27 14:29:02 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		fill_cmd(t_list *list, t_exec *exec, t_cmd *cmd);
+int			fill_cmd(t_list *list, t_exec *exec, t_cmd *cmd);
 
 static void	wait_loop(t_exec *exec)
 {
@@ -34,7 +34,7 @@ void	exec_line(t_exec *exec, t_list *list)
 	cmd = NULL;
 	if (!fill_cmd(list, exec, cmd))
 		return ;
-    reopen_IO(exec);
+	reopen_io(exec);
 	cmd = exec->cmd;
 	while (cmd)
 	{
@@ -51,7 +51,7 @@ void	exec_line(t_exec *exec, t_list *list)
 	exec->cmd = NULL;
 }
 
-int		fill_cmd(t_list *list, t_exec *exec, t_cmd *cmd)
+int	fill_cmd(t_list *list, t_exec *exec, t_cmd *cmd)
 {
 	while (list)
 	{

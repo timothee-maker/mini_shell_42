@@ -6,13 +6,13 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:10:35 by tnolent           #+#    #+#             */
-/*   Updated: 2025/05/26 12:50:18 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/27 14:49:26 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int			g_exit_status = 0;
+int		g_exit_status = 0;
 
 void	handle_sigint(int sig)
 {
@@ -23,6 +23,8 @@ void	handle_sigint(int sig)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
+		if (wait(NULL) != -1)
+			write(1, "\n", 1);
 	}
 }
 
@@ -44,4 +46,7 @@ void	setup_heredoc(void)
 	signal(SIGQUIT, SIG_IGN);
 }
 
-
+void	restore_signals(void)
+{
+	default_sig();
+}

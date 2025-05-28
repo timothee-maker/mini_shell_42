@@ -6,13 +6,13 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 15:31:59 by tnolent           #+#    #+#             */
-/*   Updated: 2025/05/19 15:54:15 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/27 10:51:02 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	error_parsing(char *line, t_list *list, t_exec *exec, t_split *split)
+void	error_parsing(char *line, t_exec *exec, t_split *split)
 {
 	if (line)
 		free(line);
@@ -20,8 +20,6 @@ void	error_parsing(char *line, t_list *list, t_exec *exec, t_split *split)
 		free_split(split);
 	if (exec)
 		free_exec(exec);
-	if (list)
-		free_list(list);
 	printf("AYYYYYYY le malloc a pete");
 	exit(0);
 }

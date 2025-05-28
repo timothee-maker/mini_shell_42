@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/26 11:11:13 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/27 14:28:45 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,7 +166,7 @@ char					**create_args(t_exec *exec);
 void					ft_fork(t_exec *exec, t_cmd *cmd);
 
 // ----------------------HEREDOC-------------------------
-void					fill_heredoc(t_list *list, t_exec *exec);
+int						fill_heredoc(t_list *list, t_exec *exec);
 
 // ______________________ PARSING________________________
 
@@ -175,6 +175,7 @@ void					handle_sigint(int sig);
 void					default_sig(void);
 void					handle_here_doc(int sig);
 void					setup_heredoc(void);
+void					restore_signals(void);
 
 // -------------------------CORE-------------------------
 int						parsing(char *line, t_list *list, t_exec *exec);
@@ -223,8 +224,7 @@ void					handle_quote_case(const char *s, t_split_parse *split);
 void					fill_list(t_split_parse *split, const char *s, char c);
 
 // ------------------------ERROR CASE---------------------
-void					error_parsing(char *line, t_list *list, t_exec *exec,
-							t_split *split);
+void					error_parsing(char *line, t_exec *exec, t_split *split);
 
 // ________________________UTILS_________________________
 
@@ -252,7 +252,7 @@ char					*fetch_value(char *name, t_exec *exec);
 int						is_infile(t_element *elem);
 int						is_outfile(t_element *elem);
 char					*get_file_content(int fd);
-void                    reopen_IO(t_exec *exec);
+void					reopen_io(t_exec *exec);
 
 // ----------------------FIND CMD------------------------
 char					*get_cmd_name(char *path);

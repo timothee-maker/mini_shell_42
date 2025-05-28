@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   files.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lde-guil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 09:12:01 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/21 09:12:03 by lde-guil         ###   ########.fr       */
+/*   Updated: 2025/05/27 14:27:20 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,10 @@ char	*get_file_content(int fd)
 	return (res);
 }
 
-void reopen_IO(t_exec *exec)
+void	reopen_io(t_exec *exec)
 {
-    close(exec->infile);
-    close(exec->heredoc);
-    exec->infile = open(exec->infile_path, O_RDWR | O_CREAT, 0777);
-    exec->heredoc = open(exec->heredoc_path, O_RDWR | O_CREAT, 0777);
+	close(exec->infile);
+	close(exec->heredoc);
+	exec->infile = open(exec->infile_path, O_RDWR | O_CREAT, 0777);
+	exec->heredoc = open(exec->heredoc_path, O_RDWR | O_CREAT, 0777);
 }

@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 15:31:18 by tnolent           #+#    #+#             */
-/*   Updated: 2025/05/19 16:29:27 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/27 10:51:21 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,16 +22,16 @@ int	parsing(char *line, t_list *list, t_exec *exec)
 	add_history(line);
 	line = clean_line(line);
 	if (!line)
-		error_parsing(line, list, exec, split);
+		error_parsing(line, exec, split);
 	split = ft_split_list_minishell(line, ' ');
 	if (!split)
-		error_parsing(line, list, exec, split);
+		error_parsing(line, exec, split);
 	free(line);
 	line = NULL;
 	if (!start_parse(split))
 		return (free_split(split), -1);
 	if (!analyze_line(split, list))
-		error_parsing(line, list, exec, split);
+		error_parsing(line, exec, split);
 	free_split(split);
 	return (1);
 }

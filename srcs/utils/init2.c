@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 09:19:02 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/27 10:35:07 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/27 14:36:05 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,6 @@ int	assign_loop(t_element *elem, t_list *list, t_exec *exec, t_cmd *res)
 		if (!ft_strncmp(elem->token, "HERE-DOC", ft_strlen(elem->token)))
 		{
 			fill_heredoc(list, exec);
-			if (g_exit_status == 130)
-				return (1);
 			res->input = open(exec->heredoc_path, O_RDWR);
 			if (res->input == -1)
 			{
