@@ -17,6 +17,7 @@ void	ft_fork(t_exec *exec, t_cmd *cmd)
 	pid_t	pid;
 
 	pid = fork();
+    g_signal_pid = pid;
 	if (pid == -1)
 	{
 		perror("Fork error");
@@ -28,7 +29,9 @@ void	ft_fork(t_exec *exec, t_cmd *cmd)
 		parent_process(cmd, exec->pipe);
 	}
 	else
+    {
 		child_process(cmd, exec->pipe, exec);
+    }
 	return ;
 }
 

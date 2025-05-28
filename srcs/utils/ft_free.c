@@ -85,6 +85,6 @@ void	free_exec(t_exec *exec)
 	if (exec->infile != -1)
 		close(exec->infile);
     if (exec->liste)
-		free(exec->liste);
+		free_list(exec->liste);
 	free(exec);
 }

@@ -63,7 +63,10 @@ int	assign_loop(t_element *elem, t_list *list, t_exec *exec, t_cmd *res)
 	{
 		if (!ft_strncmp(elem->token, "HERE-DOC", ft_strlen(elem->token)))
 		{
-			fill_heredoc(list, exec);
+			if (!fill_heredoc(list, exec))
+            {
+                return (1);
+            }
 			res->input = open(exec->heredoc_path, O_RDWR);
 			if (res->input == -1)
 			{

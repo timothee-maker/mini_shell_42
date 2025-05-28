@@ -12,27 +12,6 @@
 
 #include "minishell.h"
 
-void exit_hdoc(t_exec *exec)
-{
-    static t_exec *backup;
-
-    if (exec)
-        backup = exec;
-    else if (exec == NULL && backup)
-    {
-        free_exec(backup);
-    }
-}
-
-void hdoc_handler(int sig)
-{
-    (void)sig;
-    g_exit_status = 130;
-    write(1, "\n", 1);
-    exit_hdoc(NULL);
-    exit(130);
-}
-
 static int	check_input(char *input, char *delimit)
 {
 	if (input[0] == '\0')
@@ -49,7 +28,7 @@ int	no_hdoc_case(char *delimit)
 	return (1);
 }
 
-static int	read_hdoc(t_exec *exec, char *delimit)
+int	read_hdoc(t_exec *exec, char *delimit)
 {
 	char	*input;
 
@@ -73,7 +52,7 @@ static int	read_hdoc(t_exec *exec, char *delimit)
 	return (1);
 }
 
-static void fork_hdoc(t_exec *exec, t_element *elem)
+static int fork_hdoc(t_exec *exec, t_element *elem)
 {
     pid_t pid;
 
@@ -85,30 +64,20 @@ static void fork_hdoc(t_exec *exec, t_element *elem)
         exit(EXIT_FAILURE);
     }
     else if (pid == 0)
+    {
         child_hdoc(exec, elem);
+    }
     else
     {
         waitpid(pid, &exec->exit_status, 0);
+        if (exec->exit_status == 33280)
+        {
+            return (130);
+        }
+        else 
+            return (0);
     }
-}
-
-static void	setup_heredoc(void)
-{
-	signal(SIGINT, &hdoc_handler);
-	signal(SIGQUIT, SIG_IGN);
-}
-
-void	child_hdoc(t_exec *exec, t_element *elem)
-{
-	setup_heredoc();
-    exit_hdoc(exec);
-	if (!read_hdoc(exec, elem->arg))
-    {
-		free_exec(exec);
-		exit(1);
-	}
-	free_exec(exec);
-	exit(0);
+    return (0);
 }
 
 int	fill_heredoc(t_list *list, t_exec *exec)
@@ -123,7 +92,11 @@ int	fill_heredoc(t_list *list, t_exec *exec)
 			elem = elem->next;
 			if (!ft_strncmp(elem->token, "DELIMITER", ft_strlen(elem->token)))
 			{
-				fork_hdoc(exec, elem);
+				exec->exit_status = fork_hdoc(exec, elem);
+                if (exec->exit_status == 130)
+                {
+                    return (0);
+                }
 			}
 		}
 		elem = elem->next;

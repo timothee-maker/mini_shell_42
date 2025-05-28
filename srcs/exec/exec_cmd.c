@@ -57,8 +57,10 @@ int	fill_cmd(t_list *list, t_exec *exec, t_cmd *cmd)
 	{
 		replace_env(list, exec);
 		cmd = assign_cmd(list, exec);
-		if (g_exit_status == 130)
-			return (0);
+        if (!cmd)
+        {
+            return (0);
+        }
 		add_command(exec, cmd);
 		list = list->next_list;
 	}
