@@ -12,7 +12,26 @@
 
 #include "minishell.h"
 
-int			here_doc_exit(int pid);
+void exit_hdoc(t_exec *exec)
+{
+    static t_exec *backup;
+
+    if (exec)
+        backup = exec;
+    else if (exec == NULL && backup)
+    {
+        free_exec(backup);
+    }
+}
+
+void hdoc_handler(int sig)
+{
+    (void)sig;
+    g_exit_status = 130;
+    write(1, "\n", 1);
+    exit_hdoc(NULL);
+    exit(130);
+}
 
 static int	check_input(char *input, char *delimit)
 {
@@ -54,10 +73,47 @@ static int	read_hdoc(t_exec *exec, char *delimit)
 	return (1);
 }
 
+static void fork_hdoc(t_exec *exec, t_element *elem)
+{
+    pid_t pid;
+
+    pid = fork();
+    if (pid < 0)
+    {
+        perror("Fork failed");
+        free_exec(exec);
+        exit(EXIT_FAILURE);
+    }
+    else if (pid == 0)
+        child_hdoc(exec, elem);
+    else
+    {
+        waitpid(pid, &exec->exit_status, 0);
+    }
+}
+
+static void	setup_heredoc(void)
+{
+	signal(SIGINT, &hdoc_handler);
+	signal(SIGQUIT, SIG_IGN);
+}
+
+void	child_hdoc(t_exec *exec, t_element *elem)
+{
+	setup_heredoc();
+    exit_hdoc(exec);
+	if (!read_hdoc(exec, elem->arg))
+    {
+		free_exec(exec);
+		exit(1);
+	}
+	free_exec(exec);
+	exit(0);
+}
+
 int	fill_heredoc(t_list *list, t_exec *exec)
 {
 	t_element	*elem;
-	pid_t		pid;
 
 	elem = list->first;
 	while (elem)
@@ -67,46 +123,10 @@ int	fill_heredoc(t_list *list, t_exec *exec)
 			elem = elem->next;
 			if (!ft_strncmp(elem->token, "DELIMITER", ft_strlen(elem->token)))
 			{
-				pid = fork();
-				if (pid == 0)
-					child_hdoc(exec, elem);
+				fork_hdoc(exec, elem);
 			}
 		}
 		elem = elem->next;
 	}
-	here_doc_exit(pid);
 	return (1);
-}
-
-int	here_doc_exit(int pid)
-{
-	int	status;
-
-	signal(SIGINT, SIG_IGN);
-	waitpid(pid, &status, 0);
-	if (WIFSIGNALED(status) && WTERMSIG(status) == SIGINT)
-	{
-		g_exit_status = 130;
-		restore_signals();
-		return (-1);
-	}
-	if (WIFEXITED(status) && WEXITSTATUS(status) == 130)
-	{
-		g_exit_status = 130;
-		restore_signals();
-		return (-1);
-	}
-	restore_signals();
-	return (1);
-}
-
-void	child_hdoc(t_exec *exec, t_element *elem)
-{
-	default_sig();
-	setup_heredoc();
-	if (!read_hdoc(exec, elem->arg))
-		free_exec(exec);
-		exit(1);
-	free_exec(exec);
-	exit(0);
 }

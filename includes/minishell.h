@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/27 14:28:45 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/28 12:05:31 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ typedef struct s_pid
 
 typedef struct s_exec
 {
+    t_cmd               *temp_cmd;
 	t_cmd				*cmd;
 	t_env				*env;
 	t_list				*liste;
