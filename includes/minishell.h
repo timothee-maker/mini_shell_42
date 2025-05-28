@@ -43,7 +43,7 @@
 # define ERROR_CHAR ";&():"
 # define BUFFER_SIZE 1000
 
-extern int				g_exit_status;
+extern pid_t	g_signal_pid;
 
 typedef struct s_split
 {
@@ -168,16 +168,27 @@ void					ft_fork(t_exec *exec, t_cmd *cmd);
 
 // ----------------------HEREDOC-------------------------
 int						fill_heredoc(t_list *list, t_exec *exec);
+<<<<<<< HEAD
 void					exit_hdoc(t_exec *exec);
+=======
+int	                    read_hdoc(t_exec *exec, char *delimit);
+void                    exit_hdoc(t_exec *exec);
+>>>>>>> 0f8ea229069d3f1fff1cbd2e6704d43d5187e051
 
 // ______________________ PARSING________________________
 
 //--------------------------SIGNAUX-----------------------
+<<<<<<< HEAD
 void					handle_sigint(int sig);
 void					default_sig(void);
 void					restore_signals(void);
 void					prompt_sig(void);
 void					hdoc_handler(int sig);
+=======
+void	                signals(void);
+void	                child_signals(void);
+void	                hdoc_signals(void);
+>>>>>>> 0f8ea229069d3f1fff1cbd2e6704d43d5187e051
 
 // -------------------------CORE-------------------------
 int						parsing(char *line, t_list *list, t_exec *exec);

@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 09:16:53 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/28 12:58:27 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/28 19:47:36 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	free_exec(t_exec *exec)
 		close(exec->heredoc);
 	if (exec->infile != -1)
 		close(exec->infile);
-	if (exec->liste)
-		free(exec->liste);
+    if (exec->liste)
+		free_list(exec->liste);
 	free(exec);
 }

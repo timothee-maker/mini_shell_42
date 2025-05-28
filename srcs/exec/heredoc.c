@@ -6,12 +6,13 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:18:02 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/28 14:37:44 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/28 19:46:42 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+<<<<<<< HEAD
 void	exit_hdoc(t_exec *exec)
 {
 	static t_exec	*backup;
@@ -24,6 +25,8 @@ void	exit_hdoc(t_exec *exec)
 	}
 }
 
+=======
+>>>>>>> 0f8ea229069d3f1fff1cbd2e6704d43d5187e051
 static int	check_input(char *input, char *delimit)
 {
 	if (input[0] == '\0')
@@ -40,7 +43,7 @@ int	no_hdoc_case(char *delimit)
 	return (1);
 }
 
-static int	read_hdoc(t_exec *exec, char *delimit)
+int	read_hdoc(t_exec *exec, char *delimit)
 {
 	char	*input;
 
@@ -64,42 +67,32 @@ static int	read_hdoc(t_exec *exec, char *delimit)
 	return (1);
 }
 
-static void	fork_hdoc(t_exec *exec, t_element *elem)
+static int fork_hdoc(t_exec *exec, t_element *elem)
 {
 	pid_t	pid;
 
-	pid = fork();
-	if (pid < 0)
-	{
-		perror("Fork failed");
-		free_exec(exec);
-		exit(EXIT_FAILURE);
-	}
-	else if (pid == 0)
-		child_hdoc(exec, elem);
-	else
-	{
-		waitpid(pid, &exec->exit_status, 0);
-	}
-}
-
-static void	setup_heredoc(void)
-{
-	signal(SIGINT, &hdoc_handler);
-	signal(SIGQUIT, SIG_IGN);
-}
-
-void	child_hdoc(t_exec *exec, t_element *elem)
-{
-	setup_heredoc();
-	exit_hdoc(exec);
-	if (!read_hdoc(exec, elem->arg))
-	{
-		free_exec(exec);
-		exit(1);
-	}
-	free_exec(exec);
-	exit(0);
+    pid = fork();
+    if (pid < 0)
+    {
+        perror("Fork failed");
+        free_exec(exec);
+        exit(EXIT_FAILURE);
+    }
+    else if (pid == 0)
+    {
+        child_hdoc(exec, elem);
+    }
+    else
+    {
+        waitpid(pid, &exec->exit_status, 0);
+        if (exec->exit_status == 33280)
+        {
+            return (130);
+        }
+        else 
+            return (0);
+    }
+    return (0);
 }
 
 int	fill_heredoc(t_list *list, t_exec *exec)
@@ -114,7 +107,11 @@ int	fill_heredoc(t_list *list, t_exec *exec)
 			elem = elem->next;
 			if (!ft_strncmp(elem->token, "DELIMITER", ft_strlen(elem->token)))
 			{
-				fork_hdoc(exec, elem);
+				exec->exit_status = fork_hdoc(exec, elem);
+                if (exec->exit_status == 130)
+                {
+                    return (0);
+                }
 			}
 		}
 		elem = elem->next;
