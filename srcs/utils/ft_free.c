@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 09:16:53 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/28 12:04:25 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/28 12:58:27 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ void	ft_free_cmd(t_cmd *cmd)
 			free(cmd->name);
 		if (cmd->path)
 			free(cmd->path);
-        if (cmd->args)
-		    free_tab(cmd->args);
+		if (cmd->args)
+			free_tab(cmd->args);
 		if (cmd->input >= 0)
 			close(cmd->input);
 		if (cmd->output >= 0)
@@ -69,11 +69,11 @@ void	free_exec(t_exec *exec)
 {
 	if (!exec)
 		return ;
-    if (exec->cmd)
-        ft_free_cmd(exec->cmd);
-    if (exec->temp_cmd)
-        ft_free_cmd(exec->temp_cmd);
-    exec->cmd = NULL;
+	if (exec->cmd)
+		ft_free_cmd(exec->cmd);
+	if (exec->temp_cmd)
+		ft_free_cmd(exec->temp_cmd);
+	exec->cmd = NULL;
 	if (exec->heredoc_path)
 		free(exec->heredoc_path);
 	if (exec->infile_path)
@@ -84,7 +84,7 @@ void	free_exec(t_exec *exec)
 		close(exec->heredoc);
 	if (exec->infile != -1)
 		close(exec->infile);
-    if (exec->liste)
+	if (exec->liste)
 		free(exec->liste);
 	free(exec);
 }

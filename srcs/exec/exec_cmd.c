@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:14:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/27 14:29:02 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/28 12:13:18 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	exec_line(t_exec *exec, t_list *list)
 	wait_loop(exec);
 	ft_free_cmd(exec->cmd);
 	exec->cmd = NULL;
+	restore_signals();
 }
 
 int	fill_cmd(t_list *list, t_exec *exec, t_cmd *cmd)

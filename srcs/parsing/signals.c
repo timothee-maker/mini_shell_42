@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/17 17:10:35 by tnolent           #+#    #+#             */
-/*   Updated: 2025/05/28 12:05:48 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/28 13:07:11 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void	handle_sigint(int sig)
 		rl_on_new_line();
 		rl_replace_line("", 0);
 		rl_redisplay();
-		if (wait(NULL) != -1)
-			write(1, "\n", 1);
 	}
 }
 
@@ -34,20 +32,21 @@ void	default_sig(void)
 	signal(SIGQUIT, SIG_DFL);
 }
 
-void	handle_here_doc(int sig)
-{
-	if (sig == SIGINT)
-		exit(130);
-}
-
-void	setup_heredoc(void)
-{
-	signal(SIGINT, handle_here_doc);
-	signal(SIGQUIT, SIG_IGN);
-}
-
 void	restore_signals(void)
 {
-	default_sig();
+	prompt_sig();
 }
 
+void	prompt_sig(void)
+{
+	signal(SIGINT, handle_sigint);
+	signal(SIGQUIT, SIG_IGN);
+}
+void	hdoc_handler(int sig)
+{
+	(void)sig;
+	g_exit_status = 130;
+	write(1, "\n", 1);
+	exit_hdoc(NULL);
+	exit(130);
+}

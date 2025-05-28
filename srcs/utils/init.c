@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lde-guil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 09:22:37 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/21 09:22:38 by lde-guil         ###   ########.fr       */
+/*   Updated: 2025/05/28 12:58:38 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ t_exec	*init_exec(char **envp)
 	res = malloc(sizeof(t_exec));
 	res->exit_status = 0;
 	res->cmd = NULL;
-    res->temp_cmd = NULL;
+	res->temp_cmd = NULL;
 	res->env = create_env(envp);
 	res->infile_path = ft_strjoin(cwd, "/.infile");
 	res->infile = open(res->infile_path, O_RDWR | O_CREAT, 0777);
@@ -62,13 +62,13 @@ t_cmd	*assign_cmd(t_list *list, t_exec *exec)
 	t_cmd		*res;
 
 	res = init_cmd(list, exec);
-    exec->temp_cmd = res;
+	exec->temp_cmd = res;
 	elem = list->first;
 	if (assign_loop(elem, list, exec, res))
 		return (NULL);
 	fill_args(list, exec, res);
 	res->args = create_args(exec);
-    exec->temp_cmd = NULL;
+	exec->temp_cmd = NULL;
 	return (res);
 }
 

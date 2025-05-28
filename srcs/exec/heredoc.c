@@ -6,31 +6,22 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:18:02 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/27 15:06:40 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/28 14:37:44 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void exit_hdoc(t_exec *exec)
+void	exit_hdoc(t_exec *exec)
 {
-    static t_exec *backup;
+	static t_exec	*backup;
 
-    if (exec)
-        backup = exec;
-    else if (exec == NULL && backup)
-    {
-        free_exec(backup);
-    }
-}
-
-void hdoc_handler(int sig)
-{
-    (void)sig;
-    g_exit_status = 130;
-    write(1, "\n", 1);
-    exit_hdoc(NULL);
-    exit(130);
+	if (exec)
+		backup = exec;
+	else if (exec == NULL && backup)
+	{
+		free_exec(backup);
+	}
 }
 
 static int	check_input(char *input, char *delimit)
@@ -73,23 +64,23 @@ static int	read_hdoc(t_exec *exec, char *delimit)
 	return (1);
 }
 
-static void fork_hdoc(t_exec *exec, t_element *elem)
+static void	fork_hdoc(t_exec *exec, t_element *elem)
 {
-    pid_t pid;
+	pid_t	pid;
 
-    pid = fork();
-    if (pid < 0)
-    {
-        perror("Fork failed");
-        free_exec(exec);
-        exit(EXIT_FAILURE);
-    }
-    else if (pid == 0)
-        child_hdoc(exec, elem);
-    else
-    {
-        waitpid(pid, &exec->exit_status, 0);
-    }
+	pid = fork();
+	if (pid < 0)
+	{
+		perror("Fork failed");
+		free_exec(exec);
+		exit(EXIT_FAILURE);
+	}
+	else if (pid == 0)
+		child_hdoc(exec, elem);
+	else
+	{
+		waitpid(pid, &exec->exit_status, 0);
+	}
 }
 
 static void	setup_heredoc(void)
@@ -101,9 +92,9 @@ static void	setup_heredoc(void)
 void	child_hdoc(t_exec *exec, t_element *elem)
 {
 	setup_heredoc();
-    exit_hdoc(exec);
+	exit_hdoc(exec);
 	if (!read_hdoc(exec, elem->arg))
-    {
+	{
 		free_exec(exec);
 		exit(1);
 	}

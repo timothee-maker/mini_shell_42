@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/28 12:05:31 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/28 19:41:47 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ typedef struct s_pid
 
 typedef struct s_exec
 {
-    t_cmd               *temp_cmd;
+	t_cmd				*temp_cmd;
 	t_cmd				*cmd;
 	t_env				*env;
 	t_list				*liste;
@@ -168,21 +168,23 @@ void					ft_fork(t_exec *exec, t_cmd *cmd);
 
 // ----------------------HEREDOC-------------------------
 int						fill_heredoc(t_list *list, t_exec *exec);
+void					exit_hdoc(t_exec *exec);
 
 // ______________________ PARSING________________________
 
 //--------------------------SIGNAUX-----------------------
 void					handle_sigint(int sig);
 void					default_sig(void);
-void					handle_here_doc(int sig);
-void					setup_heredoc(void);
 void					restore_signals(void);
+void					prompt_sig(void);
+void					hdoc_handler(int sig);
 
 // -------------------------CORE-------------------------
 int						parsing(char *line, t_list *list, t_exec *exec);
-int						analyze_line(t_split *split, t_list *list);
+int						analyze_line(t_split *split, t_list *list, t_exec *exec);
 
 // ----------------------FIND LIST-----------------------
+int						handle_env(t_list *list, t_token *token, t_exec *exec);
 int						find_builtin(t_list *list, t_token *token);
 int						find_cmd(t_list *list, t_token *token);
 int						find_files_redir(t_list *list, t_token *token);

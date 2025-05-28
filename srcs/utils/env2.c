@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   env2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lde-guil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 09:09:43 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/21 09:09:45 by lde-guil         ###   ########.fr       */
+/*   Updated: 2025/05/28 15:21:05 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 static int	get_env_lenght(t_env *env)
 {

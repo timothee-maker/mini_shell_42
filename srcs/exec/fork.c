@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fork.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lde-guil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:16:19 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/20 09:16:21 by lde-guil         ###   ########.fr       */
+/*   Updated: 2025/05/28 12:23:03 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	child_process(t_cmd *cmd, int pipe[2], t_exec *exec)
 	int	status;
 
 	status = 0;
+	default_sig();
 	close(pipe[0]);
 	if (cmd->input >= 0)
 	{
