@@ -92,7 +92,6 @@ int	ft_cd(t_exec *exec, t_cmd *cmd)
     if (getcwd(cwd, PATH_MAX) == NULL)
     {
         ft_putendl_fd("cd: Cannot access current directory", 2);
-        return (1);
     }
 	if (cmd->args[1] != NULL && cmd->args[2] != NULL)
 	{
