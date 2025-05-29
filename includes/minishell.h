@@ -139,12 +139,7 @@ int						ft_export(t_exec *exec, t_cmd *cmd);
 int						ft_pwd(t_cmd *cmd);
 int						ft_unset(t_exec *exec, t_cmd *cmd);
 
-int						home_case(t_exec *exec, t_env *var);
-int						reverse_case(t_exec *exec, t_env *var);
-int						base_case(t_env *var, char **args);
-int						update_currpwd(t_env *var, char *path);
-int						update_oldpwd(t_env *var);
-void					global_exit(t_exec *exec);
+void					global_exit(t_exec *exec, int status);
 int						export_next(t_cmd *cmd, t_exec *exec);
 void					child_hdoc(t_exec *exec, t_element *elem);
 
@@ -168,27 +163,15 @@ void					ft_fork(t_exec *exec, t_cmd *cmd);
 
 // ----------------------HEREDOC-------------------------
 int						fill_heredoc(t_list *list, t_exec *exec);
-<<<<<<< HEAD
-void					exit_hdoc(t_exec *exec);
-=======
 int	                    read_hdoc(t_exec *exec, char *delimit);
 void                    exit_hdoc(t_exec *exec);
->>>>>>> 0f8ea229069d3f1fff1cbd2e6704d43d5187e051
 
 // ______________________ PARSING________________________
 
 //--------------------------SIGNAUX-----------------------
-<<<<<<< HEAD
-void					handle_sigint(int sig);
-void					default_sig(void);
-void					restore_signals(void);
-void					prompt_sig(void);
-void					hdoc_handler(int sig);
-=======
 void	                signals(void);
 void	                child_signals(void);
 void	                hdoc_signals(void);
->>>>>>> 0f8ea229069d3f1fff1cbd2e6704d43d5187e051
 
 // -------------------------CORE-------------------------
 int						parsing(char *line, t_list *list, t_exec *exec);

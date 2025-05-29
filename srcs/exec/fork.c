@@ -40,7 +40,6 @@ void	child_process(t_cmd *cmd, int pipe[2], t_exec *exec)
 	int	status;
 
 	status = 0;
-	default_sig();
 	close(pipe[0]);
 	if (cmd->input >= 0)
 	{

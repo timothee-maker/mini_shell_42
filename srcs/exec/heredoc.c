@@ -12,21 +12,6 @@
 
 #include "minishell.h"
 
-<<<<<<< HEAD
-void	exit_hdoc(t_exec *exec)
-{
-	static t_exec	*backup;
-
-	if (exec)
-		backup = exec;
-	else if (exec == NULL && backup)
-	{
-		free_exec(backup);
-	}
-}
-
-=======
->>>>>>> 0f8ea229069d3f1fff1cbd2e6704d43d5187e051
 static int	check_input(char *input, char *delimit)
 {
 	if (input[0] == '\0')

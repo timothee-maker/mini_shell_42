@@ -31,16 +31,12 @@ int	ft_exit(t_cmd *cmd, t_exec *exec)
 			return (-1);
 		}
 	}
-	exec->exit_status = (unsigned char)status;
-	global_exit(exec);
+	global_exit(exec, (unsigned char) status);
 	return (1);
 }
 
-void	global_exit(t_exec *exec)
+void	global_exit(t_exec *exec, int status)
 {
-	int	status;
-
-	status = exec->exit_status;
 	ft_free_cmd(exec->cmd);
 	exec->cmd = NULL;
 	unlink(exec->infile_path);
