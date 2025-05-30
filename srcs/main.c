@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:25:47 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/28 19:51:39 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/30 11:55:42 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ void	minishell(t_exec *exec)
 	good = 0;
 	while (1)
 	{
-		input = readline("$> ");
         if (g_signal_pid == 130)
         {
             exec->exit_status = 130;
-            g_signal_pid = 0;
         }
+        g_signal_pid = 0;
+		input = readline("$> ");
 		if (input == NULL)
         {
 			break ;
@@ -53,12 +53,12 @@ void	minishell(t_exec *exec)
 			liste = initialisation();
 			exec->liste = liste;
 			good = parsing(input, liste, exec);
-			// afficherliste(liste);
+			//afficherliste(liste);
 			if (good == 1)
 				exec_line(exec, liste);
 			free_list(liste);
 			exec->liste = NULL;
 		}
 	}
-	global_exit(exec);
+	global_exit(exec, 0);
 }

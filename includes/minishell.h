@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/28 20:01:06 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/30 11:56:03 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,12 +139,7 @@ int						ft_export(t_exec *exec, t_cmd *cmd);
 int						ft_pwd(t_cmd *cmd);
 int						ft_unset(t_exec *exec, t_cmd *cmd);
 
-int						home_case(t_exec *exec, t_env *var);
-int						reverse_case(t_exec *exec, t_env *var);
-int						base_case(t_env *var, char **args);
-int						update_currpwd(t_env *var, char *path);
-int						update_oldpwd(t_env *var);
-void					global_exit(t_exec *exec);
+void					global_exit(t_exec *exec, int status);
 int						export_next(t_cmd *cmd, t_exec *exec);
 void					child_hdoc(t_exec *exec, t_element *elem);
 

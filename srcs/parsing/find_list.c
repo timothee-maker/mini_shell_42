@@ -90,9 +90,9 @@ int	find_files_redir(t_list *list, t_token *token)
 
 	if (token->position == 0 || token->redir == 0)
 		redir = 0;
-	if (ft_strncmp(">>", token->split->str, 2) == 0)
+	if (ft_strcmp(">>", token->split->str) == 0)
 		return (redir = OUT_APPEND, token->redir = 1, 1);
-	else if (ft_strncmp("<<", token->split->str, 2) == 0)
+	else if (ft_strcmp("<<", token->split->str) == 0)
 		return (redir = 4, token->redir = 1, find_file(list, redir, token), 1);
 	else if (token->split->str[0] == '<')
 		return (redir = IN, token->redir = 1, 1);
