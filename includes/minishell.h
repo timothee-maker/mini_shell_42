@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/28 19:41:47 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/28 20:01:06 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,27 +168,18 @@ void					ft_fork(t_exec *exec, t_cmd *cmd);
 
 // ----------------------HEREDOC-------------------------
 int						fill_heredoc(t_list *list, t_exec *exec);
-<<<<<<< HEAD
-void					exit_hdoc(t_exec *exec);
-=======
 int	                    read_hdoc(t_exec *exec, char *delimit);
 void                    exit_hdoc(t_exec *exec);
->>>>>>> 0f8ea229069d3f1fff1cbd2e6704d43d5187e051
 
 // ______________________ PARSING________________________
 
 //--------------------------SIGNAUX-----------------------
-<<<<<<< HEAD
-void					handle_sigint(int sig);
-void					default_sig(void);
-void					restore_signals(void);
-void					prompt_sig(void);
-void					hdoc_handler(int sig);
-=======
 void	                signals(void);
 void	                child_signals(void);
 void	                hdoc_signals(void);
->>>>>>> 0f8ea229069d3f1fff1cbd2e6704d43d5187e051
+void					default_sig(void);
+void					restore_signals(void);
+void					prompt_sig(void);
 
 // -------------------------CORE-------------------------
 int						parsing(char *line, t_list *list, t_exec *exec);
