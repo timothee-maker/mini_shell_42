@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:14:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/02 12:30:41 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/02 14:54:00 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	wait_loop(t_exec *exec)
 	}
 }
 
-int		exec_line(t_exec *exec, t_list *list)
+int	exec_line(t_exec *exec, t_list *list)
 {
 	t_cmd	*cmd;
 
