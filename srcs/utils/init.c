@@ -36,6 +36,11 @@ t_exec	*init_exec(char **envp)
 	res->exit_status = 0;
 	res->cmd = NULL;
 	res->temp_cmd = NULL;
+    if (envp[0] == NULL)
+    {
+        ft_putstr_fd("No environment found\n", 2);
+        exit(EXIT_FAILURE);
+    }
 	res->env = create_env(envp);
 	res->infile_path = ft_strjoin(cwd, "/.infile");
 	res->infile = open(res->infile_path, O_RDWR | O_CREAT, 0777);
