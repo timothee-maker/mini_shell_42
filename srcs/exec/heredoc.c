@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:18:02 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/28 19:54:42 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/30 12:19:49 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,32 +52,32 @@ int	read_hdoc(t_exec *exec, char *delimit)
 	return (1);
 }
 
-static int fork_hdoc(t_exec *exec, t_element *elem)
+static int	fork_hdoc(t_exec *exec, t_element *elem)
 {
 	pid_t	pid;
 
-    pid = fork();
-    if (pid < 0)
-    {
-        perror("Fork failed");
-        free_exec(exec);
-        exit(EXIT_FAILURE);
-    }
-    else if (pid == 0)
-    {
-        child_hdoc(exec, elem);
-    }
-    else
-    {
-        waitpid(pid, &exec->exit_status, 0);
-        if (exec->exit_status == 33280)
-        {
-            return (130);
-        }
-        else 
-            return (0);
-    }
-    return (0);
+	pid = fork();
+	if (pid < 0)
+	{
+		perror("Fork failed");
+		free_exec(exec);
+		exit(EXIT_FAILURE);
+	}
+	else if (pid == 0)
+	{
+		child_hdoc(exec, elem);
+	}
+	else
+	{
+		waitpid(pid, &exec->exit_status, 0);
+		if (exec->exit_status == 33280)
+		{
+			return (130);
+		}
+		else
+			return (0);
+	}
+	return (0);
 }
 
 int	fill_heredoc(t_list *list, t_exec *exec)
@@ -93,10 +93,10 @@ int	fill_heredoc(t_list *list, t_exec *exec)
 			if (!ft_strncmp(elem->token, "DELIMITER", ft_strlen(elem->token)))
 			{
 				exec->exit_status = fork_hdoc(exec, elem);
-                if (exec->exit_status == 130)
-                {
-                    return (0);
-                }
+				if (exec->exit_status == 130)
+				{
+					return (0);
+				}
 			}
 		}
 		elem = elem->next;

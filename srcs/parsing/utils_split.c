@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 15:31:49 by tnolent           #+#    #+#             */
-/*   Updated: 2025/05/19 16:09:00 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/30 14:04:35 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	init_split(t_split_parse *split)
 	split->tmp = 0;
 	split->dollar = 0;
 	split->is_in_quotes = 0;
-	split->env_context = 0;
+	split->context = 0;
 	split->buffer = NULL;
 	split->head = NULL;
 	split->tail = NULL;
@@ -34,11 +34,11 @@ void	append_to_list(t_split_parse *split, const char *content)
 	new->str = ft_strdup(content);
 	new->next = NULL;
 	new->is_in_quotes = 0;
-	new->env_context = 0;
+	new->context = 0;
 	if (split->is_in_quotes == 1)
 		new->is_in_quotes = 1;
-	if (split->env_context != 0)
-		new->env_context = split->env_context;
+	if (split->context != 0)
+		new->context = split->context;
 	if (!split->head)
 		split->head = new;
 	else

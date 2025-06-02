@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:14:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/30 11:55:50 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/02 12:30:41 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,19 @@ static void	wait_loop(t_exec *exec)
 	}
 }
 
-void	exec_line(t_exec *exec, t_list *list)
+int		exec_line(t_exec *exec, t_list *list)
 {
 	t_cmd	*cmd;
 
 	cmd = NULL;
 	if (!fill_cmd(list, exec, cmd))
-		return ;
+		return (0);
 	reopen_io(exec);
 	cmd = exec->cmd;
 	while (cmd)
 	{
 		if (pipe(exec->pipe) == -1)
-			return (perror("Pipe error"));
+			return (perror("Pipe error"), 1);
 		if (is_single_builtin(cmd))
 			exec_single_builtin(cmd, exec);
 		else
@@ -49,6 +49,7 @@ void	exec_line(t_exec *exec, t_list *list)
 	wait_loop(exec);
 	ft_free_cmd(exec->cmd);
 	exec->cmd = NULL;
+	return (restore_signals(), 1);
 }
 
 int	fill_cmd(t_list *list, t_exec *exec, t_cmd *cmd)
@@ -57,10 +58,10 @@ int	fill_cmd(t_list *list, t_exec *exec, t_cmd *cmd)
 	{
 		replace_env(list, exec);
 		cmd = assign_cmd(list, exec);
-        if (!cmd)
-        {
-            return (0);
-        }
+		if (!cmd)
+		{
+			return (0);
+		}
 		add_command(exec, cmd);
 		list = list->next_list;
 	}

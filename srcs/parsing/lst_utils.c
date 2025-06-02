@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 15:13:08 by tnolent           #+#    #+#             */
-/*   Updated: 2025/05/27 13:25:00 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/30 12:39:40 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	add_token(t_list *liste, char *token, t_token *t_token)
 	return (1);
 }
 
-void	insertion_list(t_list *liste)
+void	insertion_list(t_exec *exec, t_list *liste)
 {
 	t_list	*new_list;
 	t_list	*current;
@@ -58,7 +58,7 @@ void	insertion_list(t_list *liste)
 	new_list = malloc(sizeof(*new_list));
 	if (!new_list)
 	{
-		free_list(liste);
+		free_list(exec, liste);
 		exit(0);
 	}
 	new_list->next_list = NULL;
@@ -75,7 +75,7 @@ void	insertion_list(t_list *liste)
 	}
 }
 
-void	free_list(t_list *liste)
+void	free_list(t_exec *exec, t_list *liste)
 {
 	t_element	*asupprimer;
 	t_list		*lst_asupprimer;
@@ -101,6 +101,7 @@ void	free_list(t_list *liste)
 	}
 	free(liste);
 	liste = NULL;
+	exec->liste = NULL;
 }
 
 void	afficherliste(t_list *liste)

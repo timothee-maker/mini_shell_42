@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/30 11:56:03 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/02 12:16:55 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@
 # define ERROR_CHAR ";&():"
 # define BUFFER_SIZE 1000
 
-extern pid_t	g_signal_pid;
+extern pid_t			g_signal_pid;
 
 typedef struct s_split
 {
 	char				*str;
 	int					is_in_quotes;
-	int					env_context;
+	int					context;
 	struct s_split		*next;
 }						t_split;
 
@@ -60,7 +60,7 @@ typedef struct s_split_parse
 	int					dollar;
 	char				*buffer;
 	int					is_in_quotes;
-	int					env_context;
+	int					context;
 	t_split				*head;
 	t_split				*tail;
 }						t_split_parse;
@@ -147,7 +147,7 @@ void					child_hdoc(t_exec *exec, t_element *elem);
 
 // ----------------------EXEC CMD------------------------
 
-void					exec_line(t_exec *exec, t_list *list);
+int						exec_line(t_exec *exec, t_list *list);
 int						exec_cmd(t_exec *exec, t_cmd *cmd);
 int						exec_builtin(t_exec *ex, t_cmd *cmd);
 char					*get_first_arg(t_list *list);
@@ -163,22 +163,23 @@ void					ft_fork(t_exec *exec, t_cmd *cmd);
 
 // ----------------------HEREDOC-------------------------
 int						fill_heredoc(t_list *list, t_exec *exec);
-int	                    read_hdoc(t_exec *exec, char *delimit);
-void                    exit_hdoc(t_exec *exec);
+int						read_hdoc(t_exec *exec, char *delimit);
+void					exit_hdoc(t_exec *exec);
 
 // ______________________ PARSING________________________
 
 //--------------------------SIGNAUX-----------------------
-void	                signals(void);
-void	                child_signals(void);
-void	                hdoc_signals(void);
+void					signals(void);
+void					child_signals(void);
+void					hdoc_signals(void);
 void					default_sig(void);
 void					restore_signals(void);
 void					prompt_sig(void);
 
 // -------------------------CORE-------------------------
 int						parsing(char *line, t_list *list, t_exec *exec);
-int						analyze_line(t_split *split, t_list *list, t_exec *exec);
+int						analyze_line(t_split *split, t_list *list,
+							t_exec *exec);
 
 // ----------------------FIND LIST-----------------------
 int						handle_env(t_list *list, t_token *token, t_exec *exec);
@@ -192,7 +193,7 @@ int						join_path(char **path, t_list *list, t_token *token);
 t_list					*initialisation(void);
 void					afficherliste(t_list *liste);
 int						add_token(t_list *liste, char *token, t_token *t_token);
-void					insertion_list(t_list *liste);
+void					insertion_list(t_exec *exec, t_list *liste);
 
 // ----------------------- PARSING-----------------------
 int						start_parse(t_split *split);
@@ -268,7 +269,7 @@ void					free_tab(char **tab);
 void					free_env(t_env *env);
 void					ft_free_cmd(t_cmd *cmd);
 void					free_exec(t_exec *exec);
-void					free_list(t_list *liste);
+void					free_list(t_exec *exec, t_list *liste);
 
 // ------------------------INIT--------------------------
 t_exec					*init_exec(char **envp);

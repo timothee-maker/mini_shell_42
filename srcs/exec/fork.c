@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:16:19 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/28 12:23:03 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/02 12:30:12 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_fork(t_exec *exec, t_cmd *cmd)
 	pid_t	pid;
 
 	pid = fork();
-    g_signal_pid = pid;
+	g_signal_pid = pid;
 	if (pid == -1)
 	{
 		perror("Fork error");
@@ -29,9 +29,7 @@ void	ft_fork(t_exec *exec, t_cmd *cmd)
 		parent_process(cmd, exec->pipe);
 	}
 	else
-    {
 		child_process(cmd, exec->pipe, exec);
-    }
 	return ;
 }
 
@@ -54,6 +52,7 @@ void	child_process(t_cmd *cmd, int pipe[2], t_exec *exec)
 	else if (cmd->next != NULL)
 		dup2(pipe[1], STDOUT_FILENO);
 	close(pipe[1]);
+	restore_signals();
 	status = exec_cmd(exec, cmd);
 	exit(status);
 }

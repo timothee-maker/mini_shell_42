@@ -4,7 +4,7 @@ valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./
 Erreur : 
 > | echo bonsoir (faut mettre syntaxe error, pour l'instant ca execute le echo)
 si pas de commandes sur le heredocs, quitter l'exec
-
+leaks dans les heredocs quand pas de commandes.
 
 to do : 
 gerer les leaks quand echo utilise les variables d'env
