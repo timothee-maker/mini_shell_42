@@ -101,14 +101,14 @@ int	exec_cmd(t_exec *exec, t_cmd *cmd)
 	}
 	else if (cmd->path == NULL)
 	{
+        ft_putstr_fd("Command not found", 2);
 		if (cmd->name)
 		{
-			ft_putstr_fd("Command not found: ", 2);
+            ft_putstr_fd(": ", 2);
 			ft_putendl_fd(cmd->name, 2);
-			return (free_exec(exec), 2);
 		}
-		else
-			return (2);
+        ft_putstr_fd("\n", 2);
+		return (free_exec(exec), 127);
 	}
 	else if (execve(cmd->path, cmd->args, str_env(exec)) == -1)
 	{
