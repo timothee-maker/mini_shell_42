@@ -24,8 +24,8 @@ void	args_loop(t_element *elem, t_exec *exec, char sep)
 		if (!ft_strcmp(elem->token, "ARG") || !ft_strcmp(elem->token, "ARG-INQUOTE"))
 		{
 			ft_putstr_fd(temp, exec->infile);
-			if (ft_strcmp(elem->token, "ARG-INQUOTE"))
-				write(exec->infile, &sep, 1);
+            if ((elem->next && ft_strcmp(elem->next->token, "ARG-INQUOTE")) && ft_strcmp(elem->token, "ARG-INQUOTE"))
+			    write(exec->infile, &sep, 1);
 		}
 		elem = elem->next;
 		if (temp)
