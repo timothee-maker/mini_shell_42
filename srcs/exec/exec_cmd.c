@@ -105,7 +105,7 @@ int	exec_cmd(t_exec *exec, t_cmd *cmd)
 		if (cmd->name)
 		{
             ft_putstr_fd(": ", 2);
-			ft_putendl_fd(cmd->name, 2);
+			ft_putstr_fd(cmd->name, 2);
 		}
         ft_putstr_fd("\n", 2);
 		return (free_exec(exec), 127);

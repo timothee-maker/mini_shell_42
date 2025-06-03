@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 15:17:16 by tnolent           #+#    #+#             */
-/*   Updated: 2025/05/19 15:36:50 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/02 16:49:22 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ int	start_parse(t_split *split)
 	while (split)
 	{
 		if (!syntax_error(split->str, len_split, i + 1))
+		{
+			g_signal_pid = 2;
 			return (0);
+		}
 		split = split->next;
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:16:19 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/02 12:30:12 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/02 14:52:16 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	child_process(t_cmd *cmd, int pipe[2], t_exec *exec)
 	else if (cmd->next != NULL)
 		dup2(pipe[1], STDOUT_FILENO);
 	close(pipe[1]);
-	restore_signals();
+	default_sig();
 	status = exec_cmd(exec, cmd);
 	exit(status);
 }

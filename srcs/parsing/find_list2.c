@@ -6,23 +6,22 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 12:06:25 by tnolent           #+#    #+#             */
-/*   Updated: 2025/06/02 11:43:29 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/02 16:22:04 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static int	replace_env_var(t_token *token, t_exec *exec);
+
 int	handle_env(t_list *list, t_token *token, t_exec *exec)
 {
 	int		is_good;
-	char	*tmp_env;
 
 	is_good = 0;
 	if (token->split->str[0] == '$' && token->split->context != 0)
 	{
-		tmp_env = token->split->str;
-		token->split->str = fetch_value(token->split->str, exec);
-		free(tmp_env);
+		replace_env_var(token, exec);
 		if (!token->split->str)
 			return (1);
 		is_good = find_builtin(list, token);
@@ -38,4 +37,23 @@ int	handle_env(t_list *list, t_token *token, t_exec *exec)
 	else
 		is_good = add_token(list, "ARG", token);
 	return (is_good);
+}
+
+static int	replace_env_var(t_token *token, t_exec *exec)
+{
+	char	*tmp_env;
+
+	tmp_env = NULL;
+
+	if (ft_strcmp(token->split->str, "$?") == 0)
+	{
+		tmp_env = token->split->str;
+		token->split->str = ft_itoa(g_signal_pid);
+		free(tmp_env);
+		return (1);
+	}
+	tmp_env = token->split->str;
+	token->split->str = fetch_value(token->split->str, exec);
+	free(tmp_env);
+	return (1);
 }
