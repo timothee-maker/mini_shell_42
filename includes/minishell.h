@@ -42,6 +42,7 @@
 # define HERE_DOC 4
 # define ERROR_CHAR ";&():"
 # define BUFFER_SIZE 1000
+# define BACKUP_PATH "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/bin"
 
 extern pid_t			g_signal_pid;
 
@@ -250,6 +251,7 @@ char					*get_var_value(char *str);
 char					**str_env(t_exec *exec);
 void					replace_env(t_list *list, t_exec *exec);
 char					*fetch_value(char *name, t_exec *exec);
+t_env					*mini_env();
 
 // ------------------------FILES-------------------------
 int						is_infile(t_element *elem);

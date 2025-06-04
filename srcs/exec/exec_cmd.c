@@ -49,7 +49,7 @@ int	exec_line(t_exec *exec, t_list *list)
 	wait_loop(exec);
 	ft_free_cmd(exec->cmd);
 	exec->cmd = NULL;
-	return (restore_signals(), 1);
+	return (1);
 }
 
 int	fill_cmd(t_list *list, t_exec *exec, t_cmd *cmd)
@@ -78,16 +78,12 @@ void	wait_status(t_exec *exec, t_cmd *cmd)
 	if (pid == cmd->pid)
 	{
 		if (WIFEXITED(status))
+        {
 			exec->exit_status = WEXITSTATUS(status);
+        }
 		else if (WIFSIGNALED(status))
 			exec->exit_status = WTERMSIG(status) + 128;
 	}
-	if (cmd->name == NULL)
-		return ;
-	if (!ft_strncmp(cmd->name, "exit", ft_strlen(cmd->name) + 4) && !cmd->next
-		&& ((cmd->args[1] != NULL && ft_atoi(cmd->args[1]) >= 0)
-			|| cmd->args[1] == NULL))
-		global_exit(exec, exec->exit_status);
 }
 
 int	exec_cmd(t_exec *exec, t_cmd *cmd)

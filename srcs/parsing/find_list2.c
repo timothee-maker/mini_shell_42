@@ -48,7 +48,7 @@ static int	replace_env_var(t_token *token, t_exec *exec)
 	if (ft_strcmp(token->split->str, "$?") == 0)
 	{
 		tmp_env = token->split->str;
-		token->split->str = ft_itoa(g_signal_pid);
+		token->split->str = ft_itoa(exec->exit_status);
 		free(tmp_env);
 		return (1);
 	}

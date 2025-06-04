@@ -48,6 +48,6 @@ void	global_exit(t_exec *exec, int status)
 		free_list(exec, exec->liste);
 	free(exec);
 	exec = NULL;
-	printf("exit\n");
+	ft_putstr_fd("exit\n", STDOUT_FILENO);
 	exit(status);
 }
