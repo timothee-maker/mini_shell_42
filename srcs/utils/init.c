@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 09:22:37 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/28 12:58:38 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/03 11:40:18 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ t_exec	*init_exec(char **envp)
 	res->exit_status = 0;
 	res->cmd = NULL;
 	res->temp_cmd = NULL;
-    if (envp[0] == NULL)
-    {
-        ft_putstr_fd("No environment found\n", 2);
-        exit(EXIT_FAILURE);
-    }
+	if (envp[0] == NULL)
+	{
+		ft_putstr_fd("No environment found\n", 2);
+		exit(EXIT_FAILURE);
+	}
 	res->env = create_env(envp);
 	res->infile_path = ft_strjoin(cwd, "/.infile");
 	res->infile = open(res->infile_path, O_RDWR | O_CREAT, 0777);

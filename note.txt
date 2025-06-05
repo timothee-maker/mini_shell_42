@@ -4,7 +4,8 @@ valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./
 Erreur : 
 > | echo bonsoir (faut mettre syntaxe error, pour l'instant ca execute le echo)
 si pas de commandes sur le heredocs, quitter l'exec
-leaks dans les heredocs quand pas de commandes.
+Leak quand plusieurs commandes dans le heredocs (alternation entre CTRL-C et CTRL-D)
+mettre un fichier non defini en infile
 
 to do : 
 gerer le exit status quand probleme de syntaxe
@@ -20,5 +21,5 @@ revoir le CTRL-C dans les longue commandes
 test a revoir (800 test minishell)
 247 a 249 - 260 - 264
 
-	// t_split *current_split = split; while (current_split){printf("[%s][env = %d]", current_split->str,
-	// current_split->context);current_split = current_split->next;}
+// t_split *current_split = split; while (current_split){printf("[%s][env = %d]", current_split->str,
+// current_split->context);current_split = current_split->next;}

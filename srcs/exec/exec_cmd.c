@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:14:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/02 14:54:00 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/03 11:39:45 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,13 +101,13 @@ int	exec_cmd(t_exec *exec, t_cmd *cmd)
 	}
 	else if (cmd->path == NULL)
 	{
-        ft_putstr_fd("Command not found", 2);
+		ft_putstr_fd("Command not found", 2);
 		if (cmd->name)
 		{
-            ft_putstr_fd(": ", 2);
+			ft_putstr_fd(": ", 2);
 			ft_putstr_fd(cmd->name, 2);
 		}
-        ft_putstr_fd("\n", 2);
+		ft_putstr_fd("\n", 2);
 		return (free_exec(exec), 127);
 	}
 	else if (execve(cmd->path, cmd->args, str_env(exec)) == -1)

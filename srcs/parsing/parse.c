@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 15:17:16 by tnolent           #+#    #+#             */
-/*   Updated: 2025/06/02 16:49:22 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/03 11:09:06 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,11 @@ int	start_parse(t_split *split)
 	while (split)
 	{
 		if (!syntax_error(split->str, len_split, i + 1))
-		{
-			g_signal_pid = 2;
-			return (0);
-		}
+			return (g_signal_pid = 2, 0);
+		if (ft_strchr(DELIMITER, split->str[0])
+			&& split->str[0] == split->next->str[0])
+			return (printf("minishell : parse error near '%c'\n",
+					split->str[0]), 0);
 		split = split->next;
 		i++;
 	}
@@ -41,16 +42,10 @@ int	syntax_error(char *split, int len_split, int position)
 	{
 		if (len_split == position && ft_strchr(DELIMITER, split[i])
 			&& !is_in_quotes(i, split))
-		{
-			printf("minishell : parse error near '%c'\n", split[i]);
-			return (0);
-		}
+			return (printf("minishell : parse error near '%c'\n", split[i]), 0);
 		if (position == 1 && ft_strchr(DELIMITER2, split[i]) && !is_in_quotes(i,
 				split))
-		{
-			printf("minishell : parse error near '%c'\n", split[i]);
-			return (0);
-		}
+			return (printf("minishell : parse error near '%c'\n", split[i]), 0);
 		i++;
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 12:06:25 by tnolent           #+#    #+#             */
-/*   Updated: 2025/06/02 16:22:04 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/03 11:40:00 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	replace_env_var(t_token *token, t_exec *exec);
 
 int	handle_env(t_list *list, t_token *token, t_exec *exec)
 {
-	int		is_good;
+	int	is_good;
 
 	is_good = 0;
 	if (token->split->str[0] == '$' && token->split->context != 0)
@@ -32,6 +32,8 @@ int	handle_env(t_list *list, t_token *token, t_exec *exec)
 				is_good = find_cmd(list, token);
 		}
 	}
+	if (is_good == 1)
+		return (1);
 	if (!is_good && token->split->context == 3)
 		is_good = add_token(list, "ARG-INQUOTE", token);
 	else
@@ -44,7 +46,6 @@ static int	replace_env_var(t_token *token, t_exec *exec)
 	char	*tmp_env;
 
 	tmp_env = NULL;
-
 	if (ft_strcmp(token->split->str, "$?") == 0)
 	{
 		tmp_env = token->split->str;
