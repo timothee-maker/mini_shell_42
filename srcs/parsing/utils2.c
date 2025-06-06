@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 11:43:31 by tnolent           #+#    #+#             */
-/*   Updated: 2025/06/06 11:30:57 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/06 11:47:44 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,19 @@ void	init_split(t_split_parse *split)
 	split->buffer = NULL;
 	split->head = NULL;
 	split->tail = NULL;
+}
+
+void	free_split(t_split *split)
+{
+	t_split	*current_split;
+	t_split	*next;
+
+	current_split = split;
+	while (current_split)
+	{
+		next = current_split->next;
+		free(current_split->str);
+		free(current_split);
+		current_split = next;
+	}
 }

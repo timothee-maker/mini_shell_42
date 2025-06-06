@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 15:31:49 by tnolent           #+#    #+#             */
-/*   Updated: 2025/06/06 11:30:42 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/06 13:39:59 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	append_to_list(t_split_parse *split, const char *content, t_exec *exec)
 	new = malloc(sizeof(t_split));
 	if (!new)
 		return ;
-	if (content[0] == '$' && content[1] != '\0')
+	if (content[0] == '$' && content[1] != '\0' && split->tmp == '\"')
 		new->str = get_env_value_for_content(content, exec);
 	else
 		new->str = ft_strdup(content);

@@ -14,6 +14,7 @@ heredoc :
 
 Comande test : 
  "e""c""h""o" "$PWD"$PWD'$PWD'
+ echo $USER@lol
 
 faire les tests du tester
 revoir le CTRL-C dans les longue commandes

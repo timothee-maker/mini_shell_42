@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 13:35:03 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/06 11:30:13 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/06 13:56:47 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	add_char(t_split_parse *split, char c)
 		return ;
 	if (split->buffer)
 	{
-		strcpy(new_buf, split->buffer);
+		ft_strncpy(new_buf, split->buffer, ft_strlen(split->buffer));
 		free(split->buffer);
 	}
 	else
@@ -72,13 +72,18 @@ static void	handle_dollar_value(char *var_name, t_split_parse *split,
 	else if (!ft_strcmp(var_name, "$?"))
 		value = ft_itoa(exec->exit_status);
 	else
+	{
 		value = fetch_value(var_name, exec);
+	}
+	if (!value)
+		value = ft_strdup(" ");
 	if (value)
 	{
 		while (value[j])
 			add_char(split, value[j++]);
 		free(value);
 	}
+
 }
 
 void	handle_dollar_case(const char *s, t_split_parse *split, t_exec *exec)

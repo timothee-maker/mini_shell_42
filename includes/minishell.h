@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/06 10:49:48 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/06 13:43:28 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 # define ENV_SEP 2;
 # define DELIMITER2 "|&"
 # define QUOTES "\'\""
-# define NO_ENV "\'\"[]{} "
+# define NO_ENV "\'\"[]{}!@#%^&*()-=+ "
 # define NORMAL 0
 # define IN 1
 # define OUT 2
