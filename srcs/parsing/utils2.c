@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 11:43:31 by tnolent           #+#    #+#             */
-/*   Updated: 2025/05/30 12:20:23 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/06 11:30:57 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,16 @@ void	init_token(t_token *token)
 {
 	token->position = 0;
 	token->redir = 0;
+}
+
+void	init_split(t_split_parse *split)
+{
+	split->i = 0;
+	split->tmp = 0;
+	split->dollar = 0;
+	split->is_in_quotes = 0;
+	split->context = 0;
+	split->buffer = NULL;
+	split->head = NULL;
+	split->tail = NULL;
 }

@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/02 14:58:08 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/06 10:49:48 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,7 +203,7 @@ int						start_parse(t_split *split);
 int						syntax_error(char *split, int len_split, int position);
 int						parse_one_case(char *split);
 char					*chr_str(char *str, char *to_find);
-t_split					*ft_split_list_minishell(const char *s, char sep);
+t_split					*ft_split_list_minishell(const char *s, t_exec *exec);
 
 // -------------------------UTILS------------------------
 int						len_tab(char **split);
@@ -219,13 +219,16 @@ void					init_token(t_token *token);
 
 // ------------------------SPLIT MINISHELL----------------
 void					init_split(t_split_parse *split);
-void					append_to_list(t_split_parse *split,
-							const char *content);
-void					flush_buffer(t_split_parse *split);
+void					append_to_list(t_split_parse *split, const char *conten,
+							t_exec *exec);
+void					flush_buffer(t_split_parse *split, t_exec *exec);
 void					add_char(t_split_parse *split, char c);
-void					handle_dollar_case(const char *s, t_split_parse *split);
-void					handle_quote_case(const char *s, t_split_parse *split);
-void					fill_list(t_split_parse *split, const char *s, char c);
+void					handle_dollar_case(const char *s, t_split_parse *split,
+							t_exec *exec);
+void					handle_quote_case(const char *s, t_split_parse *split,
+							t_exec *exec);
+void					fill_list(t_split_parse *split, const char *s, char c,
+							t_exec *exec);
 
 // ------------------------ERROR CASE---------------------
 void					error_parsing(char *line, t_exec *exec, t_split *split);
@@ -251,7 +254,7 @@ char					*get_var_value(char *str);
 char					**str_env(t_exec *exec);
 void					replace_env(t_list *list, t_exec *exec);
 char					*fetch_value(char *name, t_exec *exec);
-t_env					*mini_env();
+t_env					*mini_env(void);
 
 // ------------------------FILES-------------------------
 int						is_infile(t_element *elem);
