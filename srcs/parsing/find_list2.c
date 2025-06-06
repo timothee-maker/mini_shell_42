@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 12:06:25 by tnolent           #+#    #+#             */
-/*   Updated: 2025/06/03 11:40:00 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/05 11:22:10 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static int	replace_env_var(t_token *token, t_exec *exec)
 	if (ft_strcmp(token->split->str, "$?") == 0)
 	{
 		tmp_env = token->split->str;
-		token->split->str = ft_itoa(g_signal_pid);
+		token->split->str = ft_itoa(exec->exit_status);
 		free(tmp_env);
 		return (1);
 	}
