@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 14:18:14 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/23 10:49:17 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/05/30 12:41:13 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ void	global_exit(t_exec *exec, int status)
 	free(exec->infile_path);
 	free(exec->heredoc_path);
 	if (exec->liste)
-		free_list(exec->liste);
+		free_list(exec, exec->liste);
 	free(exec);
 	exec = NULL;
-	printf("exit\n");
+	ft_putstr_fd("exit\n", STDOUT_FILENO);
 	exit(status);
 }

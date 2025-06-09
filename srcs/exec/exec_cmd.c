@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:14:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/30 11:55:50 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/03 11:39:45 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,19 @@ static void	wait_loop(t_exec *exec)
 	}
 }
 
-void	exec_line(t_exec *exec, t_list *list)
+int	exec_line(t_exec *exec, t_list *list)
 {
 	t_cmd	*cmd;
 
 	cmd = NULL;
 	if (!fill_cmd(list, exec, cmd))
-		return ;
+		return (0);
 	reopen_io(exec);
 	cmd = exec->cmd;
 	while (cmd)
 	{
 		if (pipe(exec->pipe) == -1)
-			return (perror("Pipe error"));
+			return (perror("Pipe error"), 1);
 		if (is_single_builtin(cmd))
 			exec_single_builtin(cmd, exec);
 		else
@@ -49,6 +49,7 @@ void	exec_line(t_exec *exec, t_list *list)
 	wait_loop(exec);
 	ft_free_cmd(exec->cmd);
 	exec->cmd = NULL;
+	return (1);
 }
 
 int	fill_cmd(t_list *list, t_exec *exec, t_cmd *cmd)
@@ -57,10 +58,10 @@ int	fill_cmd(t_list *list, t_exec *exec, t_cmd *cmd)
 	{
 		replace_env(list, exec);
 		cmd = assign_cmd(list, exec);
-        if (!cmd)
-        {
-            return (0);
-        }
+		if (!cmd)
+		{
+			return (0);
+		}
 		add_command(exec, cmd);
 		list = list->next_list;
 	}
@@ -77,16 +78,12 @@ void	wait_status(t_exec *exec, t_cmd *cmd)
 	if (pid == cmd->pid)
 	{
 		if (WIFEXITED(status))
+        {
 			exec->exit_status = WEXITSTATUS(status);
+        }
 		else if (WIFSIGNALED(status))
 			exec->exit_status = WTERMSIG(status) + 128;
 	}
-	if (cmd->name == NULL)
-		return ;
-	if (!ft_strncmp(cmd->name, "exit", ft_strlen(cmd->name) + 4) && !cmd->next
-		&& ((cmd->args[1] != NULL && ft_atoi(cmd->args[1]) >= 0)
-			|| cmd->args[1] == NULL))
-		global_exit(exec, exec->exit_status);
 }
 
 int	exec_cmd(t_exec *exec, t_cmd *cmd)
@@ -100,14 +97,14 @@ int	exec_cmd(t_exec *exec, t_cmd *cmd)
 	}
 	else if (cmd->path == NULL)
 	{
+		ft_putstr_fd("Command not found", 2);
 		if (cmd->name)
 		{
-			ft_putstr_fd("Command not found: ", 2);
-			ft_putendl_fd(cmd->name, 2);
-			return (free_exec(exec), 2);
+			ft_putstr_fd(": ", 2);
+			ft_putstr_fd(cmd->name, 2);
 		}
-		else
-			return (2);
+		ft_putstr_fd("\n", 2);
+		return (free_exec(exec), 127);
 	}
 	else if (execve(cmd->path, cmd->args, str_env(exec)) == -1)
 	{

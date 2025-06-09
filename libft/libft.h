@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/14 12:56:20 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/06 14:44:52 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/06 11:21:05 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ char	*ft_strjoin(char const *s1, char const *s2);
 size_t	ft_strlcat(char *dst, const char *src, size_t siz);
 
 size_t	ft_strlcpy(char *dst, const char *src, size_t siz);
+
+char	*ft_strncpy(char *dst, const char *src, size_t n);
 
 size_t	ft_strlen(const char *s);
 

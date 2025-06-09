@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 11:43:31 by tnolent           #+#    #+#             */
-/*   Updated: 2025/05/19 16:28:49 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/06 11:47:44 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,61 +46,29 @@ void	init_token(t_token *token)
 	token->redir = 0;
 }
 
-// char	*remove_quotes_around(char *str)
-// {
-// 	char	*new_str;
-// 	char	tmp_quote;
-// 	size_t	i;
-// 	int		j;
+void	init_split(t_split_parse *split)
+{
+	split->i = 0;
+	split->tmp = 0;
+	split->dollar = 0;
+	split->is_in_quotes = 0;
+	split->context = 0;
+	split->buffer = NULL;
+	split->head = NULL;
+	split->tail = NULL;
+}
 
-// 	j = 0;
-// 	i = 0;
-// 	tmp_quote = 0;
-// 	if (!ft_strchr2(QUOTES, str))
-// 		return (ft_strdup(str));
-// 	new_str = ft_calloc(ft_strlen(str) + 1, sizeof(char));
-// 	if (!new_str || !str)
-// 		return (NULL);
-// 	while (str[i])
-// 	{
-// 		if (ft_strchr(QUOTES, str[i]))
-// 			tmp_quote = str[i++];
-// 		while (str[i])
-// 		{
-// 			if (str[i] == tmp_quote)
-// 				break ;
-// 			if (ft_strchr(QUOTES, str[i]) && (tmp_quote == 0))
-// 				tmp_quote = str[i++];
-// 			if (str[i] == tmp_quote || !(str[i]))
-// 				break ;
-// 			new_str[j++] = str[i++];
-// 		}
-// 		if (!str[i])
-// 			break ;
-// 		i++;
-// 		tmp_quote = 0;
-// 	}
-// 	return (new_str[j] = '\0', new_str);
-// }
+void	free_split(t_split *split)
+{
+	t_split	*current_split;
+	t_split	*next;
 
-// int	check_valid_dollar(char *split)
-// {
-// 	int		i;
-// 	char	tmp;
-
-// 	tmp = 0;
-// 	i = 0;
-// 	if (split[0] == '$')
-// 		return (1);
-// 	while (split[i])
-// 	{
-// 		if (tmp == split[i])
-// 			tmp = 0;
-// 		if (ft_strchr(QUOTES, split[i]))
-// 			tmp = split[i];
-// 		if (split[i] == '$' && (tmp == '\"' || tmp == 0))
-// 			return (1);
-// 		i++;
-// 	}
-// 	return (0);
-// }
+	current_split = split;
+	while (current_split)
+	{
+		next = current_split->next;
+		free(current_split->str);
+		free(current_split);
+		current_split = next;
+	}
+}

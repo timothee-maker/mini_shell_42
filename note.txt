@@ -4,19 +4,17 @@ valgrind --suppressions=readline.supp --leak-check=full --show-leak-kinds=all ./
 Erreur : 
 > | echo bonsoir (faut mettre syntaxe error, pour l'instant ca execute le echo)
 si pas de commandes sur le heredocs, quitter l'exec
-
+Leak quand plusieurs commandes dans le heredocs (alternation entre CTRL-C et CTRL-D)
+mettre un fichier non defini en infile
 
 to do : 
-gerer les leaks quand echo utilise les variables d'env
-gerer les signaux quand CTRL-C sur une commande 
-gerer CTRL-\ sur une commande
+gerer le exit status quand probleme de syntaxe
 
 heredoc :
-CTRL-C doit s'afficher en face du readline, pas en dessous
-Revenir a la ligne apres le CTRL-C
 
 Comande test : 
  "e""c""h""o" "$PWD"$PWD'$PWD'
+ echo $USER@lol
 
 faire les tests du tester
 revoir le CTRL-C dans les longue commandes
@@ -24,5 +22,5 @@ revoir le CTRL-C dans les longue commandes
 test a revoir (800 test minishell)
 247 a 249 - 260 - 264
 
-// while (split){printf("[%s][env = %d]", split->str,
-// split->env_context);split = split->next;}
+// t_split *current_split = split; while (current_split){printf("[%s][env = %d]", current_split->str,
+// current_split->context);current_split = current_split->next;}

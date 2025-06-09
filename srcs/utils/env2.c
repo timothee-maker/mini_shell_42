@@ -69,7 +69,9 @@ void	replace_env(t_list *list, t_exec *exec)
 			if (!ft_strcmp(elem->arg, "$"))
 				elem->arg = ft_strdup("$");
 			else if (!ft_strcmp(elem->arg, "$?"))
+            {
 				elem->arg = ft_itoa(exec->exit_status);
+            }
 			else
 				elem->arg = fetch_value(elem->arg, exec);
 		}
@@ -98,4 +100,20 @@ char	**str_env(t_exec *exec)
 	}
 	res[i] = NULL;
 	return (res);
+}
+
+t_env *mini_env()
+{
+    t_env *env;
+    t_env *shlvl;
+
+    env = malloc(sizeof(t_env));
+    env->name = ft_strdup("PWD");
+    env->value = ft_strdup(getcwd(NULL, 0));
+    shlvl = malloc(sizeof(t_env));
+    shlvl->name = ft_strdup("SHLVL");
+    shlvl->value = ft_itoa(1);
+    env->next = shlvl;
+    shlvl->next = NULL;
+    return (env);
 }

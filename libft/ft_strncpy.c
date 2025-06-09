@@ -1,36 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   ft_strncpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/26 11:52:42 by tnolent           #+#    #+#             */
-/*   Updated: 2025/06/06 11:48:45 by tnolent          ###   ########.fr       */
+/*   Created: 2025/06/06 11:19:46 by tnolent           #+#    #+#             */
+/*   Updated: 2025/06/06 11:20:42 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	len_tab(char **split)
+char	*ft_strncpy(char *dst, const char *src, size_t n)
 {
-	int	i;
+	size_t	i;
 
 	i = 0;
-	while (split[i])
-		i++;
-	return (i);
-}
-
-int	len_list(t_split *split)
-{
-	int	i;
-
-	i = 0;
-	while (split)
+	while (src[i] && i < n)
 	{
+		dst[i] = src[i];
 		i++;
-		split = split->next;
 	}
-	return (i);
+	while (i < n)
+	{
+		dst[i] = '\0';
+		i++;
+	}
+	return (dst);
 }
