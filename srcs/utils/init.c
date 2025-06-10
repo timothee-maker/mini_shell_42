@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 09:22:37 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/05 11:04:53 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/10 16:05:02 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ t_exec	*init_exec(char **envp)
 	res->exit_status = 0;
 	res->cmd = NULL;
 	res->temp_cmd = NULL;
-    if (envp[0] == NULL)
-        res->env = mini_env();
-    else
-	    res->env = create_env(envp);
+	if (envp[0] == NULL)
+		res->env = mini_env();
+	else
+		res->env = create_env(envp);
 	res->infile_path = ft_strjoin(cwd, "/.infile");
 	res->infile = open(res->infile_path, O_RDWR | O_CREAT, 0777);
 	res->heredoc_path = ft_strjoin(cwd, "/.heredoc");

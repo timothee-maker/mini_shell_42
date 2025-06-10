@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:25:47 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/10 15:55:59 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/10 16:08:15 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	//if (!isatty(0) || !isatty(1))
-	//	return (printf("Erreur\n"), 1);
+	if (!isatty(0) || !isatty(1))
+		return (printf("Erreur\n"), 1);
 	exec = init_exec(envp);
 	signals();
 	g_signal_pid = 0;
@@ -39,7 +39,7 @@ void	minishell(t_exec *exec)
 	while (1)
 	{
 		input = readline("$> ");
-        if (g_signal_pid == 130)
+		if (g_signal_pid == 130)
 			exec->exit_status = 130;
 		g_signal_pid = 0;
 		if (input == NULL)

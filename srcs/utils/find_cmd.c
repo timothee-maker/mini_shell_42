@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 09:13:35 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/27 14:23:49 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/10 16:07:18 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,4 +79,20 @@ char	*find_path(char *name, t_exec *exec)
 	free_tab(path_tab);
 	free(path);
 	return (NULL);
+}
+
+int	fill_cmd(t_list *list, t_exec *exec, t_cmd *cmd)
+{
+	while (list)
+	{
+		replace_env(list, exec);
+		cmd = assign_cmd(list, exec);
+		if (!cmd)
+		{
+			return (0);
+		}
+		add_command(exec, cmd);
+		list = list->next_list;
+	}
+	return (1);
 }

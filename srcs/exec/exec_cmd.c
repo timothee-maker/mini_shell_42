@@ -6,13 +6,11 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:14:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/10 15:48:24 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/10 16:07:24 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int			fill_cmd(t_list *list, t_exec *exec, t_cmd *cmd);
 
 static void	wait_loop(t_exec *exec)
 {
@@ -52,22 +50,6 @@ int	exec_line(t_exec *exec, t_list *list)
 	return (1);
 }
 
-int	fill_cmd(t_list *list, t_exec *exec, t_cmd *cmd)
-{
-	while (list)
-	{
-		replace_env(list, exec);
-		cmd = assign_cmd(list, exec);
-		if (!cmd)
-		{
-			return (0);
-		}
-		add_command(exec, cmd);
-		list = list->next_list;
-	}
-	return (1);
-}
-
 void	wait_status(t_exec *exec, t_cmd *cmd)
 {
 	int	status;
@@ -78,9 +60,9 @@ void	wait_status(t_exec *exec, t_cmd *cmd)
 	if (pid == cmd->pid)
 	{
 		if (WIFEXITED(status))
-        {
+		{
 			exec->exit_status = WEXITSTATUS(status);
-        }
+		}
 		else if (WIFSIGNALED(status))
 			exec->exit_status = WTERMSIG(status) + 128;
 	}
