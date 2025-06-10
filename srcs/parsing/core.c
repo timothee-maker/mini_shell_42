@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 15:31:18 by tnolent           #+#    #+#             */
-/*   Updated: 2025/06/10 13:53:51 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/10 15:14:52 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	parsing(char *line, t_list *list, t_exec *exec)
 		error_parsing(line, exec, split);
 	free(line);
 	line = NULL;
-	if (!start_parse(split))
+	if (!start_parse(split, exec))
 		return (free_split(split), -1);
 	if (!analyze_line(split, list, exec))
 		error_parsing(line, exec, split);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lde-guil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 14:22:04 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/20 14:22:05 by lde-guil         ###   ########.fr       */
+/*   Updated: 2025/06/10 15:45:37 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ int	ft_export(t_exec *exec, t_cmd *cmd)
 {
 	if (cmd->args[1] == NULL)
 	{
-		return (no_args(exec));
+		return (exec->exit_status = 0, no_args(exec));
 	}
 	else
-		return (export_next(cmd, exec));
+		return (exec->exit_status = 0, export_next(cmd, exec));
 }

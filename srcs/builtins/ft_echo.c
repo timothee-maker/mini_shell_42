@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lde-guil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:27:45 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/20 09:27:51 by lde-guil         ###   ########.fr       */
+/*   Updated: 2025/06/10 15:26:08 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	is_newline(char *str)
 	return (1);
 }
 
-int	ft_echo(t_cmd *cmd)
+int	ft_echo(t_exec *exec, t_cmd *cmd)
 {
 	int	newline;
 	int	i;
@@ -50,5 +50,5 @@ int	ft_echo(t_cmd *cmd)
 	}
 	if (newline)
 		printf("\n");
-	return (0);
+	return (exec->exit_status = 0, 0);
 }

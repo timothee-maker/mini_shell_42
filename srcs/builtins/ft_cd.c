@@ -6,11 +6,11 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:24:33 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/30 12:23:06 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/10 15:44:00 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 static int	update_currpwd(t_exec *exec, char *path)
 {
@@ -96,17 +96,18 @@ int	ft_cd(t_exec *exec, t_cmd *cmd)
 	if (cmd->args[1] != NULL && cmd->args[2] != NULL)
 	{
 		ft_putendl_fd("cd: too many arguments", 2);
-		return (2);
+		return (exec->exit_status = 1, 2);
 	}
 	else if (cmd->args[1] != NULL)
 	{
 		if (chdir(cmd->args[1]) == -1)
 		{
 			ft_putendl_fd("cd: No such file or directory", 2);
-			return (1);
+			return (exec->exit_status = 1, 1);
 		}
-		return (update_pwds(exec, cwd, cmd->args[1]));
+		return (exec->exit_status = 0,
+			update_pwds(exec, cwd, cmd->args[1]));
 	}
 	else
-		return (home_case(exec, cwd));
+		return (exec->exit_status = 0, home_case(exec, cwd));
 }

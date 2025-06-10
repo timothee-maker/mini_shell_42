@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/06 15:21:09 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/10 15:49:00 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,11 +133,11 @@ typedef struct s_exec
 
 // ______________________BUILTINS________________________
 int						ft_cd(t_exec *exec, t_cmd *cmd);
-int						ft_echo(t_cmd *cmd);
+int						ft_echo(t_exec *exec, t_cmd *cmd);
 int						ft_env(t_exec *exec);
 int						ft_exit(t_cmd *cmd, t_exec *exec);
 int						ft_export(t_exec *exec, t_cmd *cmd);
-int						ft_pwd(t_cmd *cmd);
+int						ft_pwd(t_exec *exec, t_cmd *cmd);
 int						ft_unset(t_exec *exec, t_cmd *cmd);
 
 void					global_exit(t_exec *exec, int status);
@@ -199,7 +199,7 @@ int						add_token(t_list *liste, char *token, t_token *t_token);
 void					insertion_list(t_exec *exec, t_list *liste);
 
 // ----------------------- PARSING-----------------------
-int						start_parse(t_split *split);
+int						start_parse(t_split *split, t_exec *exec);
 int						syntax_error(char *split, int len_split, int position);
 int						parse_one_case(char *split);
 char					*chr_str(char *str, char *to_find);

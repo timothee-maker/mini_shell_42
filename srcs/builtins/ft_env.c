@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lde-guil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:28:52 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/20 09:28:55 by lde-guil         ###   ########.fr       */
+/*   Updated: 2025/06/10 15:44:43 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 int	ft_env(t_exec *exec)
 {
@@ -23,5 +23,5 @@ int	ft_env(t_exec *exec)
 			printf("%s=%s\n", var->name, var->value);
 		var = var->next;
 	}
-	return (0);
+	return (exec->exit_status = 0, 0);
 }

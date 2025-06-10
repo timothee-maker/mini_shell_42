@@ -3,32 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lde-guil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:06:05 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/20 15:06:07 by lde-guil         ###   ########.fr       */
+/*   Updated: 2025/06/10 15:47:57 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-int	ft_pwd(t_cmd *cmd)
+int	ft_pwd(t_exec *exec, t_cmd *cmd)
 {
 	char	cwd[PATH_MAX];
 
 	if (cmd->args[1] != NULL)
 	{
 		ft_putendl_fd("pwd: too many arguments", 2);
-		return (2);
+		return (exec->exit_status = 0, 2);
 	}
 	if (getcwd(cwd, PATH_MAX))
 	{
 		printf("%s\n", cwd);
-		return (0);
+		return (exec->exit_status = 0, 0);
 	}
 	else
 	{
 		ft_putendl_fd("pwd: cannot access current directory", 2);
-		return (2);
+		return (exec->exit_status = 1, 2);
 	}
 }

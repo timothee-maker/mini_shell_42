@@ -6,13 +6,13 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 15:17:16 by tnolent           #+#    #+#             */
-/*   Updated: 2025/06/10 13:48:15 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/10 15:14:43 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	start_parse(t_split *split)
+int	start_parse(t_split *split, t_exec *exec)
 {
 	int	i;
 	int	len_split;
@@ -26,7 +26,7 @@ int	start_parse(t_split *split)
 		if (ft_strchr(DELIMITER, split->str[0])
 			&& split->next && split->str[0] == split->next->str[0])
 			return (printf("minishell : parse error near '%c'\n",
-					split->str[0]), 0);
+					split->str[0]), exec->exit_status = 2, 0);
 		split = split->next;
 		i++;
 	}
@@ -40,8 +40,7 @@ int	syntax_error(char *split, int len_split, int position)
 	i = 0;
 	while (split[i])
 	{
-		if (len_split == position && ft_strchr(DELIMITER, split[i])
-			&& !is_in_quotes(i, split))
+		if (len_split == position && ft_strchr(DELIMITER, split[i]))
 			return (printf("minishell : parse error near '%c'\n", split[i]), 0);
 		if (position == 1 && ft_strchr(DELIMITER2, split[i]) && !is_in_quotes(i,
 				split))

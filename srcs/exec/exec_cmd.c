@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:14:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/03 11:39:45 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/10 15:48:24 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ int	exec_cmd(t_exec *exec, t_cmd *cmd)
 	}
 	else if (execve(cmd->path, cmd->args, str_env(exec)) == -1)
 	{
+		exec->exit_status = 1;
 		perror("Execve error");
 		return (free_exec(exec), 2);
 	}
@@ -119,7 +120,7 @@ int	exec_builtin(t_exec *ex, t_cmd *cmd)
 	if (!ft_strncmp(cmd->name, "cd", ft_strlen(cmd->name)))
 		return (ft_cd(ex, cmd));
 	else if (!ft_strncmp(cmd->name, "echo", ft_strlen(cmd->name)))
-		return (ft_echo(cmd));
+		return (ft_echo(ex, cmd));
 	else if (!ft_strncmp(cmd->name, "env", ft_strlen(cmd->name)))
 		return (ft_env(ex));
 	else if (!ft_strncmp(cmd->name, "exit", ft_strlen(cmd->name)))
@@ -127,7 +128,7 @@ int	exec_builtin(t_exec *ex, t_cmd *cmd)
 	else if (!ft_strncmp(cmd->name, "export", ft_strlen(cmd->name)))
 		return (ft_export(ex, cmd));
 	else if (!ft_strncmp(cmd->name, "pwd", ft_strlen(cmd->name)))
-		return (ft_pwd(cmd));
+		return (ft_pwd(ex, cmd));
 	else if (!ft_strncmp(cmd->name, "unset", ft_strlen(cmd->name)))
 		return (ft_unset(ex, cmd));
 	else
