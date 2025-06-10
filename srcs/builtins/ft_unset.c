@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lde-guil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:07:30 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/20 15:07:38 by lde-guil         ###   ########.fr       */
+/*   Updated: 2025/06/10 16:00:06 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ static int	unset_loop(t_env *var, char *varname)
 		prev = var;
 		var = var->next;
 	}
-	ft_putendl_fd("unset: did not found var", 2);
-	return (2);
+	return (0);
 }
 
 int	ft_unset(t_exec *exec, t_cmd *cmd)
@@ -43,10 +42,7 @@ int	ft_unset(t_exec *exec, t_cmd *cmd)
 
 	var = exec->env;
 	if (cmd->args[1] == NULL)
-	{
-		ft_putendl_fd("unset: not enough arguments", 2);
-		return (2);
-	}
+		return (exec->exit_status = 0, 0);
 	var_name = cmd->args[1];
-	return (unset_loop(var, var_name));
+	return (exec->exit_status = 0, unset_loop(var, var_name));
 }

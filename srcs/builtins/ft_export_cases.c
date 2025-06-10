@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_cases.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lde-guil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:05:15 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/20 15:05:16 by lde-guil         ###   ########.fr       */
+/*   Updated: 2025/06/10 16:01:20 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ int	export_next(t_cmd *cmd, t_exec *exec)
 	if (valid_identifier(name) == 0)
 	{
 		put_error("export: ", cmd->args[1], ": not a valid identifier\n");
-		return (2);
+		return (1);
 	}
 	var = get_var(exec, name);
 	var->name = ft_strdup(name);
