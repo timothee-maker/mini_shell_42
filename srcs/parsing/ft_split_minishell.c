@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 13:35:03 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/06 13:56:47 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/06 15:37:02 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ static void	handle_dollar_value(char *var_name, t_split_parse *split,
 			add_char(split, value[j++]);
 		free(value);
 	}
-
 }
 
 void	handle_dollar_case(const char *s, t_split_parse *split, t_exec *exec)
@@ -95,7 +94,7 @@ void	handle_dollar_case(const char *s, t_split_parse *split, t_exec *exec)
 	start = split->i + 1;
 	len = 0;
 	while (s[start + len] && !ft_strchr(NO_ENV, s[start + len]) && s[start
-			+ len] != '$')
+		+ len] != '$')
 		len++;
 	if (len == 0)
 	{

@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 15:17:16 by tnolent           #+#    #+#             */
-/*   Updated: 2025/06/06 10:18:51 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/10 13:48:15 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ int	start_parse(t_split *split)
 	i = 0;
 	while (split)
 	{
-		if (!syntax_error(split->str, len_split, i + 1))
-			return (g_signal_pid = 2, 0);
+		// if (!syntax_error(split->str, len_split, i + 1))
+		// 	return (g_signal_pid = 2, 0);
 		if (ft_strchr(DELIMITER, split->str[0])
-			&& split->str[0] == split->next->str[0])
+			&& split->next && split->str[0] == split->next->str[0])
 			return (printf("minishell : parse error near '%c'\n",
 					split->str[0]), 0);
 		split = split->next;

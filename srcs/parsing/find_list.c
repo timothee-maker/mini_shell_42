@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 16:19:39 by tnolent           #+#    #+#             */
-/*   Updated: 2025/05/30 12:07:00 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/10 13:50:42 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ int	find_files_redir(t_list *list, t_token *token)
 		return (redir = OUT_APPEND, token->redir = 1, 1);
 	else if (ft_strcmp("<<", token->split->str) == 0)
 		return (redir = 4, token->redir = 1, find_file(list, redir, token), 1);
-	else if (token->split->str[0] == '<')
+	else if (ft_strcmp("<", token->split->str) == 0)
 		return (redir = IN, token->redir = 1, 1);
-	else if (token->split->str[0] == '>')
+	else if (ft_strcmp(">", token->split->str) == 0)
 		return (redir = OUT, token->redir = 1, 1);
 	else if (redir == IN || redir == OUT || redir == OUT_APPEND)
 		return (find_file(list, redir, token), redir = 0, token->redir = 1, 1);

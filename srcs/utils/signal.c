@@ -3,19 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timothee <timothee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 12:21:46 by tnolent           #+#    #+#             */
-/*   Updated: 2025/06/09 14:52:31 by timothee         ###   ########.fr       */
+/*   Updated: 2025/06/10 13:45:03 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-static void	clear_rl_line(void)
+#include "minishell.h"
+
+void	clear_rl_line(void)
 {
 	rl_replace_line("", 0);
 	rl_on_new_line();
 }
-#include "minishell.h"
 
 static void	handle_sigint(int code)
 {

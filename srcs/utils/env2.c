@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 09:09:43 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/28 15:21:05 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/10 13:56:00 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,15 @@ void	replace_env(t_list *list, t_exec *exec)
 	elem = list->first;
 	while (elem)
 	{
-		if (!ft_strcmp(elem->token, "ENV")
-			|| !ft_strcmp(elem->token, "ENV-INQUOTE"))
+		if (!ft_strcmp(elem->token, "ENV") || !ft_strcmp(elem->token,
+				"ENV-INQUOTE"))
 		{
 			if (!ft_strcmp(elem->arg, "$"))
 				elem->arg = ft_strdup("$");
 			else if (!ft_strcmp(elem->arg, "$?"))
-            {
+			{
 				elem->arg = ft_itoa(exec->exit_status);
-            }
+			}
 			else
 				elem->arg = fetch_value(elem->arg, exec);
 		}
@@ -102,18 +102,18 @@ char	**str_env(t_exec *exec)
 	return (res);
 }
 
-t_env *mini_env()
+t_env	*mini_env(void)
 {
-    t_env *env;
-    t_env *shlvl;
+	t_env	*env;
+	t_env	*shlvl;
 
-    env = malloc(sizeof(t_env));
-    env->name = ft_strdup("PWD");
-    env->value = ft_strdup(getcwd(NULL, 0));
-    shlvl = malloc(sizeof(t_env));
-    shlvl->name = ft_strdup("SHLVL");
-    shlvl->value = ft_itoa(1);
-    env->next = shlvl;
-    shlvl->next = NULL;
-    return (env);
+	env = malloc(sizeof(t_env));
+	env->name = ft_strdup("PWD");
+	env->value = ft_strdup(getcwd(NULL, 0));
+	shlvl = malloc(sizeof(t_env));
+	shlvl->name = ft_strdup("SHLVL");
+	shlvl->value = ft_itoa(1);
+	env->next = shlvl;
+	shlvl->next = NULL;
+	return (env);
 }
