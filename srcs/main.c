@@ -21,8 +21,8 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	// if (!isatty(0) || !isatty(1))
-	// 	return (printf("Erreur\n"), 1);
+	//if (!isatty(0) || !isatty(1))
+	//	return (printf("Erreur\n"), 1);
 	exec = init_exec(envp);
 	signals();
 	g_signal_pid = 0;
@@ -38,10 +38,10 @@ void	minishell(t_exec *exec)
 	good = 0;
 	while (1)
 	{
-		if (g_signal_pid == 130)
+		input = readline("$> ");
+        if (g_signal_pid == 130)
 			exec->exit_status = 130;
 		g_signal_pid = 0;
-		input = readline("$> ");
 		if (input == NULL)
 			break ;
 		if (input[0] != '\0')
@@ -49,7 +49,7 @@ void	minishell(t_exec *exec)
 			liste = initialisation();
 			exec->liste = liste;
 			good = parsing(input, liste, exec);
-			// afficherliste(liste);
+			afficherliste(liste);
 			if (good == 1)
 				exec_line(exec, liste);
 			free_list(exec, liste);
