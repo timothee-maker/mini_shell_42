@@ -32,7 +32,7 @@ void	exec_single_builtin(t_cmd *cmd, t_exec *exec)
 		dup2(cmd->output, STDOUT_FILENO);
 		close(cmd->output);
 	}
-	exec_builtin(exec, cmd);
+	exec->exit_status = exec_builtin(exec, cmd);
 	if (cmd->output >= 0)
 	{
 		dup2(stdout_backup, STDOUT_FILENO);
