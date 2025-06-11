@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:25:47 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/11 11:32:36 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/11 14:42:07 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	if (!isatty(0) || !isatty(1))
-		return (printf("Erreur\n"), 1);
+	// if (!isatty(0) || !isatty(1))
+	// 	return (printf("Erreur\n"), 1);
 	exec = init_exec(envp);
 	signals();
 	g_signal_pid = 0;

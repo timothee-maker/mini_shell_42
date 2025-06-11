@@ -91,11 +91,14 @@ char	**str_env(t_exec *exec)
 	i = 0;
 	while (var)
 	{
-		temp = NULL;
-		temp = ft_strjoin(var->name, "=");
-		temp = ft_custom_join(temp, var->value);
-		res[i] = temp;
-		i++;
+        if (var->name && var->value)
+		{
+			temp = NULL;
+			temp = ft_strjoin(var->name, "=");
+			temp = ft_custom_join(temp, var->value);
+			res[i] = temp;
+			i++;
+		}
 		var = var->next;
 	}
 	res[i] = NULL;

@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/11 16:33:36 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/11 16:38:07 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_split_parse
 	char				*buffer;
 	int					is_in_quotes;
 	int					context;
-	int					heredocs;
+    int                 heredocs;    
 	t_split				*head;
 	t_split				*tail;
 }						t_split_parse;

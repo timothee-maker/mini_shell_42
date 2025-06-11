@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:05:15 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/11 16:22:27 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/11 16:39:56 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,10 @@ int	export_next(t_cmd *cmd, t_exec *exec)
 	}
 	var = get_var(exec, name);
 	var->name = ft_strdup(name);
-	var->value = ft_strdup(value);
+    if (value != NULL)
+	    var->value = ft_strdup(value);
 	free(name);
-	free(value);
+    if (value != NULL)
+	    free(value);
 	return (0);
 }

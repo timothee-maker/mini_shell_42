@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 13:35:03 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/11 13:57:12 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/11 14:54:18 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static void	handle_dollar_value(char *var_name, t_split_parse *split,
 	value = NULL;
 	if (!ft_strcmp(var_name, "$"))
 		value = ft_strdup("$");
-	else if (!ft_strcmp(var_name, "$?"))
+	else if (!ft_strncmp(var_name, "$?", 2))
 		value = ft_itoa(exec->exit_status);
 	else
 		value = fetch_value(var_name, exec);
@@ -93,8 +93,10 @@ void	handle_dollar_case(const char *s, t_split_parse *split, t_exec *exec)
 	start = split->i + 1;
 	len = 0;
 	while (s[start + len] && !ft_strchr(NO_ENV, s[start + len]) && s[start
-			+ len] != '$')
+		+ len] != '$')
 		len++;
+	if (s[start] == '?')
+		len = 1;
 	if (len == 0)
 	{
 		add_char(split, s[split->i++]);

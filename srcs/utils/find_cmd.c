@@ -67,7 +67,7 @@ char	*find_path(char *name, t_exec *exec)
 
 	path = fetch_value("$PATH", exec);
 	if (path == NULL)
-		path = BACKUP_PATH;
+		path = ft_strdup(BACKUP_PATH);
 	path_tab = ft_split(path, ':');
 	i = 0;
 	while (path_tab[i++])
