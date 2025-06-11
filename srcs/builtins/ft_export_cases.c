@@ -67,10 +67,8 @@ int	export_next(t_cmd *cmd, t_exec *exec)
 
 	name = get_var_name(cmd->args[1]);
 	value = get_var_value(cmd->args[1]);
-	if (name == NULL || value == NULL)
+	if (name == NULL)
 	{
-		if (name)
-			free(name);
 		if (value)
 			free(value);
 		return (0);
@@ -82,8 +80,10 @@ int	export_next(t_cmd *cmd, t_exec *exec)
 	}
 	var = get_var(exec, name);
 	var->name = ft_strdup(name);
-	var->value = ft_strdup(value);
+    if (value != NULL)
+	    var->value = ft_strdup(value);
 	free(name);
-	free(value);
+    if (value != NULL)
+	    free(value);
 	return (0);
 }

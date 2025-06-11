@@ -22,6 +22,7 @@ static void	wait_loop(t_exec *exec)
 		if (cmd->pid != 0)
 			wait_status(exec, cmd);
 		cmd = cmd->next;
+        g_signal_pid = 0;
 	}
 }
 

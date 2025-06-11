@@ -62,6 +62,7 @@ typedef struct s_split_parse
 	char				*buffer;
 	int					is_in_quotes;
 	int					context;
+    int                 heredocs;    
 	t_split				*head;
 	t_split				*tail;
 }						t_split_parse;
