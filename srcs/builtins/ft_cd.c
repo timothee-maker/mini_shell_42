@@ -96,7 +96,7 @@ int	ft_cd(t_exec *exec, t_cmd *cmd)
 	if (cmd->args[1] != NULL && cmd->args[2] != NULL)
 	{
 		ft_putendl_fd("cd: too many arguments", 2);
-		return (exec->exit_status = 1, 2);
+		return (exec->exit_status = 1, 1);
 	}
 	else if (cmd->args[1] != NULL)
 	{

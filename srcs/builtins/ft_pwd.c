@@ -14,13 +14,9 @@
 
 int	ft_pwd(t_exec *exec, t_cmd *cmd)
 {
+    (void) cmd;
 	char	cwd[PATH_MAX];
 
-	if (cmd->args[1] != NULL)
-	{
-		ft_putendl_fd("pwd: too many arguments", 2);
-		return (exec->exit_status = 0, 2);
-	}
 	if (getcwd(cwd, PATH_MAX))
 	{
 		printf("%s\n", cwd);

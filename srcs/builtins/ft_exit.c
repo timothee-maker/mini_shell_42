@@ -23,12 +23,12 @@ int	ft_exit(t_cmd *cmd, t_exec *exec)
 		if (status == -1)
 		{
 			ft_putendl_fd("exit: numeric argument required", 2);
-			return (-1);
+			return (2);
 		}
 		if (cmd->args[2] != NULL)
 		{
 			ft_putendl_fd("exit: too many arguments", 2);
-			return (-1);
+			return (1);
 		}
 	}
 	global_exit(exec, (unsigned char) status);
