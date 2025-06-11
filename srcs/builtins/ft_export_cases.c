@@ -6,18 +6,11 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:05:15 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/10 16:01:20 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/11 16:22:27 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
-
-static void	put_error(char *s1, char *s2, char *s3)
-{
-	ft_putstr_fd(s1, 2);
-	ft_putstr_fd(s2, 2);
-	ft_putstr_fd(s3, 2);
-}
+#include "minishell.h"
 
 static int	valid_identifier(char *str)
 {
@@ -29,6 +22,8 @@ static int	valid_identifier(char *str)
 	while (str[i] && str[i] != '=')
 	{
 		if (!ft_isalnum(str[i]) && str[i] != '_')
+			return (0);
+		if (ft_strchr("!@#$%%^&*()-", str[i]))
 			return (0);
 		i++;
 	}
@@ -59,6 +54,34 @@ static t_env	*get_var(t_exec *exec, char *name)
 	return (res);
 }
 
+static int	check_export_identifier(char *name, char *arg, t_exec *exec)
+{
+	if (!valid_identifier(name))
+	{
+		put_error("export: ", arg, ": not a valid identifier\n");
+		exec->exit_status = 1;
+		free(name);
+		return (1);
+	}
+	return (0);
+}
+
+static int	handle_export_value_null(char *name, char *value, t_cmd *cmd,
+		t_exec *exec)
+{
+	if (check_export_identifier(name, cmd->args[1], exec))
+	{
+		if (value)
+			free(value);
+		return (1);
+	}
+	if (name)
+		free(name);
+	if (value)
+		free(value);
+	return (0);
+}
+
 int	export_next(t_cmd *cmd, t_exec *exec)
 {
 	char	*name;
@@ -67,17 +90,11 @@ int	export_next(t_cmd *cmd, t_exec *exec)
 
 	name = get_var_name(cmd->args[1]);
 	value = get_var_value(cmd->args[1]);
-	if (name == NULL || value == NULL)
+	if (value == NULL)
+		return (handle_export_value_null(name, value, cmd, exec));
+	if (check_export_identifier(name, cmd->args[1], exec))
 	{
-		if (name)
-			free(name);
-		if (value)
-			free(value);
-		return (0);
-	}
-	if (valid_identifier(name) == 0)
-	{
-		put_error("export: ", cmd->args[1], ": not a valid identifier\n");
+		free(value);
 		return (1);
 	}
 	var = get_var(exec, name);
