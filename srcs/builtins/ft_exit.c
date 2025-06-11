@@ -20,7 +20,7 @@ int	ft_exit(t_cmd *cmd, t_exec *exec)
 	if (cmd->args[1] != NULL)
 	{
 		status = ft_atoi(cmd->args[1]);
-		if (status < 0)
+		if (status == -1)
 		{
 			ft_putendl_fd("exit: numeric argument required", 2);
 			return (-1);
