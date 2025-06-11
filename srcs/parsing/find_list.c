@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 16:19:39 by tnolent           #+#    #+#             */
-/*   Updated: 2025/06/10 13:50:42 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/11 12:21:14 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ int	find_cmd(t_list *list, t_token *token)
 	if (access(token->split->str, X_OK) == 0 && list->cmd == 0)
 		return (list->cmd = 1, add_token(list, "CMD", token));
 	if (getenv("PATH"))
-	{
 		path = ft_split(getenv("PATH"), ':');
-		is_good = join_path(path, list, token);
-		if (is_good == -1 || is_good == 1)
-			return (is_good);
-		free_tab(path);
-	}
+	else
+		path = ft_split(BACKUP_PATH, ':');
+	is_good = join_path(path, list, token);
+	if (is_good == -1 || is_good == 1)
+		return (is_good);
+	free_tab(path);
 	if (is_good == 1)
 		is_good = 0;
 	return (is_good);
