@@ -6,11 +6,13 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 15:17:16 by tnolent           #+#    #+#             */
-/*   Updated: 2025/06/10 16:05:31 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/11 11:30:00 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	find_delimiter(t_split *split);
 
 int	start_parse(t_split *split, t_exec *exec)
 {
@@ -21,16 +23,35 @@ int	start_parse(t_split *split, t_exec *exec)
 	i = 0;
 	while (split)
 	{
-		// if (!syntax_error(split->str, len_split, i + 1))
-		// 	return (exec->exit_status = 2, 0);
-		if (ft_strchr(DELIMITER, split->str[0])
-			&& split->next && split->str[0] == split->next->str[0])
+		if (find_delimiter(split) && split->next
+			&& split->str[0] == split->next->str[0])
+			return (printf("minishell : parse error near '%c'\n",
+					split->str[0]), exec->exit_status = 2, 0);
+		if (!split->next && find_delimiter(split))
 			return (printf("minishell : parse error near '%c'\n",
 					split->str[0]), exec->exit_status = 2, 0);
 		split = split->next;
 		i++;
 	}
 	return (1);
+}
+
+static int	find_delimiter(t_split *split)
+{
+	if (!ft_strcmp(">>", split->str))
+		return (1);
+	else if (!ft_strcmp("<<", split->str))
+		return (1);
+	else if (!ft_strcmp("<", split->str))
+		return (1);
+	else if (!ft_strcmp(">", split->str))
+		return (1);
+	else if (!ft_strcmp("|", split->str))
+		return (1);
+	else if (!ft_strcmp("&", split->str))
+		return (1);
+	else
+		return (0);
 }
 
 int	syntax_error(char *split, int len_split, int position)
