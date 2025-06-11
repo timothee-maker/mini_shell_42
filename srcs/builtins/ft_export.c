@@ -6,11 +6,11 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 14:22:04 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/10 15:45:37 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/11 16:33:14 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 static void	sort_tab(char **tab, int len)
 {
@@ -63,4 +63,11 @@ int	ft_export(t_exec *exec, t_cmd *cmd)
 	}
 	else
 		return (exec->exit_status = 0, export_next(cmd, exec));
+}
+
+void	put_error(char *s1, char *s2, char *s3)
+{
+	ft_putstr_fd(s1, 2);
+	ft_putstr_fd(s2, 2);
+	ft_putstr_fd(s3, 2);
 }

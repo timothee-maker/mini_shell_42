@@ -6,11 +6,11 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 14:18:14 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/30 12:41:13 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/11 16:40:14 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 int	ft_exit(t_cmd *cmd, t_exec *exec)
 {

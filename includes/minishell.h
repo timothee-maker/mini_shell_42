@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/10 16:07:57 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/11 16:38:07 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,6 +140,7 @@ int						ft_exit(t_cmd *cmd, t_exec *exec);
 int						ft_export(t_exec *exec, t_cmd *cmd);
 int						ft_pwd(t_exec *exec, t_cmd *cmd);
 int						ft_unset(t_exec *exec, t_cmd *cmd);
+void					put_error(char *s1, char *s2, char *s3);
 
 void					global_exit(t_exec *exec, int status);
 int						export_next(t_cmd *cmd, t_exec *exec);
