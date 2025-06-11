@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 15:31:49 by tnolent           #+#    #+#             */
-/*   Updated: 2025/06/06 15:21:05 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/11 13:54:53 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	append_to_list(t_split_parse *split, const char *content, t_exec *exec)
 	new = malloc(sizeof(t_split));
 	if (!new)
 		return ;
-	if (content[0] == '$' && content[1] != '\0' && split->tmp == '\"')
+	if (content[0] == '$' && content[1] != '\0' && split->tmp == '\"'
+		&& split->heredocs == 0)
 		new->str = get_env_value_for_content(content, exec);
 	else
 		new->str = ft_strdup(content);
@@ -64,7 +65,13 @@ void	append_to_list(t_split_parse *split, const char *content, t_exec *exec)
 void	flush_buffer(t_split_parse *split, t_exec *exec)
 {
 	if (split->buffer && split->buffer[0])
+	{
 		append_to_list(split, split->buffer, exec);
+		if (split->heredocs == 1)
+			split->heredocs = 0;
+		if (!ft_strcmp("<<", split->buffer))
+			split->heredocs = 1;
+	}
 	free(split->buffer);
 	split->buffer = NULL;
 }
@@ -75,7 +82,8 @@ void	fill_list(t_split_parse *split, const char *s, char c, t_exec *exec)
 	{
 		if (ft_strchr(QUOTES, s[split->i]))
 			handle_quote_case(s, split, exec);
-		else if (s[split->i] == '$' && (!split->tmp || split->tmp == '\"'))
+		else if (s[split->i] == '$' && (!split->tmp || split->tmp == '\"')
+			&& split->heredocs == 0)
 			handle_dollar_case(s, split, exec);
 		else
 			add_char(split, s[split->i++]);

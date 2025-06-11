@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 13:35:03 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/10 16:06:15 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/11 13:57:12 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ t_split	*ft_split_list_minishell(const char *s, t_exec *exec)
 	{
 		if (ft_strchr(QUOTES, s[split.i]))
 			handle_quote_case(s, &split, exec);
-		else if (s[split.i] == '$' && (!split.tmp || split.tmp == '\"'))
+		else if (s[split.i] == '$' && (!split.tmp || split.tmp == '\"')
+			&& split.heredocs == 0)
 			handle_dollar_case(s, &split, exec);
 		else if (!is_sep(s[split.i], ' '))
 		{
@@ -72,9 +73,7 @@ static void	handle_dollar_value(char *var_name, t_split_parse *split,
 	else if (!ft_strcmp(var_name, "$?"))
 		value = ft_itoa(exec->exit_status);
 	else
-	{
 		value = fetch_value(var_name, exec);
-	}
 	if (!value)
 		value = ft_strdup(" ");
 	if (value)
@@ -119,7 +118,7 @@ void	handle_quote_case(const char *s, t_split_parse *split, t_exec *exec)
 	split->tmp = s[split->i++];
 	while (s[split->i] && s[split->i] != split->tmp)
 	{
-		if (s[split->i] == '$' && split->tmp != '\'')
+		if (s[split->i] == '$' && split->tmp != '\'' && split->heredocs == 0)
 		{
 			split->is_in_quotes = 1;
 			handle_dollar_case(s, split, exec);
