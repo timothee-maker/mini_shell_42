@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:14:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/10 16:07:24 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/12 11:47:08 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	wait_loop(t_exec *exec)
 		if (cmd->pid != 0)
 			wait_status(exec, cmd);
 		cmd = cmd->next;
-        g_signal_pid = 0;
+		g_signal_pid = 0;
 	}
 }
 

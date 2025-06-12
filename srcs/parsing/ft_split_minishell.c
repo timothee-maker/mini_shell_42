@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 13:35:03 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/11 14:54:18 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/12 11:46:10 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,31 +86,16 @@ static void	handle_dollar_value(char *var_name, t_split_parse *split,
 
 void	handle_dollar_case(const char *s, t_split_parse *split, t_exec *exec)
 {
-	int		start;
-	int		len;
 	char	*var_name;
 
-	start = split->i + 1;
-	len = 0;
-	while (s[start + len] && !ft_strchr(NO_ENV, s[start + len]) && s[start
-		+ len] != '$')
-		len++;
-	if (s[start] == '?')
-		len = 1;
-	if (len == 0)
+	var_name = extract_var_name(s, &split->i);
+	if (!var_name)
 	{
 		add_char(split, s[split->i++]);
 		return ;
 	}
-	var_name = malloc(len + 2);
-	if (!var_name)
-		return ;
-	var_name[0] = '$';
-	ft_strncpy(var_name + 1, s + split->i + 1, len);
-	var_name[len + 1] = '\0';
 	handle_dollar_value(var_name, split, exec);
 	free(var_name);
-	split->i += len + 1;
 	if (s[split->i] == ' ' && split->tmp == 0)
 		flush_buffer(split, exec);
 }

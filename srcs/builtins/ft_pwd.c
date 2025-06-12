@@ -6,17 +6,17 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:06:05 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/10 15:47:57 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/12 11:42:25 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 int	ft_pwd(t_exec *exec, t_cmd *cmd)
 {
-    (void) cmd;
 	char	cwd[PATH_MAX];
 
+	(void)cmd;
 	if (getcwd(cwd, PATH_MAX))
 	{
 		printf("%s\n", cwd);

@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/11 16:38:07 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/12 11:45:53 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct s_split_parse
 	char				*buffer;
 	int					is_in_quotes;
 	int					context;
-    int                 heredocs;    
+	int					heredocs;
 	t_split				*head;
 	t_split				*tail;
 }						t_split_parse;
@@ -232,6 +232,7 @@ void					handle_quote_case(const char *s, t_split_parse *split,
 							t_exec *exec);
 void					fill_list(t_split_parse *split, const char *s, char c,
 							t_exec *exec);
+char					*extract_var_name(const char *s, int *i);
 
 // ------------------------ERROR CASE---------------------
 void					error_parsing(char *line, t_exec *exec, t_split *split);

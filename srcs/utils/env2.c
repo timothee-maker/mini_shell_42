@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 09:09:43 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/10 13:56:00 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/12 11:42:33 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	**str_env(t_exec *exec)
 	i = 0;
 	while (var)
 	{
-        if (var->name && var->value)
+		if (var->name && var->value)
 		{
 			temp = NULL;
 			temp = ft_strjoin(var->name, "=");

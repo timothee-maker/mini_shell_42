@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 15:31:59 by tnolent           #+#    #+#             */
-/*   Updated: 2025/05/27 10:51:02 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/12 11:45:41 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,4 +78,29 @@ int	valid_quote(char *split)
 	if (split[len] == tmp && len != tmp)
 		return (1);
 	return (0);
+}
+
+char	*extract_var_name(const char *s, int *i)
+{
+	int		start;
+	int		len;
+	char	*var_name;
+
+	start = *i + 1;
+	len = 0;
+	while (s[start + len] && !ft_strchr(NO_ENV, s[start + len]) && s[start
+			+ len] != '$')
+		len++;
+	if (s[start] == '?')
+		len = 1;
+	if (len == 0)
+		return (NULL);
+	var_name = malloc(len + 2);
+	if (!var_name)
+		return (NULL);
+	var_name[0] = '$';
+	ft_strncpy(var_name + 1, s + *i + 1, len);
+	var_name[len + 1] = '\0';
+	*i += len + 1;
+	return (var_name);
 }
