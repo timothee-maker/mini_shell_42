@@ -29,7 +29,14 @@ static int	handle_cmd_error(t_exec *exec, t_cmd *cmd)
 {
 	int	check;
 
-	if (cmd->path == NULL)
+	check = check_cmd_error(cmd->path);
+	if (check == 126)
+		return (ft_putstr_fd("minishell: ", 2), ft_putstr_fd(cmd->path, 2),
+			ft_putstr_fd(": Permission denied\n", 2), free_exec(exec), 126);
+	else if (check == 127)
+		return (ft_putstr_fd("minishell: ", 2), ft_putstr_fd(cmd->path, 2),
+			ft_putstr_fd(": No such file\n", 2), free_exec(exec), 127);
+    else if (cmd->path == NULL)
 	{
 		ft_putstr_fd("Command not found", 2);
 		if (cmd->name)
@@ -39,13 +46,6 @@ static int	handle_cmd_error(t_exec *exec, t_cmd *cmd)
 		}
 		return (ft_putstr_fd("\n", 2), free_exec(exec), 127);
 	}
-	check = check_cmd_error(cmd->path);
-	if (check == 126)
-		return (ft_putstr_fd("minishell: ", 2), ft_putstr_fd(cmd->path, 2),
-			ft_putstr_fd(": Permission denied\n", 2), free_exec(exec), 126);
-	else if (check == 127)
-		return (ft_putstr_fd("minishell: ", 2), ft_putstr_fd(cmd->path, 2),
-			ft_putstr_fd(": No such file\n", 2), free_exec(exec), 127);
 	return (0);
 }
 

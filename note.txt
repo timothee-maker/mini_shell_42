@@ -24,3 +24,15 @@ test a revoir (800 test minishell)
 
 // t_split *current_split = split; while (current_split){printf("[%s][env = %d]", current_split->str,
 // current_split->context);current_split = current_split->next;}
+
+
+
+
+
+
+
+
+
+
+creer chaque outfile
+changer exit code sur invalid permission

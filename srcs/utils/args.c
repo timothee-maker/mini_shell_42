@@ -69,7 +69,7 @@ int	    get_outfile(char *filename, t_cmd *cmd)
 	int			fd;
 
 	if (cmd->output != -1 && last_fd != NULL)
-		unlink(last_fd);
+		close(cmd->output);
 	last_fd = filename;
 	fd = open(filename, O_WRONLY | O_TRUNC | O_CREAT, 0666);
 	if (fd == -1)
@@ -87,7 +87,7 @@ int	get_outfile_append(char *filename, t_cmd *cmd)
 	int			fd;
 
 	if (cmd->output != -1 && last_fd != NULL)
-		unlink(last_fd);
+		close(cmd->output);
 	last_fd = filename;
 	fd = open(filename, O_WRONLY | O_APPEND | O_CREAT, 0666);
 	if (fd == -1)
