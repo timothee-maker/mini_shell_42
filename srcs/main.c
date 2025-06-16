@@ -49,7 +49,7 @@ void	minishell(t_exec *exec)
 			liste = initialisation();
 			exec->liste = liste;
 			good = parsing(input, liste, exec);
-            //afficherliste(liste);
+            afficherliste(liste);
 			if (good == 1)
 				exec_line(exec, liste);
 			free_list(exec, liste);

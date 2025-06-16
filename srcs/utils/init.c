@@ -20,7 +20,14 @@ char	*get_first_arg(t_list *list)
 	while (elem)
 	{
 		if (!ft_strncmp(elem->token, "ARG", ft_strlen(elem->token)))
+        {
+            if (access(elem->arg, F_OK) == 0 && access(elem->arg, X_OK) != 0)
+            {
+                ft_putstr_fd("Permission denied: ", 2);
+                return (NULL);
+            }
 			return (ft_strdup(elem->arg));
+        }
 		elem = elem->next;
 	}
 	return (NULL);
