@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 16:19:39 by tnolent           #+#    #+#             */
-/*   Updated: 2025/06/11 12:21:14 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/16 18:17:23 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,7 @@ int	find_cmd(t_list *list, t_token *token)
 	if (is_good == -1 || is_good == 1)
 		return (is_good);
 	free_tab(path);
-	if (is_good == 1)
-		is_good = 0;
+	is_good = add_token(list, "ARG", token);
 	return (is_good);
 }
 

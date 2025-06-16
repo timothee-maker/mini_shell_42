@@ -6,30 +6,11 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 15:31:49 by tnolent           #+#    #+#             */
-/*   Updated: 2025/06/11 13:54:53 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/16 17:10:09 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static char	*get_env_value_for_content(const char *content, t_exec *exec)
-{
-	char	*value;
-
-	value = NULL;
-	if (!ft_strcmp(content, "$"))
-		return (ft_strdup("$"));
-	else if (!ft_strcmp(content, "$?"))
-		return (ft_itoa(exec->exit_status));
-	else
-	{
-		value = fetch_value((char *)content, exec);
-		if (value)
-			return (value);
-		else
-			return (ft_strdup(""));
-	}
-}
 
 static void	init_new_split_node(t_split *new, t_split_parse *split)
 {
@@ -42,18 +23,14 @@ static void	init_new_split_node(t_split *new, t_split_parse *split)
 		new->context = split->context;
 }
 
-void	append_to_list(t_split_parse *split, const char *content, t_exec *exec)
+void	append_to_list(t_split_parse *split, const char *content)
 {
 	t_split	*new;
 
 	new = malloc(sizeof(t_split));
 	if (!new)
 		return ;
-	if (content[0] == '$' && content[1] != '\0' && split->tmp == '\"'
-		&& split->heredocs == 0)
-		new->str = get_env_value_for_content(content, exec);
-	else
-		new->str = ft_strdup(content);
+	new->str = ft_strdup(content);
 	init_new_split_node(new, split);
 	if (!split->head)
 		split->head = new;
@@ -62,11 +39,11 @@ void	append_to_list(t_split_parse *split, const char *content, t_exec *exec)
 	split->tail = new;
 }
 
-void	flush_buffer(t_split_parse *split, t_exec *exec)
+void	flush_buffer(t_split_parse *split)
 {
 	if (split->buffer && split->buffer[0])
 	{
-		append_to_list(split, split->buffer, exec);
+		append_to_list(split, split->buffer);
 		if (split->heredocs == 1)
 			split->heredocs = 0;
 		if (!ft_strcmp("<<", split->buffer))

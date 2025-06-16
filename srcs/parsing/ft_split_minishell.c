@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 13:35:03 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/12 11:46:10 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/16 17:12:35 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ t_split	*ft_split_list_minishell(const char *s, t_exec *exec)
 		else if (!is_sep(s[split.i], ' '))
 		{
 			fill_list(&split, s, ' ', exec);
-			flush_buffer(&split, exec);
+			flush_buffer(&split);
 		}
 		else
 			split.i++;
 	}
-	flush_buffer(&split, exec);
+	flush_buffer(&split);
 	return (split.head);
 }
 
@@ -74,14 +74,14 @@ static void	handle_dollar_value(char *var_name, t_split_parse *split,
 		value = ft_itoa(exec->exit_status);
 	else
 		value = fetch_value(var_name, exec);
-	if (!value)
-		value = ft_strdup(" ");
-	if (value)
+	if (!value || value[0] == '\0')
 	{
-		while (value[j])
-			add_char(split, value[j++]);
 		free(value);
+		return ;
 	}
+	while (value[j])
+		add_char(split, value[j++]);
+	free(value);
 }
 
 void	handle_dollar_case(const char *s, t_split_parse *split, t_exec *exec)
@@ -97,7 +97,7 @@ void	handle_dollar_case(const char *s, t_split_parse *split, t_exec *exec)
 	handle_dollar_value(var_name, split, exec);
 	free(var_name);
 	if (s[split->i] == ' ' && split->tmp == 0)
-		flush_buffer(split, exec);
+		flush_buffer(split);
 }
 
 void	handle_quote_case(const char *s, t_split_parse *split, t_exec *exec)
@@ -118,5 +118,5 @@ void	handle_quote_case(const char *s, t_split_parse *split, t_exec *exec)
 	split->is_in_quotes = 0;
 	split->tmp = 0;
 	if (s[split->i] && is_sep(s[split->i], ' '))
-		flush_buffer(split, exec);
+		flush_buffer(split);
 }

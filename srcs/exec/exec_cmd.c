@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:14:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/12 11:47:08 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/16 11:18:48 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,35 +69,6 @@ void	wait_status(t_exec *exec, t_cmd *cmd)
 		else if (WIFSIGNALED(status))
 			exec->exit_status = WTERMSIG(status) + 128;
 	}
-}
-
-int	exec_cmd(t_exec *exec, t_cmd *cmd)
-{
-	int	status;
-
-	if (cmd->is_builtin)
-	{
-		status = exec_builtin(exec, cmd);
-		return (free_exec(exec), status);
-	}
-	else if (cmd->path == NULL)
-	{
-		ft_putstr_fd("Command not found", 2);
-		if (cmd->name)
-		{
-			ft_putstr_fd(": ", 2);
-			ft_putstr_fd(cmd->name, 2);
-		}
-		ft_putstr_fd("\n", 2);
-		return (free_exec(exec), 127);
-	}
-	else if (execve(cmd->path, cmd->args, str_env(exec)) == -1)
-	{
-		exec->exit_status = 1;
-		perror("Execve error");
-		return (free_exec(exec), 2);
-	}
-	return (0);
 }
 
 int	exec_builtin(t_exec *ex, t_cmd *cmd)
