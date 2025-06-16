@@ -47,7 +47,7 @@ void	fill_args(t_list *list, t_exec *exec, t_cmd *cmd)
 	exec->infile = open(exec->infile_path, O_RDWR | O_CREAT, 0777);
 }
 
-void	get_infile(char *filename, t_cmd *cmd)
+int	    get_infile(char *filename, t_cmd *cmd)
 {
 	int	fd;
 
@@ -57,12 +57,13 @@ void	get_infile(char *filename, t_cmd *cmd)
 	if (fd == -1)
 	{
 		perror("Error opening infile");
-		return ;
+		return (2);
 	}
 	cmd->input = fd;
+    return (0);
 }
 
-void	get_outfile(char *filename, t_cmd *cmd)
+int	    get_outfile(char *filename, t_cmd *cmd)
 {
 	static char	*last_fd = NULL;
 	int			fd;
@@ -74,12 +75,13 @@ void	get_outfile(char *filename, t_cmd *cmd)
 	if (fd == -1)
 	{
 		perror("Error opening outfile");
-		return ;
+		return (2);
 	}
 	cmd->output = fd;
+    return (0);
 }
 
-void	get_outfile_append(char *filename, t_cmd *cmd)
+int	get_outfile_append(char *filename, t_cmd *cmd)
 {
 	static char	*last_fd = NULL;
 	int			fd;
@@ -91,7 +93,8 @@ void	get_outfile_append(char *filename, t_cmd *cmd)
 	if (fd == -1)
 	{
 		perror("Error opening outfile");
-		return ;
+		return (2);
 	}
 	cmd->output = fd;
+	return (0);
 }

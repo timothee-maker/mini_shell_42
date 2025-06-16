@@ -21,6 +21,7 @@ t_cmd	*first_cmd_init(void)
 	res->input = -1;
 	res->output = -1;
 	res->pid = 0;
+    res->to_exec = 1;
 	res->path = NULL;
 	res->name = NULL;
 	res->args = NULL;
@@ -57,6 +58,26 @@ void	compare_cmd_tokens(t_cmd *res, t_element *el, t_exec *ex, t_list *list)
 	}
 }
 
+static int compare_files(char *token, char *arg, t_cmd *res)
+{
+    if (!ft_strncmp(token, "INFILE", ft_strlen(token)))
+    {
+		if (get_infile(arg, res) == 2)
+			return (2);
+    }
+	else if (!ft_strncmp(token, "OUTFILE", ft_strlen(token)))
+    {
+		if (get_outfile(arg, res) == 2)
+			return (2);
+    }
+	else if (!ft_strcmp(token, "OUTFILE-APPEND"))
+    {
+		if (get_outfile_append(arg, res) == 2)
+			return (2);
+    }
+	return (0);
+}
+
 int	assign_loop(t_element *elem, t_list *list, t_exec *exec, t_cmd *res)
 {
 	while (elem)
@@ -74,13 +95,11 @@ int	assign_loop(t_element *elem, t_list *list, t_exec *exec, t_cmd *res)
 				return (1);
 			}
 		}
-		else if (!ft_strncmp(elem->token, "INFILE", ft_strlen(elem->token)))
-			get_infile(elem->arg, res);
-		else if (!ft_strncmp(elem->token, "OUTFILE", ft_strlen(elem->token)))
-			get_outfile(elem->arg, res);
-		else if (!ft_strcmp(elem->token, "OUTFILE-APPEND"))
-			get_outfile_append(elem->arg, res);
-		elem = elem->next;
+		else if (compare_files(elem->token, elem->arg, res) == 2)
+        {
+            return (2);
+        }
+        elem = elem->next;
 	}
 	return (0);
 }
