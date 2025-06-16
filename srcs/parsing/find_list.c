@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 16:19:39 by tnolent           #+#    #+#             */
-/*   Updated: 2025/06/16 11:05:40 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/16 12:29:41 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,8 @@ int	find_cmd(t_list *list, t_token *token)
 	is_good = 0;
 	if (ft_strlen(token->split->str) == 0)
 		return (empty_string_case(token->split->str, list, token), 0);
-	if (access(token->split->str, X_OK) == 0 && list->cmd == 0)
+	if (access(token->split->str, X_OK) == 0 && list->cmd == 0
+		&& !is_directory(token->split->str))
 		return (list->cmd = 1, add_token(list, "CMD", token));
 	if (getenv("PATH"))
 		path = ft_split(getenv("PATH"), ':');
@@ -52,8 +53,7 @@ int	find_cmd(t_list *list, t_token *token)
 	if (is_good == -1 || is_good == 1)
 		return (is_good);
 	free_tab(path);
-	if (is_good == 1)
-		is_good = 0;
+	is_good = add_token(list, "ARG", token);
 	return (is_good);
 }
 
@@ -113,7 +113,7 @@ int	join_path(char **path, t_list *list, t_token *token)
 		tmp_path = ft_strjoin(path[i++], "/");
 		tmp_cmd = ft_strjoin(tmp_path, token->split->str);
 		free(tmp_path);
-		if (access(tmp_cmd, X_OK) == 0)
+		if (access(tmp_cmd, X_OK) == 0 && !is_directory(tmp_cmd))
 		{
 			free(token->split->str);
 			token->split->str = ft_strdup(tmp_cmd);

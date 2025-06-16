@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/16 10:49:31 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/16 17:10:19 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,7 +195,7 @@ int						find_cmd(t_list *list, t_token *token);
 int						find_files_redir(t_list *list, t_token *token);
 void					find_file(t_list *list, int redir, t_token *token);
 int						join_path(char **path, t_list *list, t_token *token);
-int						is_regular_file(const char *path);
+int						is_directory(const char *path);
 
 // ----------------------LIST UTILS----------------------
 t_list					*initialisation(void);
@@ -224,9 +224,8 @@ void					init_token(t_token *token);
 
 // ------------------------SPLIT MINISHELL----------------
 void					init_split(t_split_parse *split);
-void					append_to_list(t_split_parse *split, const char *conten,
-							t_exec *exec);
-void					flush_buffer(t_split_parse *split, t_exec *exec);
+void					append_to_list(t_split_parse *split, const char *conten);
+void					flush_buffer(t_split_parse *split);
 void					add_char(t_split_parse *split, char c);
 void					handle_dollar_case(const char *s, t_split_parse *split,
 							t_exec *exec);

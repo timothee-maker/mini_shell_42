@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 15:31:18 by tnolent           #+#    #+#             */
-/*   Updated: 2025/06/10 15:14:52 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/16 17:16:57 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	parsing(char *line, t_list *list, t_exec *exec)
 		error_parsing(line, exec, split);
 	split = ft_split_list_minishell(line, exec);
 	if (!split)
-		error_parsing(line, exec, split);
+		return (0);
 	free(line);
 	line = NULL;
 	if (!start_parse(split, exec))
@@ -75,11 +75,7 @@ static int	handle_token(t_list *current, t_token *token, t_exec *exec)
 	{
 		is_good = find_files_redir(current, token);
 		if (!is_good)
-		{
 			is_good = find_cmd(current, token);
-			if (!is_good)
-				is_good = handle_env(current, token, exec);
-		}
 	}
 	if (is_good == -1)
 		return (0);
