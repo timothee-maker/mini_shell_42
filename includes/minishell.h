@@ -107,6 +107,7 @@ typedef struct s_cmd
 	int					is_builtin;
 	int					input;
 	int					output;
+    int                 to_exec;
 	pid_t				pid;
 	struct s_cmd		*prev;
 	struct s_cmd		*next;
@@ -244,9 +245,9 @@ void					error_parsing(char *line, t_exec *exec, t_split *split);
 void					fill_args(t_list *list, t_exec *exec, t_cmd *cmd);
 int						is_sep(char c, char sep);
 int						is_in_quotes(int position, char *str);
-void					get_infile(char *filename, t_cmd *cmd);
-void					get_outfile(char *filename, t_cmd *cmd);
-void					get_outfile_append(char *filename, t_cmd *cmd);
+int						get_infile(char *filename, t_cmd *cmd);
+int						get_outfile(char *filename, t_cmd *cmd);
+int						get_outfile_append(char *filename, t_cmd *cmd);
 
 void					child_process(t_cmd *cmd, int pipe[2], t_exec *exec);
 void					parent_process(t_cmd *cmd, int pipe[2]);

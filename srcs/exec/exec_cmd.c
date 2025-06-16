@@ -19,7 +19,7 @@ static void	wait_loop(t_exec *exec)
 	cmd = exec->cmd;
 	while (cmd)
 	{
-		if (cmd->pid != 0)
+		if (cmd->pid != 0 && cmd->to_exec == 1)
 			wait_status(exec, cmd);
 		cmd = cmd->next;
 		g_signal_pid = 0;
@@ -31,18 +31,20 @@ int	exec_line(t_exec *exec, t_list *list)
 	t_cmd	*cmd;
 
 	cmd = NULL;
-	if (!fill_cmd(list, exec, cmd))
-		return (0);
+	fill_cmd(list, exec, cmd);
 	reopen_io(exec);
 	cmd = exec->cmd;
 	while (cmd)
 	{
-		if (pipe(exec->pipe) == -1)
-			return (perror("Pipe error"), 1);
-		if (is_single_builtin(cmd))
-			exec_single_builtin(cmd, exec);
-		else
-			ft_fork(exec, cmd);
+        if (cmd->to_exec == 1)
+        {
+            if (pipe(exec->pipe) == -1)
+                return (perror("Pipe error"), 1);
+            if (is_single_builtin(cmd))
+                exec_single_builtin(cmd, exec);
+            else
+                ft_fork(exec, cmd);
+        }
 		cmd = cmd->next;
 	}
 	wait_loop(exec);

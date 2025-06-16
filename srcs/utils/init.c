@@ -68,7 +68,10 @@ t_cmd	*assign_cmd(t_list *list, t_exec *exec)
 	exec->temp_cmd = res;
 	elem = list->first;
 	if (assign_loop(elem, list, exec, res))
-		return (NULL);
+    {
+        res->to_exec = 0;
+        exec->exit_status = 1;
+    }
 	fill_args(list, exec, res);
 	res->args = create_args(exec);
 	exec->temp_cmd = NULL;
