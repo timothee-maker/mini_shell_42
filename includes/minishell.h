@@ -28,6 +28,7 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <unistd.h>
+# include <errno.h>
 
 # define DELIMITER "|<>&"
 # define ARG_SEP 3;

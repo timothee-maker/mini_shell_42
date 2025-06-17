@@ -12,23 +12,6 @@
 
 #include "minishell.h"
 
-static int	check_cmd_error(const char *path)
-{
-	struct stat	sb;
-
-	if (stat(path, &sb) == -1)
-	{
-		if (access(path, F_OK) == 0)
-			return (126);
-		return (127);
-	}
-		else if (S_ISDIR(sb.st_mode))
-		return (126);
-	else if (access(path, X_OK) != 0)
-		return (126);
-	return (0);
-}
-
 static int	exit_execve_errno(void)
 {
 	if (errno == EACCES)
@@ -43,34 +26,24 @@ static int	exit_execve_errno(void)
 
 static int	handle_cmd_error(t_exec *exec, t_cmd *cmd)
 {
-	int	check;
+    struct stat statbuf;
 
-	check = check_cmd_error(cmd->path);
-	// printf("check : %d\n", check);
-	// printf("cmd: %s, name: %s\n", cmd->name, cmd->path);
-	if (cmd->path == NULL)
-	{
-		if (cmd->name != NULL)
-			return (127);
-		return (126);
-	}
-	if (check == 126)
-		return (ft_putstr_fd("minishell: ", 2), ft_putstr_fd(cmd->path, 2),
-			ft_putstr_fd(": Permission denied\n", 2), free_exec(exec), 126);
-	else if (check == 127)
-		return (ft_putstr_fd("minishell: ", 2), ft_putstr_fd(cmd->path, 2),
-			ft_putstr_fd(": No such file\n", 2), free_exec(exec), 127);
-	else if (cmd->path == NULL)
-	{
-		ft_putstr_fd("Command not found", 2);
-		if (cmd->name)
-		{
-			ft_putstr_fd(": ", 2);
-			ft_putstr_fd(cmd->name, 2);
-		}
-		return (ft_putstr_fd("\n", 2), free_exec(exec), 127);
-	}
-	return (0);
+    if (!cmd->name || !*cmd->name)
+        return (ft_putstr_fd("Command not found\n", STDERR_FILENO), 127);
+
+    if (cmd->path == NULL)
+    {
+        if (stat(cmd->name, &statbuf) == 0)
+        {
+            if (S_ISDIR(statbuf.st_mode))
+                return (ft_putstr_fd("Is a directory\n", STDERR_FILENO), 126);
+            if (access(cmd->name, X_OK) != 0)
+                return (ft_putstr_fd("Permission denied\n", STDERR_FILENO), 126);
+        }
+        else
+            return (ft_putstr_fd("Command not found\n", STDERR_FILENO), 127);
+    }
+    return (0);
 }
 
 int	exec_cmd(t_exec *exec, t_cmd *cmd)
