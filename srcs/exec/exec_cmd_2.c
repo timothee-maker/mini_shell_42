@@ -61,7 +61,7 @@ int	exec_cmd(t_exec *exec, t_cmd *cmd)
 		return (check);
 	if (execve(cmd->path, cmd->args, str_env(exec)) == -1)
 	{
-		exec->exit_status = 1;
+		exec->exit_status = check;
 		perror("Execve error");
 		return (free_exec(exec), exit_execve_errno());
 	}
