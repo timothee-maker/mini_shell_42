@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:25:47 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/17 10:07:37 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/17 10:11:25 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,29 @@
 pid_t	g_signal_pid;
 void	minishell(t_exec *exec);
 
+static int	valid_input(char *input)
+{
+	int	i;
+
+	i = 0;
+	if (input[0] == '\0')
+		return (0);
+	while (input[i])
+	{
+		if (input[i++] != ' ')
+			return (1);
+	}
+	return (0);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_exec	*exec;
 
 	(void)argc;
 	(void)argv;
-	if (!isatty(0) || !isatty(1))
-		return (printf("Erreur\n"), 1);
+	// if (!isatty(0) || !isatty(1))
+	// 	return (printf("Erreur\n"), 1);
 	exec = init_exec(envp);
 	signals();
 	g_signal_pid = 0;
@@ -44,7 +59,7 @@ void	minishell(t_exec *exec)
 		g_signal_pid = 0;
 		if (input == NULL)
 			break ;
-		if (input[0] != '\0')
+		if (valid_input(input))
 		{
 			liste = initialisation();
 			exec->liste = liste;
