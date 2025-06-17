@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 11:12:24 by tnolent           #+#    #+#             */
-/*   Updated: 2025/06/16 11:23:26 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/17 10:06:04 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	handle_cmd_error(t_exec *exec, t_cmd *cmd)
 	else if (check == 127)
 		return (ft_putstr_fd("minishell: ", 2), ft_putstr_fd(cmd->path, 2),
 			ft_putstr_fd(": No such file\n", 2), free_exec(exec), 127);
-    else if (cmd->path == NULL)
+	else if (cmd->path == NULL)
 	{
 		ft_putstr_fd("Command not found", 2);
 		if (cmd->name)

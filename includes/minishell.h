@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/16 17:10:19 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/17 10:07:49 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ typedef struct s_cmd
 	int					is_builtin;
 	int					input;
 	int					output;
-    int                 to_exec;
+	int					to_exec;
 	pid_t				pid;
 	struct s_cmd		*prev;
 	struct s_cmd		*next;
@@ -224,7 +224,8 @@ void					init_token(t_token *token);
 
 // ------------------------SPLIT MINISHELL----------------
 void					init_split(t_split_parse *split);
-void					append_to_list(t_split_parse *split, const char *conten);
+void					append_to_list(t_split_parse *split,
+							const char *conten);
 void					flush_buffer(t_split_parse *split);
 void					add_char(t_split_parse *split, char c);
 void					handle_dollar_case(const char *s, t_split_parse *split,

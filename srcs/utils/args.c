@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   args.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lde-guil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 09:05:37 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/21 09:05:38 by lde-guil         ###   ########.fr       */
+/*   Updated: 2025/06/17 10:05:49 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	fill_args(t_list *list, t_exec *exec, t_cmd *cmd)
 	exec->infile = open(exec->infile_path, O_RDWR | O_CREAT, 0777);
 }
 
-int	    get_infile(char *filename, t_cmd *cmd)
+int	get_infile(char *filename, t_cmd *cmd)
 {
 	int	fd;
 
@@ -60,10 +60,10 @@ int	    get_infile(char *filename, t_cmd *cmd)
 		return (2);
 	}
 	cmd->input = fd;
-    return (0);
+	return (0);
 }
 
-int	    get_outfile(char *filename, t_cmd *cmd)
+int	get_outfile(char *filename, t_cmd *cmd)
 {
 	static char	*last_fd = NULL;
 	int			fd;
@@ -78,7 +78,7 @@ int	    get_outfile(char *filename, t_cmd *cmd)
 		return (2);
 	}
 	cmd->output = fd;
-    return (0);
+	return (0);
 }
 
 int	get_outfile_append(char *filename, t_cmd *cmd)

@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:14:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/16 11:18:48 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/17 10:05:58 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,15 @@ int	exec_line(t_exec *exec, t_list *list)
 	cmd = exec->cmd;
 	while (cmd)
 	{
-        if (cmd->to_exec == 1)
-        {
-            if (pipe(exec->pipe) == -1)
-                return (perror("Pipe error"), 1);
-            if (is_single_builtin(cmd))
-                exec_single_builtin(cmd, exec);
-            else
-                ft_fork(exec, cmd);
-        }
+		if (cmd->to_exec == 1)
+		{
+			if (pipe(exec->pipe) == -1)
+				return (perror("Pipe error"), 1);
+			if (is_single_builtin(cmd))
+				exec_single_builtin(cmd, exec);
+			else
+				ft_fork(exec, cmd);
+		}
 		cmd = cmd->next;
 	}
 	wait_loop(exec);

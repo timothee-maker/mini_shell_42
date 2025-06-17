@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 09:22:37 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/10 16:05:02 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/17 10:05:52 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,14 @@ char	*get_first_arg(t_list *list)
 	while (elem)
 	{
 		if (!ft_strncmp(elem->token, "ARG", ft_strlen(elem->token)))
-        {
-            if (access(elem->arg, F_OK) == 0 && access(elem->arg, X_OK) != 0)
-            {
-                ft_putstr_fd("Permission denied: ", 2);
-                return (NULL);
-            }
+		{
+			if (access(elem->arg, F_OK) == 0 && access(elem->arg, X_OK) != 0)
+			{
+				ft_putstr_fd("Permission denied: ", 2);
+				return (NULL);
+			}
 			return (ft_strdup(elem->arg));
-        }
+		}
 		elem = elem->next;
 	}
 	return (NULL);
@@ -75,10 +75,10 @@ t_cmd	*assign_cmd(t_list *list, t_exec *exec)
 	exec->temp_cmd = res;
 	elem = list->first;
 	if (assign_loop(elem, list, exec, res))
-    {
-        res->to_exec = 0;
-        exec->exit_status = 1;
-    }
+	{
+		res->to_exec = 0;
+		exec->exit_status = 1;
+	}
 	fill_args(list, exec, res);
 	res->args = create_args(exec);
 	exec->temp_cmd = NULL;

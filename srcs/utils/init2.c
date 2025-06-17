@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 09:19:02 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/30 12:20:41 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/17 10:05:43 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_cmd	*first_cmd_init(void)
 	res->input = -1;
 	res->output = -1;
 	res->pid = 0;
-    res->to_exec = 1;
+	res->to_exec = 1;
 	res->path = NULL;
 	res->name = NULL;
 	res->args = NULL;
@@ -58,23 +58,23 @@ void	compare_cmd_tokens(t_cmd *res, t_element *el, t_exec *ex, t_list *list)
 	}
 }
 
-static int compare_files(char *token, char *arg, t_cmd *res)
+static int	compare_files(char *token, char *arg, t_cmd *res)
 {
-    if (!ft_strncmp(token, "INFILE", ft_strlen(token)))
-    {
+	if (!ft_strncmp(token, "INFILE", ft_strlen(token)))
+	{
 		if (get_infile(arg, res) == 2)
 			return (2);
-    }
+	}
 	else if (!ft_strncmp(token, "OUTFILE", ft_strlen(token)))
-    {
+	{
 		if (get_outfile(arg, res) == 2)
 			return (2);
-    }
+	}
 	else if (!ft_strcmp(token, "OUTFILE-APPEND"))
-    {
+	{
 		if (get_outfile_append(arg, res) == 2)
 			return (2);
-    }
+	}
 	return (0);
 }
 
@@ -96,10 +96,10 @@ int	assign_loop(t_element *elem, t_list *list, t_exec *exec, t_cmd *res)
 			}
 		}
 		else if (compare_files(elem->token, elem->arg, res) == 2)
-        {
-            return (2);
-        }
-        elem = elem->next;
+		{
+			return (2);
+		}
+		elem = elem->next;
 	}
 	return (0);
 }
