@@ -12,58 +12,47 @@
 
 #include "minishell.h"
 
-static int	exit_execve_errno(void)
-{
-	if (errno == EACCES)
-		return(126);
-	else if (errno == ENOEXEC)
-		return(126);
-	else if (errno == ENOENT)
-		return(127);
-	else
-		return(1);
-}
-
-static int	handle_cmd_error(t_exec *exec, t_cmd *cmd)
+static int	execve_handler(t_cmd *cmd)
 {
     struct stat statbuf;
 
-    if (!cmd->name || !*cmd->name)
-        return (ft_putstr_fd("Command not found\n", STDERR_FILENO), 127);
-
-    if (cmd->path == NULL)
+    if (!cmd->path || access(cmd->path, F_OK) != 0)
     {
-        if (stat(cmd->name, &statbuf) == 0)
-        {
-            if (S_ISDIR(statbuf.st_mode))
-                return (ft_putstr_fd("Is a directory\n", STDERR_FILENO), 126);
-            if (access(cmd->name, X_OK) != 0)
-                return (ft_putstr_fd("Permission denied\n", STDERR_FILENO), 126);
-        }
-        else
-            return (ft_putstr_fd("Command not found\n", STDERR_FILENO), 127);
+        ft_putstr_fd(cmd->name, STDERR_FILENO);
+        ft_putstr_fd(": command not found\n", STDERR_FILENO);
+		return (127);
     }
-    return (0);
+    if (stat(cmd->path, &statbuf) == 0)
+    {
+        if (S_ISDIR(statbuf.st_mode))
+        {
+            ft_putstr_fd(cmd->name, STDERR_FILENO);
+            ft_putstr_fd(": is a directory\n", STDERR_FILENO);
+            return (126);
+        }
+        if (access(cmd->path, X_OK) != 0)
+        {
+            ft_putstr_fd(cmd->name, STDERR_FILENO);
+            ft_putstr_fd(": Permission denied\n", STDERR_FILENO);
+            return (126);
+        }
+    }
+    return (126);
 }
 
 int	exec_cmd(t_exec *exec, t_cmd *cmd)
 {
 	int	status;
-	int	check;
 
 	if (cmd->is_builtin)
 	{
 		status = exec_builtin(exec, cmd);
 		return (free_exec(exec), status);
 	}
-	check = handle_cmd_error(exec, cmd);
-	if (check != 0)
-		return (check);
 	if (execve(cmd->path, cmd->args, str_env(exec)) == -1)
 	{
-		exec->exit_status = check;
-		perror("Execve error");
-		return (free_exec(exec), exit_execve_errno());
+		exec->exit_status = 1;
+		return (free_exec(exec), execve_handler(cmd));
 	}
 	return (0);
 }
