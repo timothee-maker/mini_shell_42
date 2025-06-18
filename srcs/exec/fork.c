@@ -6,12 +6,11 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:16:19 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/17 14:52:50 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/18 17:31:12 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 void	ft_fork(t_exec *exec, t_cmd *cmd)
 {
