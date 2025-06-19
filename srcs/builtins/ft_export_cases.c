@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:05:15 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/12 11:42:03 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/19 11:19:45 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,17 @@ int	export_next(t_cmd *cmd, t_exec *exec)
 	if (value == NULL)
 		return (handle_export_value_null(name, value, cmd, exec));
 	if (check_export_identifier(name, cmd->args[1], exec))
-	{
-		free(value);
-		return (1);
-	}
+		return (free(value), 1);
 	var = get_var(exec, name);
+	if (var->name)
+		free(var->name);
 	var->name = ft_strdup(name);
 	if (value != NULL)
+	{
+		if (var->value)
+			free(var->value);
 		var->value = ft_strdup(value);
+	}
 	free(name);
 	if (value != NULL)
 		free(value);

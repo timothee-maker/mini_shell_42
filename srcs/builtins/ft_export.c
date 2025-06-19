@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 14:22:04 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/11 16:33:14 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/19 11:16:52 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,19 +48,14 @@ static int	no_args(t_exec *exec)
 	tab = str_env(exec);
 	sort_tab(tab, len_tab(tab));
 	while (tab[i])
-	{
-		printf("export %s\n", tab[i]);
-		i++;
-	}
+		printf("export %s\n", tab[i++]);
 	return (0);
 }
 
 int	ft_export(t_exec *exec, t_cmd *cmd)
 {
 	if (cmd->args[1] == NULL)
-	{
 		return (exec->exit_status = 0, no_args(exec));
-	}
 	else
 		return (exec->exit_status = 0, export_next(cmd, exec));
 }
