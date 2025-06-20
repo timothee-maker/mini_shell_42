@@ -16,7 +16,7 @@ t_cmd	*first_cmd_init(void)
 {
 	t_cmd	*res;
 
-	res = malloc(sizeof(t_cmd));
+	res = ft_malloc(sizeof(t_cmd), 1, NULL);
 	res->is_builtin = 0;
 	res->input = -1;
 	res->output = -1;

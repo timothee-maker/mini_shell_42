@@ -44,7 +44,7 @@ char	*remove_special_str(char *str)
 	{
 		str++;
 		temp = ft_strdup(str);
-		free(str);
+		// free(str);
 		return (temp);
 	}
 	return (str);

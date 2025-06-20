@@ -27,7 +27,7 @@ void	append_to_list(t_split_parse *split, const char *content)
 {
 	t_split	*new;
 
-	new = malloc(sizeof(t_split));
+	new = ft_malloc(sizeof(t_split), 1, NULL);
 	if (!new)
 		return ;
 	new->str = ft_strdup(content);

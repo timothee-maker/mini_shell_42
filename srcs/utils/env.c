@@ -24,7 +24,7 @@ t_env	*create_env(char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		var = malloc(sizeof(t_env));
+		var = ft_malloc(sizeof(t_env), 1, NULL);
 		var->name = get_var_name(envp[i]);
 		var->value = get_var_value(envp[i]);
 		var->exported = 0;
@@ -48,12 +48,12 @@ static char	*no_quotes(char *str)
 	j = 0;
 	if (*str == '\'' || *str == '\"')
 	{
-		res = malloc((ft_strlen(str) - 2 + 1) * sizeof(char));
+		res = ft_malloc((ft_strlen(str) - 1) * sizeof(char), 1, NULL);
 		i = 1;
 	}
 	else
 	{
-		res = malloc((ft_strlen(str) + 1) * sizeof(char));
+		res = ft_malloc(ft_strlen(str) * sizeof(char), 1, NULL);
 		i = 0;
 	}
 	while (str[i])
@@ -75,7 +75,7 @@ char	*get_var_name(char *str)
 	i = 0;
 	while (str[i] != '=' && str[i] != '\0')
 		i++;
-	res = malloc(sizeof(char) * (i + 1));
+	res = ft_malloc((i + 1) * sizeof(char), 1, NULL);
 	res[i] = '\0';
 	i--;
 	while (i >= 0)

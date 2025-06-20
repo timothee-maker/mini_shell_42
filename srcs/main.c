@@ -39,6 +39,7 @@ int	main(int argc, char **argv, char **envp)
 	if (!isatty(0) || !isatty(1))
 		return (printf("Erreur\n"), 1);
 	exec = init_exec(envp);
+	ft_malloc(0, 0, exec);
 	signals();
 	g_signal_pid = 0;
 	minishell(exec);

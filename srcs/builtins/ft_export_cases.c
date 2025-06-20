@@ -45,7 +45,7 @@ static t_env	*get_var(t_exec *exec, char *name)
 		else
 			break ;
 	}
-	res = malloc(sizeof(t_env));
+	res = ft_malloc(sizeof(t_env), 1, NULL);
 	res->name = NULL;
 	res->value = NULL;
 	res->next = NULL;

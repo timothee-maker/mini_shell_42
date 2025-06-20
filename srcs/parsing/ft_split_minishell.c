@@ -45,7 +45,7 @@ void	add_char(t_split_parse *split, char c)
 		len = ft_strlen(split->buffer);
 	else
 		len = 0;
-	new_buf = malloc(len + 2);
+	new_buf = ft_malloc(sizeof(char) * (len + 2), 1, NULL);
 	if (!new_buf)
 		return ;
 	if (split->buffer)

@@ -95,7 +95,7 @@ char	*extract_var_name(const char *s, int *i)
 		len = 1;
 	if (len == 0)
 		return (NULL);
-	var_name = malloc(len + 2);
+	var_name = ft_malloc(sizeof(char) * (len + 2), 1, NULL);
 	if (!var_name)
 		return (NULL);
 	var_name[0] = '$';

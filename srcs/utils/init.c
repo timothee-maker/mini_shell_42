@@ -40,6 +40,11 @@ t_exec	*init_exec(char **envp)
 
 	getcwd(cwd, PATH_MAX);
 	res = malloc(sizeof(t_exec));
+	if (!res)
+	{
+		perror("malloc");
+		exit(12);
+	}
 	res->exit_status = 0;
 	res->cmd = NULL;
 	res->temp_cmd = NULL;

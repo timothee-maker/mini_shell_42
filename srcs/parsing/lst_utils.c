@@ -16,7 +16,7 @@ t_list	*initialisation(void)
 {
 	t_list	*liste;
 
-	liste = malloc(sizeof(*liste));
+	liste = ft_malloc(sizeof(*liste), 1, NULL);
 	if (liste == NULL)
 		exit(0);
 	liste->first = NULL;
@@ -30,7 +30,7 @@ int	add_token(t_list *liste, char *token, t_token *t_token)
 	t_element	*nouveau;
 	t_element	*actuel;
 
-	nouveau = malloc(sizeof(*nouveau));
+	nouveau = ft_malloc(sizeof(*nouveau), 1, NULL);
 	if (!nouveau)
 		return (-1);
 	nouveau->next = NULL;
@@ -55,7 +55,7 @@ void	insertion_list(t_exec *exec, t_list *liste)
 	t_list	*new_list;
 	t_list	*current;
 
-	new_list = malloc(sizeof(*new_list));
+	new_list = ft_malloc(sizeof(*new_list), 1, NULL);
 	if (!new_list)
 	{
 		free_list(exec, liste);

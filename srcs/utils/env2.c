@@ -87,7 +87,7 @@ char	**str_env(t_exec *exec)
 	int		i;
 
 	var = exec->env;
-	res = malloc(sizeof(char *) * (get_env_lenght(exec->env) + 1));
+	res = ft_malloc(sizeof(char *), (get_env_lenght(exec->env) + 1), NULL);
 	i = 0;
 	while (var)
 	{
@@ -110,10 +110,10 @@ t_env	*mini_env(void)
 	t_env	*env;
 	t_env	*shlvl;
 
-	env = malloc(sizeof(t_env));
+	env = ft_malloc(sizeof(t_env), 1, NULL);
 	env->name = ft_strdup("PWD");
 	env->value = ft_strdup(getcwd(NULL, 0));
-	shlvl = malloc(sizeof(t_env));
+	shlvl = ft_malloc(sizeof(t_env), 1, NULL);
 	shlvl->name = ft_strdup("SHLVL");
 	shlvl->value = ft_itoa(1);
 	env->next = shlvl;
