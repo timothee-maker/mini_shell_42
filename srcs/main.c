@@ -36,11 +36,11 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	//if (!isatty(0) || !isatty(1))
-	//	return (printf("Erreur\n"), 1);
+	if (!isatty(0) || !isatty(1))
+		return (printf("Erreur\n"), 1);
 	exec = init_exec(envp);
 	ft_malloc(0, 0, exec);
-    exit_malloc_failure(exec);
+	exit_malloc_failure(exec);
 	signals();
 	g_signal_pid = 0;
 	minishell(exec);

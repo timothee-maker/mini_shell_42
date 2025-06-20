@@ -17,9 +17,7 @@ static int	find_delimiter(t_split *split);
 int	start_parse(t_split *split, t_exec *exec)
 {
 	int	i;
-	// int	len_split;
 
-	// len_split = len_list(split);
 	i = 0;
 	while (split)
 	{

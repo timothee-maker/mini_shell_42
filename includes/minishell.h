@@ -274,8 +274,8 @@ char					*get_cmd_name(char *path);
 char					*find_path(char *name, t_exec *exec);
 
 // ------------------------MEMORY------------------------
-void    				*ft_malloc(size_t nmemb, size_t size, t_exec *exec);
-void                    exit_malloc_failure(t_exec *exec);
+void					*ft_malloc(size_t nmemb, size_t size, t_exec *exec);
+void					exit_malloc_failure(t_exec *exec);
 
 // ---------------------CUSTOM JOIN----------------------
 char					*ft_custom_join(char const *s1, char const *s2);

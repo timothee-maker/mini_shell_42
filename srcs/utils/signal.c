@@ -32,7 +32,7 @@ static void	handle_sigsegv(int code)
 {
 	(void)code;
 	write(2, "Segmentation fault\n", 19);
-    exit_malloc_failure(NULL);
+	exit_malloc_failure(NULL);
 	exit(11);
 }
 

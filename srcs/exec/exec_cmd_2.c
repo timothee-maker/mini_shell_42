@@ -44,7 +44,7 @@ int	exec_cmd(t_exec *exec, t_cmd *cmd)
 {
 	int	status;
 
-    status = 1;
+	status = 1;
 	if (cmd->is_builtin)
 	{
 		status = exec_builtin(exec, cmd);
