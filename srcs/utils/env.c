@@ -48,12 +48,12 @@ static char	*no_quotes(char *str)
 	j = 0;
 	if (*str == '\'' || *str == '\"')
 	{
-		res = ft_malloc((ft_strlen(str) - 1) * sizeof(char), 1, NULL);
+		res = ft_malloc(sizeof(char), ft_strlen(str), NULL);
 		i = 1;
 	}
 	else
 	{
-		res = ft_malloc(ft_strlen(str) * sizeof(char), 1, NULL);
+		res = ft_malloc(sizeof(char), ft_strlen(str) + 1, NULL);
 		i = 0;
 	}
 	while (str[i])

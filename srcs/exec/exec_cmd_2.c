@@ -44,6 +44,7 @@ int	exec_cmd(t_exec *exec, t_cmd *cmd)
 {
 	int	status;
 
+    status = 1;
 	if (cmd->is_builtin)
 	{
 		status = exec_builtin(exec, cmd);
@@ -55,8 +56,8 @@ int	exec_cmd(t_exec *exec, t_cmd *cmd)
 		{
 			perror(cmd->name);
 			exec->exit_status = 1;
-			return (free_exec(exec), exec->exit_status);
+			return (free_exec(exec), status);
 		}
 	}
-	return (free_exec(exec), exec->exit_status);
+	return (free_exec(exec), status);
 }

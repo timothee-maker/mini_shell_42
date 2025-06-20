@@ -17,8 +17,22 @@ void    *ft_malloc(size_t nmemb, size_t size, t_exec *exec)
         {
             perror("malloc");
             free_exec(global_exec);
-            exit(12);
+            exit(1);
         }
         return (ptr);
+    }
+}
+
+void exit_malloc_failure(t_exec *exec)
+{
+    static t_exec *global_exec;
+
+    if (exec != NULL)
+        global_exec = exec;
+    else
+    {
+        ft_putstr_fd("minishell: Memory error. Please check available memory !\n", 2);
+        free_exec(exec);
+        exit(1);
     }
 }

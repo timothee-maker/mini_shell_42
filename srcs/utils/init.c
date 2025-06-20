@@ -43,7 +43,7 @@ t_exec	*init_exec(char **envp)
 	if (!res)
 	{
 		perror("malloc");
-		exit(12);
+		exit(1);
 	}
 	res->exit_status = 0;
 	res->cmd = NULL;
