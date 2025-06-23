@@ -66,21 +66,6 @@ static int	check_export_identifier(char *name, char *arg, t_exec *exec)
 	return (0);
 }
 
-static int	handle_export_value_null(char *name, char *value, t_cmd *cmd,
-		t_exec *exec)
-{
-	if (check_export_identifier(name, cmd->args[1], exec))
-	{
-		if (value)
-			free(value);
-		return (1);
-	}
-	if (name)
-		free(name);
-	if (value)
-		free(value);
-	return (0);
-}
 
 int	export_next(t_cmd *cmd, t_exec *exec)
 {
@@ -90,8 +75,6 @@ int	export_next(t_cmd *cmd, t_exec *exec)
 
 	name = get_var_name(cmd->args[1]);
 	value = get_var_value(cmd->args[1]);
-	if (value == NULL)
-		return (handle_export_value_null(name, value, cmd, exec));
 	if (check_export_identifier(name, cmd->args[1], exec))
 		return (free(value), 1);
 	var = get_var(exec, name);
@@ -105,6 +88,7 @@ int	export_next(t_cmd *cmd, t_exec *exec)
 		var->value = ft_strdup(value);
 	}
 	free(name);
+    printf("name: %s, value :%s\n", var->name, var->value);
 	if (value != NULL)
 		free(value);
 	return (0);
