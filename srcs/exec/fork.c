@@ -18,7 +18,7 @@ void	ft_fork(t_exec *exec, t_cmd *cmd)
 
 	pid = fork();
 	g_signal_pid = pid;
-	if (pid == -1)
+	if (pid < 0)
 	{
 		perror("Fork error");
 		return ;
@@ -39,6 +39,7 @@ void	child_process(t_cmd *cmd, int pipe[2], t_exec *exec)
 
 	status = 0;
 	close(pipe[0]);
+    printf("input: %i\n", cmd->input);
 	if (cmd->input >= 0)
 	{
 		dup2(cmd->input, STDIN_FILENO);

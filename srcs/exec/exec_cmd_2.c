@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/06/16 11:12:24 by tnolent           #+#    #+#             */
-/*   Updated: 2025/06/18 17:31:02 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/20 10:39:49 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,10 @@ int	exec_cmd(t_exec *exec, t_cmd *cmd)
 		if (execve(cmd->path, cmd->args, str_env(exec)) == -1)
 		{
 			perror(cmd->name);
-			exec->exit_status = 1;
+			status = exec->exit_status;
 			return (free_exec(exec), status);
 		}
 	}
+	status = exec->exit_status;
 	return (free_exec(exec), status);
 }

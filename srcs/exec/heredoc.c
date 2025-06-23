@@ -81,23 +81,21 @@ static int	fork_hdoc(t_exec *exec, t_element *elem)
 int	fill_heredoc(t_list *list, t_exec *exec)
 {
 	t_element	*elem;
+    t_element   *temp;
 
 	elem = list->first;
 	while (elem)
 	{
-		if (!ft_strncmp(elem->token, "HERE-DOC", ft_strlen(elem->token)))
+		if (!ft_strcmp(elem->token, "HERE-DOC"))
 		{
-			elem = elem->next;
-			if (!ft_strncmp(elem->token, "DELIMITER", ft_strlen(elem->token)))
+			temp = elem->next;
+			exec->exit_status = fork_hdoc(exec, temp);
+			if (exec->exit_status == 130)
 			{
-				exec->exit_status = fork_hdoc(exec, elem);
-				if (exec->exit_status == 130)
-				{
-					return (0);
-				}
+				return (1);
 			}
 		}
 		elem = elem->next;
 	}
-	return (1);
+	return (0);
 }
