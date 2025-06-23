@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/19 15:31:59 by tnolent           #+#    #+#             */
-/*   Updated: 2025/06/12 11:45:41 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/23 15:54:14 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	valid_quote(char *split)
 	int		len;
 
 	len = ft_strlen(split) - 1;
-	if (strchr(QUOTES, split[0]))
+	if (ft_strchr(QUOTES, split[0]))
 		tmp = split[0];
 	else
 		return (1);
