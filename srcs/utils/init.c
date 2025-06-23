@@ -75,20 +75,22 @@ t_cmd	*assign_cmd(t_list *list, t_exec *exec)
 {
 	t_element	*elem;
 	t_cmd		*res;
+    int         status;
 
 	res = init_cmd(list, exec);
 	exec->temp_cmd = res;
 	elem = list->first;
-	if (assign_loop(elem, list, exec, res))
-	{
-		res->to_exec = 0;
-		exec->exit_status = 1;
-	}
-    else
+    status = assign_loop(elem, list, exec, res);
+    if (!status)
     {
         reopen_io(exec);
         res->input = exec->heredoc;
     }
+	else if (status == 2)
+	{
+		res->to_exec = 0;
+		exec->exit_status = 1;
+	}
 	fill_args(list, exec, res);
 	res->args = create_args(exec);
 	exec->temp_cmd = NULL;

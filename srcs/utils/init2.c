@@ -92,5 +92,5 @@ int	assign_loop(t_element *elem, t_list *list, t_exec *exec, t_cmd *res)
 		}
 		elem = elem->next;
 	}
-	return (0);
+	return (1);
 }
