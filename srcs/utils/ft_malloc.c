@@ -44,7 +44,7 @@ void	exit_malloc_failure(t_exec *exec)
 	else
 	{
 		ft_putstr_fd("minishell: Memory error\n", 2);
-		free_exec(exec);
+		free_exec(global_exec);
 		exit(1);
 	}
 }

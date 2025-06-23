@@ -15,8 +15,11 @@
 static int	update_currpwd(t_exec *exec, char *path)
 {
 	t_env	*var;
+    t_env   *prev;
+    t_env   *temp;
 
 	var = exec->env;
+    prev = NULL;
 	while (var)
 	{
 		if (!ft_strcmp(var->name, "PWD"))
@@ -25,8 +28,15 @@ static int	update_currpwd(t_exec *exec, char *path)
 			var->value = ft_strdup(path);
 			return (0);
 		}
+        prev = var;
 		var = var->next;
 	}
+    temp = ft_malloc(sizeof(t_env), 1, NULL);
+    temp->name = ft_strdup("PWD");
+    temp->value = ft_strdup(path);
+    temp->exported = 0;
+    temp->next = NULL;
+    prev->next = temp;
 	return (1);
 }
 
