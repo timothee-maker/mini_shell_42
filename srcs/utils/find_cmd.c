@@ -74,7 +74,11 @@ char	*find_path(char *name, t_exec *exec)
 	{
 		temp = path_loop(path, path_tab, name, i);
 		if (temp)
+        {
+            free(path);
+            free_tab(path_tab);
 			return (temp);
+        }
 	}
 	free_tab(path_tab);
 	free(path);
