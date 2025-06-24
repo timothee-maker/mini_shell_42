@@ -28,13 +28,12 @@ static void	handle_sigint(int code)
 	g_signal_pid = 130;
 }
 
-static void	handle_sigsegv(int code)
-{
-	(void)code;
-	write(2, "Segmentation fault\n", 19);
-	exit_malloc_failure(NULL);
-	exit(11);
-}
+//static void	handle_sigsegv(int code)
+//{
+//	(void)code;
+//	exit_malloc_failure(NULL);
+//	exit(11);
+//}
 
 void	prompt_sig(void)
 {
@@ -45,7 +44,7 @@ void	prompt_sig(void)
 void	signals(void)
 {
 	signal(SIGINT, &handle_sigint);
-	signal(SIGSEGV, &handle_sigsegv);
+	//signal(SIGSEGV, &handle_sigsegv);
 	signal(SIGABRT, &handle_sigabrt);
 	signal(SIGQUIT, SIG_IGN);
 }

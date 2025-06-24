@@ -164,7 +164,7 @@ int						is_single_builtin(t_cmd *cmd);
 void					exec_single_builtin(t_cmd *cmd, t_exec *exec);
 
 // ------------------------FORK--------------------------
-char					**create_args(t_exec *exec);
+char					**create_args(t_element *elem, t_cmd *cmd);
 void					ft_fork(t_exec *exec, t_cmd *cmd);
 
 // ----------------------HEREDOC-------------------------
@@ -243,7 +243,6 @@ void					error_parsing(char *line, t_exec *exec, t_split *split);
 // ________________________UTILS_________________________
 
 // ------------------------ARGS--------------------------
-void					fill_args(t_list *list, t_exec *exec, t_cmd *cmd);
 int						is_sep(char c, char sep);
 int						is_in_quotes(int position, char *str);
 int						get_infile(char *filename, t_cmd *cmd);
