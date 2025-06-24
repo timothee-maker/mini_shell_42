@@ -15,6 +15,7 @@
 static char	*path_loop(char *path, char **path_tab, char *name, int i)
 {
 	char	*temp;
+    (void)  path;
 
 	temp = NULL;
 	if (access(name, X_OK) == 0)
@@ -30,8 +31,6 @@ static char	*path_loop(char *path, char **path_tab, char *name, int i)
 	{
 		if (access(temp, X_OK) == 0)
 		{
-			free(path);
-			free_tab(path_tab);
 			return (temp);
 		}
 		free(temp);
