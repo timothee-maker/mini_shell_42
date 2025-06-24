@@ -104,6 +104,7 @@ typedef struct s_cmd
 {
 	char				*name;
 	char				*path;
+    char                *heredoc_content;
 	char				**args;
 	int					is_builtin;
 	int					input;

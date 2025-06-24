@@ -84,7 +84,9 @@ t_cmd	*assign_cmd(t_list *list, t_exec *exec)
     if (!status)
     {
         reopen_io(exec);
-        res->input = exec->heredoc;
+        res->heredoc_content = get_file_content(exec->heredoc);
+        reopen_io(exec);
+        res->input = -1;
     }
 	else if (status == 2)
 	{

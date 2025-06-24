@@ -58,6 +58,8 @@ void	ft_free_cmd(t_cmd *cmd)
 			close(cmd->input);
 		if (cmd->output >= 0)
 			close(cmd->output);
+        if (cmd->heredoc_content)
+            free(cmd->heredoc_content);
 		next = cmd->next;
 		free(cmd);
 		cmd = NULL;

@@ -24,6 +24,7 @@ t_cmd	*first_cmd_init(void)
 	res->to_exec = 1;
 	res->path = NULL;
 	res->name = NULL;
+    res->heredoc_content = NULL;
 	res->args = NULL;
 	res->prev = NULL;
 	res->next = NULL;
@@ -80,11 +81,18 @@ static int	compare_files(char *token, char *arg, t_cmd *res)
 
 int	assign_loop(t_element *elem, t_list *list, t_exec *exec, t_cmd *res)
 {
+    int done;
+    int status;
+
+    done = 0;
+    status = 1;
 	while (elem)
 	{
-		if (!ft_strncmp(elem->token, "HERE-DOC", ft_strlen(elem->token)))
+		if (!ft_strncmp(elem->token, "HERE-DOC", ft_strlen(elem->token)) 
+            && !done)
 		{
-			return(fill_heredoc(list, exec));
+			status = fill_heredoc(list, exec);
+            done = 1;
 		}
 		else if (compare_files(elem->token, elem->arg, res) == 2)
 		{
@@ -92,5 +100,5 @@ int	assign_loop(t_element *elem, t_list *list, t_exec *exec, t_cmd *res)
 		}
 		elem = elem->next;
 	}
-	return (1);
+	return (status);
 }
