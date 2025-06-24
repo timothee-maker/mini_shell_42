@@ -31,6 +31,8 @@ char	**create_args(t_element *elem, t_cmd *cmd)
 	char	**res;
     int i;
 
+    if (!cmd->name)
+        return (NULL);
     res = ft_malloc(sizeof(char *), get_args_count(elem) + 1, NULL);
     res[0] = ft_strdup(cmd->name);
     i = 1;
