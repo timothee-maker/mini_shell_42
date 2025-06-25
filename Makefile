@@ -1,5 +1,5 @@
 NAME = minishell
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g 
 CLIBS = -lreadline
 SRC =	srcs/main.c \
 		srcs/parsing/core.c srcs/parsing/find_list.c srcs/parsing/lst_utils.c srcs/parsing/parse.c srcs/parsing/utils.c srcs/parsing/utils2.c srcs/parsing/ft_split_minishell.c srcs/parsing/utils3.c srcs/parsing/utils_split.c srcs/parsing/clean_line.c\

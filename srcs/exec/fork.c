@@ -48,7 +48,6 @@ void	child_process(t_cmd *cmd, int pipe[2], t_exec *exec)
     }
 	else if (cmd->input >= 0)
 	{
-        printf("non\n");
 		dup2(cmd->input, STDIN_FILENO);
 		close(cmd->input);
 	}

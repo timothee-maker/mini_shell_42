@@ -37,6 +37,11 @@ int	ft_exit(t_cmd *cmd, t_exec *exec)
 
 void	global_exit(t_exec *exec, int status)
 {
+	int exitstat;
+
+	exitstat = 0;
+	if (exec->cmd->next)
+		exitstat = 1;
 	ft_free_cmd(exec->cmd);
 	exec->cmd = NULL;
 	unlink(exec->infile_path);
@@ -48,6 +53,7 @@ void	global_exit(t_exec *exec, int status)
 		free_list(exec, exec->liste);
 	free(exec);
 	exec = NULL;
-	ft_putstr_fd("exit\n", STDOUT_FILENO);
+	if (!exitstat)
+		ft_putstr_fd("exit\n", STDOUT_FILENO);
 	exit(status);
 }
