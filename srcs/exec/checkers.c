@@ -25,6 +25,8 @@ void	exec_single_builtin(t_cmd *cmd, t_exec *exec)
 {
 	int	stdout_backup;
 
+    close(exec->pipe[0]);
+    close(exec->pipe[1]);
 	stdout_backup = -1;
 	if (cmd->output >= 0)
 	{

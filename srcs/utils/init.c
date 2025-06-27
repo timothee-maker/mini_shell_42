@@ -97,9 +97,7 @@ t_cmd	*assign_cmd(t_list *list, t_exec *exec)
 		res->to_exec = 0;
 		exec->exit_status = 1;
 	}
-	res->args = create_args(elem, res);
-	exec->temp_cmd = NULL;
-	return (res);
+	return (exec->temp_cmd = NULL, res->args = create_args(elem, res), res);
 }
 
 void	add_command(t_exec *exec, t_cmd *cmd)
