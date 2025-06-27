@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:24:33 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/10 15:44:00 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/27 09:46:19 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 static int	update_currpwd(t_exec *exec, char *path)
 {
 	t_env	*var;
-    t_env   *prev;
-    t_env   *temp;
+	t_env	*prev;
+	t_env	*temp;
 
 	var = exec->env;
-    prev = NULL;
+	prev = NULL;
 	while (var)
 	{
 		if (!ft_strcmp(var->name, "PWD"))
@@ -28,15 +28,15 @@ static int	update_currpwd(t_exec *exec, char *path)
 			var->value = ft_strdup(path);
 			return (0);
 		}
-        prev = var;
+		prev = var;
 		var = var->next;
 	}
-    temp = ft_malloc(sizeof(t_env), 1, NULL);
-    temp->name = ft_strdup("PWD");
-    temp->value = ft_strdup(path);
-    temp->exported = 0;
-    temp->next = NULL;
-    prev->next = temp;
+	temp = ft_malloc(sizeof(t_env), 1, NULL);
+	temp->name = ft_strdup("PWD");
+	temp->value = ft_strdup(path);
+	temp->exported = 0;
+	temp->next = NULL;
+	prev->next = temp;
 	return (1);
 }
 
@@ -115,8 +115,7 @@ int	ft_cd(t_exec *exec, t_cmd *cmd)
 			ft_putendl_fd("cd: No such file or directory", 2);
 			return (exec->exit_status = 1, 1);
 		}
-		return (exec->exit_status = 0,
-			update_pwds(exec, cwd, cmd->args[1]));
+		return (exec->exit_status = 0, update_pwds(exec, cwd, cmd->args[1]));
 	}
 	else
 		return (exec->exit_status = 0, home_case(exec, cwd));

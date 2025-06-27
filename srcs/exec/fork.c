@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:16:19 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/18 17:31:12 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/27 09:46:45 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ void	child_process(t_cmd *cmd, int pipe[2], t_exec *exec)
 
 	status = 0;
 	close(pipe[0]);
-    if (cmd->heredoc_content && cmd->input < 0)
-    {
-        reopen_io(exec);
-        ft_putstr_fd(cmd->heredoc_content, exec->heredoc);
-        reopen_io(exec);
-        dup2(exec->heredoc, STDIN_FILENO);
-    }
+	if (cmd->heredoc_content && cmd->input < 0)
+	{
+		reopen_io(exec);
+		ft_putstr_fd(cmd->heredoc_content, exec->heredoc);
+		reopen_io(exec);
+		dup2(exec->heredoc, STDIN_FILENO);
+	}
 	else if (cmd->input >= 0)
 	{
 		dup2(cmd->input, STDIN_FILENO);
@@ -72,6 +72,6 @@ void	parent_process(t_cmd *cmd, int pipe[2])
 	if (cmd->input == -1)
 		cmd->input = pipe[0];
 	if (cmd->next != NULL && cmd->next->input == -1
-        && cmd->next->heredoc_content == NULL)
+		&& cmd->next->heredoc_content == NULL)
 		cmd->next->input = pipe[0];
 }

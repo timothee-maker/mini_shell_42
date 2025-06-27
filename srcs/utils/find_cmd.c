@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 09:13:35 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/10 16:07:18 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/27 09:46:12 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 static char	*path_loop(char *path, char **path_tab, char *name, int i)
 {
 	char	*temp;
-    (void)  path;
 
+	(void)path;
 	temp = NULL;
 	if (access(name, X_OK) == 0)
 	{
@@ -73,11 +73,11 @@ char	*find_path(char *name, t_exec *exec)
 	{
 		temp = path_loop(path, path_tab, name, i);
 		if (temp)
-        {
-            free(path);
-            free_tab(path_tab);
+		{
+			free(path);
+			free_tab(path_tab);
 			return (temp);
-        }
+		}
 	}
 	free_tab(path_tab);
 	free(path);
@@ -91,9 +91,7 @@ int	fill_cmd(t_list *list, t_exec *exec, t_cmd *cmd)
 		replace_env(list, exec);
 		cmd = assign_cmd(list, exec);
 		if (!cmd)
-		{
 			return (0);
-		}
 		add_command(exec, cmd);
 		list = list->next_list;
 	}

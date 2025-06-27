@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:18:02 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/12 16:43:39 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/27 09:47:42 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,7 @@ static int	fork_hdoc(t_exec *exec, t_element *elem)
 	{
 		waitpid(pid, &exec->exit_status, 0);
 		if (exec->exit_status == 33280)
-		{
 			return (130);
-		}
 		else
 			return (0);
 	}
@@ -81,7 +79,7 @@ static int	fork_hdoc(t_exec *exec, t_element *elem)
 int	fill_heredoc(t_list *list, t_exec *exec)
 {
 	t_element	*elem;
-    t_element   *temp;
+	t_element	*temp;
 
 	elem = list->first;
 	while (elem)
@@ -91,9 +89,7 @@ int	fill_heredoc(t_list *list, t_exec *exec)
 			temp = elem->next;
 			exec->exit_status = fork_hdoc(exec, temp);
 			if (exec->exit_status == 130)
-			{
-				return (1);
-			}
+				return (3);
 		}
 		elem = elem->next;
 	}

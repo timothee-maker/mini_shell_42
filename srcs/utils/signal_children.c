@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 12:21:31 by tnolent           #+#    #+#             */
-/*   Updated: 2025/06/12 16:41:55 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/27 09:45:02 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,5 @@ void	exit_hdoc(t_exec *exec)
 	if (exec)
 		backup = exec;
 	else if (exec == NULL && backup)
-	{
 		free_exec(backup);
-	}
 }

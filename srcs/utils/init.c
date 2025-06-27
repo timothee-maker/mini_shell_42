@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 09:22:37 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/17 10:05:52 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/27 09:39:33 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,24 +75,26 @@ t_cmd	*assign_cmd(t_list *list, t_exec *exec)
 {
 	t_element	*elem;
 	t_cmd		*res;
-    int         status;
+	int			status;
 
 	res = init_cmd(list, exec);
 	exec->temp_cmd = res;
 	elem = list->first;
-    status = assign_loop(elem, list, exec, res);
-    if (!status)
-    {
-        reopen_io(exec);
-        res->heredoc_content = get_file_content(exec->heredoc);
-        reopen_io(exec);
-        res->input = -1;
-    }
+	status = assign_loop(elem, list, exec, res);
+	if (!status)
+	{
+		reopen_io(exec);
+		res->heredoc_content = get_file_content(exec->heredoc);
+		reopen_io(exec);
+		res->input = -1;
+	}
 	else if (status == 2)
 	{
 		res->to_exec = 0;
 		exec->exit_status = 1;
 	}
+	if (status == 3)
+		return (ft_free_cmd(res), NULL);
 	res->args = create_args(elem, res);
 	exec->temp_cmd = NULL;
 	return (res);

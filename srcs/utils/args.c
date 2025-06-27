@@ -6,46 +6,48 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 09:05:37 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/17 10:05:49 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/27 09:46:07 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int get_args_count(t_element *elem)
+static int	get_args_count(t_element *elem)
 {
-    int count;
+	int	count;
 
-    count = 0;
-    while (elem)
-    {
-        if (!ft_strcmp(elem->token, "ARG") || !ft_strcmp(elem->token, "ARG-INQUOTE"))
-            count++;
-        elem = elem->next;
-    }
-    return (count + 1);
+	count = 0;
+	while (elem)
+	{
+		if (!ft_strcmp(elem->token, "ARG") || !ft_strcmp(elem->token,
+				"ARG-INQUOTE"))
+			count++;
+		elem = elem->next;
+	}
+	return (count + 1);
 }
 
 char	**create_args(t_element *elem, t_cmd *cmd)
 {
 	char	**res;
-    int i;
+	int		i;
 
-    if (!cmd->name)
-        return (NULL);
-    res = ft_malloc(sizeof(char *), get_args_count(elem) + 1, NULL);
-    res[0] = ft_strdup(cmd->name);
-    i = 1;
-    while (elem)
-    {
-        if (!ft_strcmp(elem->token, "ARG") || !ft_strcmp(elem->token, "ARG-INQUOTE"))
-        {
-            res[i] = ft_strdup(elem->arg);
-            i++;
-        }
-        elem = elem->next;
-    }
-    res[i] = NULL;
+	if (!cmd->name)
+		return (NULL);
+	res = ft_malloc(sizeof(char *), get_args_count(elem) + 1, NULL);
+	res[0] = ft_strdup(cmd->name);
+	i = 1;
+	while (elem)
+	{
+		if (!ft_strcmp(elem->token, "ARG") || !ft_strcmp(elem->token,
+				"ARG-INQUOTE"))
+		{
+			res[i] = ft_strdup(elem->arg);
+			i++;
+		}
+		elem = elem->next;
+	}
+	res[i] = NULL;
 	return (res);
 }
 

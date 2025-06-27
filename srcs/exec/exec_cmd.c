@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:14:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/17 10:05:58 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/27 09:40:37 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,7 @@ void	wait_status(t_exec *exec, t_cmd *cmd)
 	if (pid == cmd->pid)
 	{
 		if (WIFEXITED(status))
-		{
 			exec->exit_status = WEXITSTATUS(status);
-		}
 		else if (WIFSIGNALED(status))
 			exec->exit_status = WTERMSIG(status) + 128;
 	}

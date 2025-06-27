@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 09:16:53 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/30 12:40:51 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/27 09:46:57 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ void	ft_free_cmd(t_cmd *cmd)
 			close(cmd->input);
 		if (cmd->output >= 0)
 			close(cmd->output);
-        if (cmd->heredoc_content)
-            free(cmd->heredoc_content);
+		if (cmd->heredoc_content)
+			free(cmd->heredoc_content);
 		next = cmd->next;
 		free(cmd);
 		cmd = NULL;

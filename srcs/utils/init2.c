@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 09:19:02 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/17 10:05:43 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/27 09:47:04 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_cmd	*first_cmd_init(void)
 	res->to_exec = 1;
 	res->path = NULL;
 	res->name = NULL;
-    res->heredoc_content = NULL;
+	res->heredoc_content = NULL;
 	res->args = NULL;
 	res->prev = NULL;
 	res->next = NULL;
@@ -81,18 +81,18 @@ static int	compare_files(char *token, char *arg, t_cmd *res)
 
 int	assign_loop(t_element *elem, t_list *list, t_exec *exec, t_cmd *res)
 {
-    int done;
-    int status;
+	int	done;
+	int	status;
 
-    done = 0;
-    status = 1;
+	done = 0;
+	status = 1;
 	while (elem)
 	{
-		if (!ft_strncmp(elem->token, "HERE-DOC", ft_strlen(elem->token)) 
-            && !done)
+		if (!ft_strncmp(elem->token, "HERE-DOC", ft_strlen(elem->token))
+			&& !done)
 		{
 			status = fill_heredoc(list, exec);
-            done = 1;
+			done = 1;
 		}
 		else if (compare_files(elem->token, elem->arg, res) == 2)
 		{
