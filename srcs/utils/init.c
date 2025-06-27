@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 09:22:37 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/27 09:39:33 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/27 10:25:01 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,10 @@ t_cmd	*assign_cmd(t_list *list, t_exec *exec)
 	exec->temp_cmd = res;
 	elem = list->first;
 	status = assign_loop(elem, list, exec, res);
+	if (!res->name)
+		status = 3;
+	if (status == 3)
+		return (ft_free_cmd(res), NULL);
 	if (!status)
 	{
 		reopen_io(exec);
@@ -93,8 +97,6 @@ t_cmd	*assign_cmd(t_list *list, t_exec *exec)
 		res->to_exec = 0;
 		exec->exit_status = 1;
 	}
-	if (status == 3)
-		return (ft_free_cmd(res), NULL);
 	res->args = create_args(elem, res);
 	exec->temp_cmd = NULL;
 	return (res);

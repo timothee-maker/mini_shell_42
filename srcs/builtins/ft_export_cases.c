@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:05:15 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/27 09:46:37 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/27 09:53:15 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,6 @@ int	export_next(t_cmd *cmd, t_exec *exec)
 		var->value = ft_strdup(value);
 	}
 	free(name);
-	printf("name: %s, value :%s\n", var->name, var->value);
 	if (value != NULL)
 		free(value);
 	return (0);

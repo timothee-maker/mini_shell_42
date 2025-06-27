@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/17 10:07:49 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/27 10:36:16 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include "../libft/libft.h"
 # include <dirent.h>
+# include <errno.h>
 # include <fcntl.h>
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -28,7 +29,6 @@
 # include <sys/wait.h>
 # include <termios.h>
 # include <unistd.h>
-# include <errno.h>
 
 # define DELIMITER "|<>&"
 # define ARG_SEP 3;
@@ -104,7 +104,7 @@ typedef struct s_cmd
 {
 	char				*name;
 	char				*path;
-    char                *heredoc_content;
+	char				*heredoc_content;
 	char				**args;
 	int					is_builtin;
 	int					input;

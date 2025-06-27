@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 14:18:14 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/27 09:46:33 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/27 10:34:16 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,6 @@ int	ft_exit(t_cmd *cmd, t_exec *exec)
 
 void	global_exit(t_exec *exec, int status)
 {
-	int	exitstat;
-
-	exitstat = 0;
-	// if (exec->cmd->next)
-	// 	exitstat = 1;
 	ft_free_cmd(exec->cmd);
 	exec->cmd = NULL;
 	unlink(exec->infile_path);
@@ -53,7 +48,6 @@ void	global_exit(t_exec *exec, int status)
 		free_list(exec, exec->liste);
 	free(exec);
 	exec = NULL;
-	if (!exitstat)
-		ft_putstr_fd("exit\n", STDOUT_FILENO);
+	ft_putstr_fd("exit\n", STDOUT_FILENO);
 	exit(status);
 }
