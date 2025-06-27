@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:18:02 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/27 09:47:42 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/27 10:52:03 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ static int	fork_hdoc(t_exec *exec, t_element *elem)
 	pid_t	pid;
 
 	pid = fork();
+	signal(SIGINT, parent_hdoc);
 	if (pid < 0)
 	{
 		perror("Fork failed");
@@ -69,11 +70,11 @@ static int	fork_hdoc(t_exec *exec, t_element *elem)
 	{
 		waitpid(pid, &exec->exit_status, 0);
 		if (exec->exit_status == 33280)
-			return (130);
+			return (prompt_sig(), 130);
 		else
-			return (0);
+			return (prompt_sig(), 0);
 	}
-	return (0);
+	return (prompt_sig(), 0);
 }
 
 int	fill_heredoc(t_list *list, t_exec *exec)

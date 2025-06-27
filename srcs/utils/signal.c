@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/30 12:21:46 by tnolent           #+#    #+#             */
-/*   Updated: 2025/06/27 10:36:49 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/27 10:53:55 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ static void	handle_sigint(int code)
 	g_signal_pid = 130;
 }
 
-//static void	handle_sigsegv(int code)
-//{
-//	(void)code;
-//	exit_malloc_failure(NULL);
-//	exit(11);
-//}
+void	parent_hdoc(int code)
+{
+	(void)code;
+	printf("\n");
+	g_signal_pid = 130;
+}
 
 void	prompt_sig(void)
 {
@@ -44,7 +44,6 @@ void	prompt_sig(void)
 void	signals(void)
 {
 	signal(SIGINT, &handle_sigint);
-	//signal(SIGSEGV, &handle_sigsegv);
 	signal(SIGABRT, &handle_sigabrt);
 	signal(SIGQUIT, SIG_IGN);
 }
