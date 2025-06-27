@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 14:18:14 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/27 10:34:16 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/27 15:35:09 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ int	ft_exit(t_cmd *cmd, t_exec *exec)
 			return (1);
 		}
 	}
-    if (!cmd->prev && !cmd->next)
-    {
-        ft_putstr_fd("exit\n", STDOUT_FILENO);
-    }
+	if (!cmd->prev && !cmd->next)
+	{
+		ft_putstr_fd("exit\n", STDOUT_FILENO);
+	}
 	global_exit(exec, (unsigned char)status);
 	return (1);
 }
@@ -43,17 +43,17 @@ void	global_exit(t_exec *exec, int status)
 {
 	ft_free_cmd(exec->cmd);
 	exec->cmd = NULL;
-    close(exec->infile);
-    close(exec->heredoc);
+	close(exec->infile);
+	close(exec->heredoc);
 	unlink(exec->infile_path);
 	unlink(exec->heredoc_path);
 	free_env(exec->env);
 	free(exec->infile_path);
 	free(exec->heredoc_path);
 	if (exec->liste)
-    {
+	{
 		free_list(exec, exec->liste);
-    }
+	}
 	free(exec);
 	exec = NULL;
 	exit(status);

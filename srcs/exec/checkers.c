@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checkers.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lde-guil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:19:15 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/20 09:19:20 by lde-guil         ###   ########.fr       */
+/*   Updated: 2025/06/27 15:35:17 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ void	exec_single_builtin(t_cmd *cmd, t_exec *exec)
 {
 	int	stdout_backup;
 
-    close(exec->pipe[0]);
-    close(exec->pipe[1]);
+	close(exec->pipe[0]);
+	close(exec->pipe[1]);
 	stdout_backup = -1;
 	if (cmd->output >= 0)
 	{
