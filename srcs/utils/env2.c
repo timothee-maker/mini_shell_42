@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: timothee <timothee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 09:09:43 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/12 11:42:33 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/27 21:29:02 by timothee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,13 @@ char	*fetch_value(char *name, t_exec *exec)
 	{
 		if (!ft_strcmp(var->name, dup_name))
 		{
-			free(dup_name);
-			return (ft_strdup(var->value));
+			if (!var->value)
+				return (free(dup_name), NULL);
+			return (free(dup_name), ft_strdup(var->value));
 		}
 		var = var->next;
 	}
-	free(dup_name);
-	return (NULL);
+	return (free(dup_name), NULL);
 }
 
 void	replace_env(t_list *list, t_exec *exec)
