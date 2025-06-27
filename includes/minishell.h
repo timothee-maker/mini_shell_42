@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/27 10:36:16 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/27 10:48:59 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,7 @@ void					restore_signals(void);
 void					prompt_sig(void);
 void					clear_rl_line(void);
 void					handle_sigabrt(int code);
+void					parent_hdoc(int code);
 
 // -------------------------CORE-------------------------
 int						parsing(char *line, t_list *list, t_exec *exec);
