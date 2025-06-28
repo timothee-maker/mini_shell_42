@@ -49,6 +49,7 @@ static int	no_args(t_exec *exec)
 	sort_tab(tab, len_tab(tab));
 	while (tab[i])
 		printf("export %s\n", tab[i++]);
+	free_tab(tab);
 	return (0);
 }
 

@@ -35,9 +35,6 @@ void	ft_fork(t_exec *exec, t_cmd *cmd)
 
 void	child_process(t_cmd *cmd, int pipe[2], t_exec *exec)
 {
-	int	status;
-
-	status = 0;
 	close(pipe[0]);
 	if (cmd->heredoc_content && cmd->input < 0)
 	{
@@ -60,8 +57,7 @@ void	child_process(t_cmd *cmd, int pipe[2], t_exec *exec)
 		dup2(pipe[1], STDOUT_FILENO);
 	close(pipe[1]);
 	default_sig();
-	status = exec_cmd(exec, cmd);
-	exit(status);
+	exit(exec_cmd(exec, cmd));
 }
 
 void	parent_process(t_cmd *cmd, int pipe[2])
