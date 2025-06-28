@@ -50,6 +50,7 @@ static int	update_oldpwd(t_exec *exec, char path[PATH_MAX])
 		if (!ft_strcmp(var->name, "OLDPWD"))
 		{
 			free(var->value);
+            printf("path: %s\n", path);
 			var->value = ft_strdup(path);
 			return (0);
 		}
@@ -97,26 +98,31 @@ static int	home_case(t_exec *exec, char cwd[PATH_MAX])
 
 int	ft_cd(t_exec *exec, t_cmd *cmd)
 {
-	char	cwd[PATH_MAX];
+    char	cwd[PATH_MAX];
+    int		has_cwd = 1;
 
-	if (getcwd(cwd, PATH_MAX) == NULL)
-	{
-		ft_putendl_fd("cd: Cannot access current directory", 2);
-	}
-	if (cmd->args[1] != NULL && cmd->args[2] != NULL)
-	{
-		ft_putendl_fd("cd: too many arguments", 2);
-		return (exec->exit_status = 1, 1);
-	}
-	else if (cmd->args[1] != NULL)
-	{
-		if (chdir(cmd->args[1]) == -1)
-		{
-			ft_putendl_fd("cd: No such file or directory", 2);
-			return (exec->exit_status = 1, 1);
-		}
-		return (exec->exit_status = 0, update_pwds(exec, cwd, cmd->args[1]));
-	}
-	else
-		return (exec->exit_status = 0, home_case(exec, cwd));
+    if (getcwd(cwd, PATH_MAX) == NULL)
+    {
+        ft_putendl_fd("cd: Cannot access current directory", 2);
+        has_cwd = 0;
+    }
+    if (cmd->args[1] != NULL && cmd->args[2] != NULL)
+    {
+        ft_putendl_fd("cd: too many arguments", 2);
+        return (exec->exit_status = 1, 1);
+    }
+    else if (cmd->args[1] != NULL)
+    {
+        if (chdir(cmd->args[1]) == -1)
+        {
+            ft_putendl_fd("cd: No such file or directory", 2);
+            return (exec->exit_status = 1, 1);
+        }
+        if (has_cwd)
+            return (exec->exit_status = 0, update_pwds(exec, cwd, cmd->args[1]));
+        else
+            return (exec->exit_status = 0, 0);
+    }
+    else
+        return (exec->exit_status = 0, has_cwd ? home_case(exec, cwd) : 0);
 }

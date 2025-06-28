@@ -40,14 +40,13 @@ int	find_cmd(t_list *list, t_token *token)
 	int		is_good;
 
 	is_good = 0;
+    path = NULL;
 	if (ft_strlen(token->split->str) == 0)
 		return (empty_string_case(token->split->str, list, token), 0);
 	if (access(token->split->str, X_OK) == 0 && list->cmd == 0)
 		return (list->cmd = 1, add_token(list, "CMD", token));
 	if (getenv("PATH"))
 		path = ft_split(getenv("PATH"), ':');
-	else
-		path = ft_split(BACKUP_PATH, ':');
 	is_good = join_path(path, list, token);
 	if (is_good == -1 || is_good == 1)
 		return (is_good);

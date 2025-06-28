@@ -92,6 +92,13 @@ int	assign_loop(t_element *elem, t_list *list, t_exec *exec, t_cmd *res)
 			&& !done)
 		{
 			status = fill_heredoc(list, exec);
+            if (!status)
+            {
+                reopen_io(exec);
+                res->heredoc_content = get_file_content(exec->heredoc);
+                reopen_io(exec);
+                res->input = -1;
+            }
 			done = 1;
 		}
 		else if (compare_files(elem->token, elem->arg, res) == 2)

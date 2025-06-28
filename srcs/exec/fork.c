@@ -70,4 +70,5 @@ void	parent_process(t_cmd *cmd, int pipe[2])
 	if (cmd->next != NULL && cmd->next->input == -1
 		&& cmd->next->heredoc_content == NULL)
 		cmd->next->input = pipe[0];
+    close(pipe[0]);
 }

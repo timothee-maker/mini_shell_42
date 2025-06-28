@@ -86,14 +86,19 @@ char	*find_path(char *name, t_exec *exec)
 
 int	fill_cmd(t_list *list, t_exec *exec, t_cmd *cmd)
 {
+    int status;
+
+    status = 1;
 	while (list)
 	{
 		replace_env(list, exec);
 		cmd = assign_cmd(list, exec);
 		if (!cmd)
-			return (0);
+        {
+			status = 0;
+        }
 		add_command(exec, cmd);
 		list = list->next_list;
 	}
-	return (1);
+	return (status);
 }

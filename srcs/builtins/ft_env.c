@@ -19,12 +19,11 @@ int	ft_env(t_exec *exec)
 	var = exec->env;
 	while (var != NULL)
 	{
-		if (var->name != NULL)
+		if (var->name != NULL && var->value != NULL)
+        {
 			printf("%s", var->name);
-		if (var->value != NULL)
 			printf("=%s\n", var->value);
-		else
-			printf("\n");
+        }
 		var = var->next;
 	}
 	return (exec->exit_status = 0, 0);

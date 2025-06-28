@@ -109,6 +109,7 @@ t_env	*mini_env(void)
 {
 	t_env	*env;
 	t_env	*shlvl;
+    t_env   *path;
 
 	env = ft_malloc(sizeof(t_env), 1, NULL);
 	env->name = ft_strdup("PWD");
@@ -117,6 +118,10 @@ t_env	*mini_env(void)
 	shlvl->name = ft_strdup("SHLVL");
 	shlvl->value = ft_itoa(1);
 	env->next = shlvl;
-	shlvl->next = NULL;
+    path = ft_malloc(sizeof(t_env), 1, NULL);
+    path->name = ft_strdup("PATH");
+    path->value = ft_strdup(BACKUP_PATH);
+	shlvl->next = path;
+    path->next = NULL;
 	return (env);
 }

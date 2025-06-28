@@ -50,6 +50,8 @@ int	exec_cmd(t_exec *exec, t_cmd *cmd)
 		status = exec_builtin(exec, cmd);
 		return (free_exec(exec), status);
 	}
+    close(exec->infile);
+    close(exec->heredoc); 
 	if (check_cmd_path(cmd, exec))
 	{
 		if (execve(cmd->path, cmd->args, str_env(exec)) == -1)

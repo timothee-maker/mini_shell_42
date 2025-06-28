@@ -85,13 +85,6 @@ t_cmd	*assign_cmd(t_list *list, t_exec *exec)
 		status = 3;
 	if (status == 3)
 		return (ft_free_cmd(res), NULL);
-	if (!status)
-	{
-		reopen_io(exec);
-		res->heredoc_content = get_file_content(exec->heredoc);
-		reopen_io(exec);
-		res->input = -1;
-	}
 	else if (status == 2)
 	{
 		res->to_exec = 0;
