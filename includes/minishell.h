@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/27 10:48:59 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/28 11:40:23 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,13 +192,11 @@ int						analyze_line(t_split *split, t_list *list,
 							t_exec *exec);
 
 // ----------------------FIND LIST-----------------------
-int						handle_env(t_list *list, t_token *token, t_exec *exec);
 int						find_builtin(t_list *list, t_token *token);
 int						find_cmd(t_list *list, t_token *token);
 int						find_files_redir(t_list *list, t_token *token);
 void					find_file(t_list *list, int redir, t_token *token);
 int						join_path(char **path, t_list *list, t_token *token);
-int						is_directory(const char *path);
 
 // ----------------------LIST UTILS----------------------
 t_list					*initialisation(void);
