@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/28 11:40:23 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/28 17:10:45 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 # define HERE_DOC 4
 # define ERROR_CHAR ";&():"
 # define BUFFER_SIZE 1000
-# define BACKUP_PATH "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/bin"
+# define BACKUP_PATH ""
 
 extern pid_t			g_signal_pid;
 
