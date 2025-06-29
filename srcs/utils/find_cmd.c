@@ -88,17 +88,19 @@ int	fill_cmd(t_list *list, t_exec *exec, t_cmd *cmd)
 {
     int status;
 
-    status = 1;
+    status = 0;
 	while (list)
 	{
 		replace_env(list, exec);
 		cmd = assign_cmd(list, exec);
 		if (!cmd)
         {
-			status = 0;
+			status = 1;
         }
 		add_command(exec, cmd);
 		list = list->next_list;
 	}
+	if (exec->exit_status == 1)
+		return (2);
 	return (status);
 }

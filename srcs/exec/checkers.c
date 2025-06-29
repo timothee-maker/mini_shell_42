@@ -31,13 +31,21 @@ void	exec_single_builtin(t_cmd *cmd, t_exec *exec)
 	if (cmd->output >= 0)
 	{
 		stdout_backup = dup(1);
-		dup2(cmd->output, STDOUT_FILENO);
+		if (dup2(cmd->output, STDOUT_FILENO) == -1)
+		{
+			perror("dup error");
+			return ;
+		}
 		close(cmd->output);
 	}
 	exec->exit_status = exec_builtin(exec, cmd);
 	if (cmd->output >= 0)
 	{
-		dup2(stdout_backup, STDOUT_FILENO);
+		if (dup2(stdout_backup, STDOUT_FILENO) == -1)
+		{
+			perror("dup error");
+			return ;
+		}
 		close(stdout_backup);
 	}
 }

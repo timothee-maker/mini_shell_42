@@ -12,6 +12,16 @@
 
 #include "minishell.h"
 
+static int ft_dup2(int file, int std, t_exec *exec)
+{
+	if (dup2(file, std) == -1)
+	{
+		perror("dup error");
+		global_exit(exec, 2);
+	}
+	return (1);
+}
+
 void	ft_fork(t_exec *exec, t_cmd *cmd)
 {
 	pid_t	pid;
@@ -41,20 +51,20 @@ void	child_process(t_cmd *cmd, int pipe[2], t_exec *exec)
 		reopen_io(exec);
 		ft_putstr_fd(cmd->heredoc_content, exec->heredoc);
 		reopen_io(exec);
-		dup2(exec->heredoc, STDIN_FILENO);
+		ft_dup2(exec->heredoc, STDIN_FILENO, exec);
 	}
 	else if (cmd->input >= 0)
 	{
-		dup2(cmd->input, STDIN_FILENO);
+		ft_dup2(cmd->input, STDIN_FILENO, exec);
 		close(cmd->input);
 	}
 	if (cmd->output >= 0)
 	{
-		dup2(cmd->output, STDOUT_FILENO);
+		ft_dup2(cmd->output, STDOUT_FILENO, exec);
 		close(cmd->output);
 	}
 	else if (cmd->next != NULL)
-		dup2(pipe[1], STDOUT_FILENO);
+		ft_dup2(pipe[1], STDOUT_FILENO, exec);
 	close(pipe[1]);
 	default_sig();
 	exit(exec_cmd(exec, cmd));
@@ -69,6 +79,5 @@ void	parent_process(t_cmd *cmd, int pipe[2])
 		cmd->input = pipe[0];
 	if (cmd->next != NULL && cmd->next->input == -1
 		&& cmd->next->heredoc_content == NULL)
-		cmd->next->input = pipe[0];
-    close(pipe[0]);
+		cmd->next->input = pipe[0];	
 }

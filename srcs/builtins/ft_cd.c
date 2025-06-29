@@ -50,7 +50,6 @@ static int	update_oldpwd(t_exec *exec, char path[PATH_MAX])
 		if (!ft_strcmp(var->name, "OLDPWD"))
 		{
 			free(var->value);
-            printf("path: %s\n", path);
 			var->value = ft_strdup(path);
 			return (0);
 		}

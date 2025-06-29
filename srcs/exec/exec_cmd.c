@@ -47,6 +47,7 @@ int	exec_line(t_exec *exec, t_list *list)
 		}
 		cmd = cmd->next;
 	}
+	close(exec->pipe[0]);
 	wait_loop(exec);
 	ft_free_cmd(exec->cmd);
 	exec->cmd = NULL;

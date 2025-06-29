@@ -71,8 +71,8 @@ int	ft_exit(t_cmd *cmd, t_exec *exec)
 		if (status == -1)
 		{
 			if (cmd->args[2] == NULL)
-				printf("minishell: exit: %s: numeric argument required\n",
-					cmd->args[1]);
+				ft_putendl_fd("minishell: exit: numeric argument required\n",
+					STDERR_FILENO);
 			status = 2;
 		}
 		if (cmd->args[2] != NULL)
