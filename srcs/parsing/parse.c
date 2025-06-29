@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
+/*   By: timothee <timothee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 15:17:16 by tnolent           #+#    #+#             */
-/*   Updated: 2025/06/11 11:30:00 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/28 23:13:37 by timothee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,6 @@ static int	find_delimiter(t_split *split);
 
 int	start_parse(t_split *split, t_exec *exec)
 {
-	int	i;
-
-	i = 0;
 	while (split)
 	{
 		if (find_delimiter(split) && split->next
@@ -29,7 +26,6 @@ int	start_parse(t_split *split, t_exec *exec)
 			return (printf("minishell : parse error near '%c'\n",
 					split->str[0]), exec->exit_status = 2, 0);
 		split = split->next;
-		i++;
 	}
 	return (1);
 }
