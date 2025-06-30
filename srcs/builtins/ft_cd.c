@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:24:33 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/27 09:46:19 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/30 13:14:35 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,31 +97,33 @@ static int	home_case(t_exec *exec, char cwd[PATH_MAX])
 
 int	ft_cd(t_exec *exec, t_cmd *cmd)
 {
-    char	cwd[PATH_MAX];
-    int		has_cwd = 1;
+	char	cwd[PATH_MAX];
+	int		has_cwd;
 
-    if (getcwd(cwd, PATH_MAX) == NULL)
-    {
-        ft_putendl_fd("cd: Cannot access current directory", 2);
-        has_cwd = 0;
-    }
-    if (cmd->args[1] != NULL && cmd->args[2] != NULL)
-    {
-        ft_putendl_fd("cd: too many arguments", 2);
-        return (exec->exit_status = 1, 1);
-    }
-    else if (cmd->args[1] != NULL)
-    {
-        if (chdir(cmd->args[1]) == -1)
-        {
-            ft_putendl_fd("cd: No such file or directory", 2);
-            return (exec->exit_status = 1, 1);
-        }
-        if (has_cwd)
-            return (exec->exit_status = 0, update_pwds(exec, cwd, cmd->args[1]));
-        else
-            return (exec->exit_status = 0, 0);
-    }
-    else
-        return (exec->exit_status = 0, has_cwd ? home_case(exec, cwd) : 0);
+	has_cwd = 1;
+	if (getcwd(cwd, PATH_MAX) == NULL)
+	{
+		ft_putendl_fd("cd: Cannot access current directory", 2);
+		has_cwd = 0;
+	}
+	if (cmd->args[1] != NULL && cmd->args[2] != NULL)
+	{
+		ft_putendl_fd("cd: too many arguments", 2);
+		return (exec->exit_status = 1, 1);
+	}
+	else if (cmd->args[1] != NULL)
+	{
+		if (chdir(cmd->args[1]) == -1)
+		{
+			ft_putendl_fd("cd: No such file or directory", 2);
+			return (exec->exit_status = 1, 1);
+		}
+		if (has_cwd)
+			return (exec->exit_status = 0, update_pwds(exec, cwd,
+					cmd->args[1]));
+		else
+			return (exec->exit_status = 0, 0);
+	}
+	else
+		return (exec->exit_status = 0, has_cwd ? home_case(exec, cwd) : 0);
 }

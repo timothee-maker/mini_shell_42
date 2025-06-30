@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 16:19:39 by tnolent           #+#    #+#             */
-/*   Updated: 2025/06/16 18:17:23 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/30 13:13:53 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	find_cmd(t_list *list, t_token *token)
 	int		is_good;
 
 	is_good = 0;
-    path = NULL;
+	path = NULL;
 	if (ft_strlen(token->split->str) == 0)
 		return (empty_string_case(token->split->str, list, token), 0);
 	if (access(token->split->str, X_OK) == 0 && list->cmd == 0)

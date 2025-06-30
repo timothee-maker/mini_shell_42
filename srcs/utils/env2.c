@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: timothee <timothee@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 09:09:43 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/27 21:29:02 by timothee         ###   ########.fr       */
+/*   Updated: 2025/06/30 13:13:16 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ t_env	*mini_env(void)
 {
 	t_env	*env;
 	t_env	*shlvl;
-    t_env   *path;
+	t_env	*path;
 
 	env = ft_malloc(sizeof(t_env), 1, NULL);
 	env->name = ft_strdup("PWD");
@@ -118,10 +118,10 @@ t_env	*mini_env(void)
 	shlvl->name = ft_strdup("SHLVL");
 	shlvl->value = ft_itoa(1);
 	env->next = shlvl;
-    path = ft_malloc(sizeof(t_env), 1, NULL);
-    path->name = ft_strdup("PATH");
-    path->value = ft_strdup(BACKUP_PATH);
+	path = ft_malloc(sizeof(t_env), 1, NULL);
+	path->name = ft_strdup("PATH");
+	path->value = ft_strdup(BACKUP_PATH);
 	shlvl->next = path;
-    path->next = NULL;
+	path->next = NULL;
 	return (env);
 }

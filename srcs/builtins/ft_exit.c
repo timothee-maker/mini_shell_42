@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 14:18:14 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/28 17:09:56 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/30 11:59:06 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	ft_exit(t_cmd *cmd, t_exec *exec)
 		if (status == -1)
 		{
 			if (cmd->args[2] == NULL)
-				ft_putendl_fd("minishell: exit: numeric argument required\n",
+				ft_putendl_fd("minishell: exit: numeric argument required",
 					STDERR_FILENO);
 			status = 2;
 		}

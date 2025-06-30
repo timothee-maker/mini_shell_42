@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:18:02 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/27 10:52:03 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/30 12:55:02 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ int	fill_heredoc(t_list *list, t_exec *exec)
 	t_element	*elem;
 	t_element	*temp;
 
+	if (g_signal_pid == 130)
+		return (0);
 	elem = list->first;
 	while (elem)
 	{

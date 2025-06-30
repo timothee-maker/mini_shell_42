@@ -6,13 +6,13 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:16:19 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/27 09:46:45 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/30 13:14:14 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int ft_dup2(int file, int std, t_exec *exec)
+static int	ft_dup2(int file, int std, t_exec *exec)
 {
 	if (dup2(file, std) == -1)
 	{
@@ -26,6 +26,8 @@ void	ft_fork(t_exec *exec, t_cmd *cmd)
 {
 	pid_t	pid;
 
+	if (g_signal_pid == 130)
+		return ;
 	pid = fork();
 	g_signal_pid = pid;
 	if (pid < 0)
@@ -79,5 +81,5 @@ void	parent_process(t_cmd *cmd, int pipe[2])
 		cmd->input = pipe[0];
 	if (cmd->next != NULL && cmd->next->input == -1
 		&& cmd->next->heredoc_content == NULL)
-		cmd->next->input = pipe[0];	
+		cmd->next->input = pipe[0];
 }

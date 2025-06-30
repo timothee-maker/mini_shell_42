@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:27:45 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/10 15:26:08 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/30 13:15:26 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	is_newline(char *str)
 	i = 0;
 	if (str[i] && str[i] != '-')
 		return (0);
-    if (str[i] && str[i] == '-' && str[i+1] != 'n')
+	if (str[i] && str[i] == '-' && str[i + 1] != 'n')
 		return (0);
 	i++;
 	while (str[i] != '\0')
