@@ -27,7 +27,7 @@ $(NAME): $(OBJS) libft/libft.a
 	@echo "$(GREEN)$(NAME) compiled!$(DEF_COLOR)"
 
 clean:
-	@rm -f $(OBJS) .infile .heredoc
+	@rm -f $(OBJS) .infile .heredoc libft/*.o
 	@echo "$(BLUE)$(NAME) object files cleaned!$(DEF_COLOR)"
 
 fclean: clean

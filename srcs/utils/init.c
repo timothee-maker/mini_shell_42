@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 09:22:37 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/27 10:25:01 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/30 15:18:31 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ t_exec	*init_exec(char **envp)
 	res->heredoc_path = ft_strjoin(cwd, "/.heredoc");
 	res->heredoc = open(res->heredoc_path, O_RDWR | O_CREAT, 0777);
 	res->liste = NULL;
+	res->pipe[0] = -1;
+	res->pipe[1] = -1;
 	return (res);
 }
 
