@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/28 17:10:45 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/30 13:38:29 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -299,5 +299,14 @@ int						assign_loop(t_element *elem, t_list *list, t_exec *exec,
 
 // ------------------------LIST--------------------------
 void					add_end_env(t_env *env, t_env *var);
+
+// ------------------------CD CASES-----------------------
+int						update_currpwd(t_exec *exec, char *path);
+int						update_oldpwd(t_exec *exec, char path[PATH_MAX]);
+int						update_pwds(t_exec *exec, char cwd[PATH_MAX],
+							char *destination);
+int						home_case(t_exec *exec, char cwd[PATH_MAX]);
+int						cd_change_dir(t_exec *exec, char cwd[PATH_MAX],
+							char *path, int has_cwd);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:14:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/30 13:14:05 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/06/30 13:33:12 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ int	exec_line(t_exec *exec, t_list *list)
 		}
 		cmd = cmd->next;
 	}
-	close(exec->pipe[0]);
-	// les exit codes du tester ne marchent pas
+	if (exec->pipe[0])
+		close(exec->pipe[0]);
+	if (exec->pipe[1])
+		close(exec->pipe[1]);
 	wait_loop(exec);
-	ft_free_cmd(exec->cmd);
-	exec->cmd = NULL;
-	return (1);
+	return (ft_free_cmd(exec->cmd), exec->cmd = NULL, 1);
 }
 
 void	wait_status(t_exec *exec, t_cmd *cmd)
