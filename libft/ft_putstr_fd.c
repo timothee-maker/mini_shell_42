@@ -24,7 +24,11 @@ void	ft_putstr_fd(char *str, int fd)
 	i = 0;
 	while (str[i])
 	{
-		write(fd, &str[i], 1);
+		if (write(fd, &str[i], 1) == -1)
+		{
+			write(STDOUT_FILENO, "write error\n", 12);
+			return ;
+		}
 		i++;
 	}
 }

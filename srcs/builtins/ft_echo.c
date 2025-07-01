@@ -45,12 +45,12 @@ int	ft_echo(t_exec *exec, t_cmd *cmd)
 	}
 	while (cmd->args[i])
 	{
-		printf("%s", cmd->args[i]);
+		ft_putstr_fd(cmd->args[i], STDOUT_FILENO);
 		i++;
 		if (cmd->args[i] != NULL)
-			printf(" ");
+			ft_putstr_fd(" ", STDOUT_FILENO);
 	}
 	if (newline)
-		printf("\n");
+		ft_putstr_fd("\n", STDOUT_FILENO);
 	return (exec->exit_status = 0, 0);
 }

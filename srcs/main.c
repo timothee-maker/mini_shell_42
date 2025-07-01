@@ -50,9 +50,7 @@ void	minishell(t_exec *exec)
 {
 	char	*input;
 	t_list	*liste;
-	int		good;
 
-	good = 0;
 	while (1)
 	{
 		input = readline("$> ");
@@ -65,11 +63,11 @@ void	minishell(t_exec *exec)
 		{
 			liste = initialisation();
 			exec->liste = liste;
-			good = parsing(input, liste, exec);
-			if (good == 1)
+			if (parsing(input, liste, exec) == 1)
 				exec_line(exec, liste);
 			free_list(exec, liste);
 		}
+		free(input);
 	}
 	printf("exit\n");
 	global_exit(exec, 0);
