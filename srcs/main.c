@@ -6,14 +6,14 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:25:47 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/30 15:27:57 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/07/03 05:37:52 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-pid_t	g_signal_pid;
-void	minishell(t_exec *exec);
+pid_t		g_signal_pid;
+void		minishell(t_exec *exec);
 
 static int	valid_input(char *input)
 {

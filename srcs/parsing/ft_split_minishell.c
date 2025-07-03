@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 13:35:03 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/16 17:12:35 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/07/03 03:18:55 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,12 @@ void	add_char(t_split_parse *split, char c)
 static void	handle_dollar_value(char *var_name, t_split_parse *split,
 		t_exec *exec)
 {
+	char	**split_value;
 	char	*value;
-	int		j;
+	int		i;
 
-	j = 0;
+	i = 0;
+	split_value = NULL;
 	value = NULL;
 	if (!ft_strcmp(var_name, "$"))
 		value = ft_strdup("$");
@@ -79,9 +81,11 @@ static void	handle_dollar_value(char *var_name, t_split_parse *split,
 		free(value);
 		return ;
 	}
-	while (value[j])
-		add_char(split, value[j++]);
+	split_value = ft_split(value, ' ');
 	free(value);
+	while (split_value[i])
+		re_fill_list(split, split_value[i++], len_tab(split_value));
+	free_tab(split_value);
 }
 
 void	handle_dollar_case(const char *s, t_split_parse *split, t_exec *exec)
@@ -117,6 +121,7 @@ void	handle_quote_case(const char *s, t_split_parse *split, t_exec *exec)
 		split->i++;
 	split->is_in_quotes = 0;
 	split->tmp = 0;
+	split->context = 1;
 	if (s[split->i] && is_sep(s[split->i], ' '))
 		flush_buffer(split);
 }

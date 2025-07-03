@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:32:46 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/30 13:38:29 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/07/02 22:51:26 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,6 +236,8 @@ void					handle_quote_case(const char *s, t_split_parse *split,
 void					fill_list(t_split_parse *split, const char *s, char c,
 							t_exec *exec);
 char					*extract_var_name(const char *s, int *i);
+void					re_fill_list(t_split_parse *split, char *s,
+							int len_tab);
 
 // ------------------------ERROR CASE---------------------
 void					error_parsing(char *line, t_exec *exec, t_split *split);

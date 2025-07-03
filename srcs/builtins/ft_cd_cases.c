@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 09:26:29 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/30 13:38:33 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/07/03 02:25:31 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ int	update_currpwd(t_exec *exec, char *path)
 		if (!ft_strcmp(var->name, "PWD"))
 		{
 			free(var->value);
-			var->value = ft_strdup(path);
-			return (0);
+			return (var->value = ft_strdup(path), 0);
 		}
 		prev = var;
 		var = var->next;
@@ -35,9 +34,9 @@ int	update_currpwd(t_exec *exec, char *path)
 	temp->name = ft_strdup("PWD");
 	temp->value = ft_strdup(path);
 	temp->exported = 0;
-	temp->next = NULL;
-	prev->next = temp;
-	return (1);
+	if (!temp->name || !temp->value)
+		global_exit(exec, 0);
+	return (temp->next = NULL, prev->next = temp, 1);
 }
 
 int	update_oldpwd(t_exec *exec, char path[PATH_MAX])
@@ -51,6 +50,8 @@ int	update_oldpwd(t_exec *exec, char path[PATH_MAX])
 		{
 			free(var->value);
 			var->value = ft_strdup(path);
+			if (!var->value)
+				global_exit(exec, 0);
 			return (0);
 		}
 		var = var->next;

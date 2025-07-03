@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:25:32 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/11 15:16:53 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/07/02 22:30:50 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,34 +39,6 @@ t_env	*create_env(char **envp)
 	return (first);
 }
 
-static char	*no_quotes(char *str)
-{
-	char	*res;
-	int		i;
-	int		j;
-
-	j = 0;
-	if (*str == '\'' || *str == '\"')
-	{
-		res = ft_malloc(sizeof(char), ft_strlen(str), NULL);
-		i = 1;
-	}
-	else
-	{
-		res = ft_malloc(sizeof(char), ft_strlen(str) + 1, NULL);
-		i = 0;
-	}
-	while (str[i])
-	{
-		if (str[i] != '\'' && str[i] != '\"')
-		{
-			res[j++] = str[i++];
-		}
-	}
-	res[j] = '\0';
-	return (res);
-}
-
 char	*get_var_name(char *str)
 {
 	int		i;
@@ -96,5 +68,32 @@ char	*get_var_value(char *str)
 	{
 		return (NULL);
 	}
-	return (no_quotes(str));
+	return (ft_strdup(str));
 }
+
+// static char	*no_quotes(char *str)
+// {
+// 	char	*res;
+// 	int		i;
+// 	int		j;
+
+// 	j = 0;
+// 	if (*str == '\'' || *str == '\"')
+// 	{
+// 		res = ft_malloc(sizeof(char), ft_strlen(str), NULL);
+// 		i = 1;
+// 	}
+// 	else
+// 	{
+// 		res = ft_malloc(sizeof(char), ft_strlen(str) + 1, NULL);
+// 		i = 0;
+// 	}
+// 	while (str[i])
+// 	{
+// 		if (str[i] != '\'' && str[i] != '\"')
+// 			res[j++] = str[i++];
+// 		else
+// 			i++;
+// 	}
+// 	return (res[j] = '\0', ft_strdup(str));
+// }

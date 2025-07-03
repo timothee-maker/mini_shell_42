@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 16:19:39 by tnolent           #+#    #+#             */
-/*   Updated: 2025/06/30 13:13:53 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/07/03 02:50:58 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int	find_cmd(t_list *list, t_token *token)
 	is_good = join_path(path, list, token);
 	if (is_good == -1 || is_good == 1)
 		return (is_good);
-	free_tab(path);
+	if (path)
+		free_tab(path);
 	is_good = add_token(list, "ARG", token);
 	return (is_good);
 }
@@ -106,6 +107,8 @@ int	join_path(char **path, t_list *list, t_token *token)
 	int		is_good;
 
 	i = 0;
+	if (!path || !path[0])
+		return (0);
 	while (path[i] && list->cmd == 0)
 	{
 		tmp_path = ft_strjoin(path[i++], "/");
