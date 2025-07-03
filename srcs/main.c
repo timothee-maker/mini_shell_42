@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:25:47 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/07/03 05:37:52 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/07/03 06:00:41 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,9 @@ static int	valid_input(char *input)
 		return (0);
 	while (input[i])
 	{
-		if (input[i++] != ' ')
+		if (input[i] != ' ' && input[i] != '\t')
 			return (1);
+		i++;
 	}
 	return (0);
 }
@@ -71,4 +72,4 @@ void	minishell(t_exec *exec)
 	}
 	printf("exit\n");
 	global_exit(exec, 0);
-}
+}	

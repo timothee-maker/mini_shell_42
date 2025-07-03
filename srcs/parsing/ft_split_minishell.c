@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/18 13:35:03 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/07/03 03:18:55 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/07/03 05:46:45 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_split	*ft_split_list_minishell(const char *s, t_exec *exec)
 		else if (s[split.i] == '$' && (!split.tmp || split.tmp == '\"')
 			&& split.heredocs == 0)
 			handle_dollar_case(s, &split, exec);
-		else if (!is_sep(s[split.i], ' '))
+		else if (!is_sep(s[split.i], ' ') && !ft_strchr(WHITE_SPACE, s[split.i]))
 		{
 			fill_list(&split, s, ' ', exec);
 			flush_buffer(&split);
