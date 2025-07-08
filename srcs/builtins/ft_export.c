@@ -12,44 +12,52 @@
 
 #include "minishell.h"
 
-static void	sort_tab(char **tab, int len)
-{
-	int		i;
-	int		j;
-	int		diff;
-	char	*temp;
+//static void	sort_tab(char **tab, int len)
+//{
+//	int		i;
+//	int		j;
+//	int		diff;
+//	char	*temp;
 
-	i = 0;
-	while (i < len)
-	{
-		j = i + 1;
-		while (j < len)
-		{
-			diff = ft_strncmp(tab[i], tab[j], INT_MAX);
-			if (diff > 0)
-			{
-				temp = tab[i];
-				tab[i] = tab[j];
-				tab[j] = temp;
-				continue ;
-			}
-			j++;
-		}
-		i++;
-	}
-}
+//	i = 0;
+//	while (i < len)
+//	{
+//		j = i + 1;
+//		while (j < len)
+//		{
+//			diff = ft_strncmp(tab[i], tab[j], INT_MAX);
+//			if (diff > 0)
+//			{
+//				temp = tab[i];
+//				tab[i] = tab[j];
+//				tab[j] = temp;
+//				continue ;
+//			}
+//			j++;
+//		}
+//		i++;
+//	}
+//}
 
 static int	no_args(t_exec *exec)
 {
-	char	**tab;
+	t_env	*env;
 	int		i;
 
 	i = 0;
-	tab = str_env(exec);
-	sort_tab(tab, len_tab(tab));
-	while (tab[i])
-		printf("export %s\n", tab[i++]);
-	free_tab(tab);
+	env = exec->env;
+	while (env)
+	{
+		ft_putstr_fd("export ", STDOUT_FILENO);
+		ft_putstr_fd(env->name, STDOUT_FILENO);
+		if (env->value)
+		{
+			ft_putstr_fd("=", STDOUT_FILENO);
+			ft_putstr_fd(env->value, STDOUT_FILENO);
+		}
+		ft_putstr_fd("\n", STDOUT_FILENO);
+		env = env->next;
+	}
 	return (0);
 }
 

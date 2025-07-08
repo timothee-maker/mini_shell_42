@@ -66,16 +66,19 @@ static int	check_export_identifier(char *name, char *arg, t_exec *exec)
 	return (0);
 }
 
-int	export_next(t_cmd *cmd, t_exec *exec)
+static void	export_loop(t_cmd *cmd, t_exec *exec, int i)
 {
 	char	*name;
 	char	*value;
 	t_env	*var;
 
-	name = get_var_name(cmd->args[1]);
-	value = get_var_value(cmd->args[1]);
-	if (check_export_identifier(name, cmd->args[1], exec))
-		return (free(value), 1);
+	name = get_var_name(cmd->args[i]);
+	value = get_var_value(cmd->args[i]);
+	if (check_export_identifier(name, cmd->args[i], exec))
+	{
+		free(value);
+		return ;
+	}
 	var = get_var(exec, name);
 	if (var->name)
 		free(var->name);
@@ -89,5 +92,17 @@ int	export_next(t_cmd *cmd, t_exec *exec)
 	free(name);
 	if (value != NULL)
 		free(value);
+}
+
+int	export_next(t_cmd *cmd, t_exec *exec)
+{
+	int	i;
+
+	i = 1;
+	while (cmd->args[i])
+	{
+		export_loop(cmd, exec, i);
+		i++;
+	}
 	return (0);
 }

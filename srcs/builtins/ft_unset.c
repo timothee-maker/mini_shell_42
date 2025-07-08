@@ -39,10 +39,19 @@ int	ft_unset(t_exec *exec, t_cmd *cmd)
 {
 	t_env	*var;
 	char	*var_name;
+	int		i;
+	int		status;
 
-	var = exec->env;
+	i = 1;
 	if (cmd->args[1] == NULL)
 		return (exec->exit_status = 0, 0);
-	var_name = cmd->args[1];
-	return (exec->exit_status = 0, unset_loop(var, var_name));
+	while (cmd->args[i])
+	{
+		var = exec->env;
+		var_name = cmd->args[i];
+		exec->exit_status = 0;
+		status = unset_loop(var, var_name);
+		i++;
+	}
+	return (status);
 }
