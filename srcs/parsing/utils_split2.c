@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils_split2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lde-guil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/08 10:25:14 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/07/08 10:25:16 by lde-guil         ###   ########.fr       */
+/*   Updated: 2025/07/21 15:17:05 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "minishell.h"
 
 void	re_fill_list(t_split_parse *split, char *s, int len_tab)
 {
