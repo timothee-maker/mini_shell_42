@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:25:47 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/07/21 15:19:14 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/07/21 15:52:12 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ int	main(int argc, char **argv, char **envp)
 
 	(void)argc;
 	(void)argv;
-	// if (!isatty(0) || !isatty(1))
-	// 	return (printf("Erreur\n"), 1);
+	if (!isatty(0) || !isatty(1))
+		return (printf("Erreur\n"), 1);
 	exec = init_exec(envp);
 	ft_malloc(0, 0, exec);
 	exit_malloc_failure(exec);
