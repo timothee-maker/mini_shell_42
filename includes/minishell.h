@@ -303,10 +303,9 @@ int						assign_loop(t_element *elem, t_list *list, t_exec *exec,
 void					add_end_env(t_env *env, t_env *var);
 
 // ------------------------CD CASES-----------------------
-int						update_currpwd(t_exec *exec, char *path);
+int						update_currpwd(t_exec *exec);
 int						update_oldpwd(t_exec *exec, char path[PATH_MAX]);
-int						update_pwds(t_exec *exec, char cwd[PATH_MAX],
-							char *destination);
+int						update_pwds(t_exec *exec, char cwd[PATH_MAX]);
 int						home_case(t_exec *exec, char cwd[PATH_MAX]);
 int						cd_change_dir(t_exec *exec, char cwd[PATH_MAX],
 							char *path, int has_cwd);

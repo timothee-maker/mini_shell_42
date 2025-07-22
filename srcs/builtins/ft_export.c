@@ -42,9 +42,7 @@
 static int	no_args(t_exec *exec)
 {
 	t_env	*env;
-	int		i;
 
-	i = 0;
 	env = exec->env;
 	while (env)
 	{

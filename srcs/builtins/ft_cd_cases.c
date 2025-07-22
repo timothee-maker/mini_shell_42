@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	update_currpwd(t_exec *exec, char *path)
+int	update_currpwd(t_exec *exec)
 {
 	t_env	*var;
 	t_env	*prev;
@@ -25,14 +25,14 @@ int	update_currpwd(t_exec *exec, char *path)
 		if (!ft_strcmp(var->name, "PWD"))
 		{
 			free(var->value);
-			return (var->value = ft_strdup(path), 0);
+			return (var->value = ft_strdup(getcwd(NULL, PATH_MAX)), 0);
 		}
 		prev = var;
 		var = var->next;
 	}
 	temp = ft_malloc(sizeof(t_env), 1, NULL);
 	temp->name = ft_strdup("PWD");
-	temp->value = ft_strdup(path);
+	temp->value = ft_strdup(getcwd(NULL, PATH_MAX));
 	temp->exported = 0;
 	if (!temp->name || !temp->value)
 		global_exit(exec, 0);
@@ -59,14 +59,14 @@ int	update_oldpwd(t_exec *exec, char path[PATH_MAX])
 	return (1);
 }
 
-int	update_pwds(t_exec *exec, char cwd[PATH_MAX], char *destination)
+int	update_pwds(t_exec *exec, char cwd[PATH_MAX])
 {
 	if (update_oldpwd(exec, cwd) == 1)
 	{
 		ft_putendl_fd("cd: Couldn't update OLDPWD", 2);
 		return (1);
 	}
-	if (update_currpwd(exec, destination) == 1)
+	if (update_currpwd(exec) == 1)
 	{
 		ft_putendl_fd("cd: Couldn't update PWD", 2);
 		return (1);
@@ -88,7 +88,7 @@ int	home_case(t_exec *exec, char cwd[PATH_MAX])
 				ft_putendl_fd("cd: No such file or directory", 2);
 				return (1);
 			}
-			return (update_pwds(exec, cwd, var->value));
+			return (update_pwds(exec, cwd));
 		}
 		var = var->next;
 	}
@@ -105,7 +105,7 @@ int	cd_change_dir(t_exec *exec, char cwd[PATH_MAX], char *path,
 		return (exec->exit_status = 1, 1);
 	}
 	if (has_cwd)
-		return (exec->exit_status = 0, update_pwds(exec, cwd, path));
+		return (exec->exit_status = 0, update_pwds(exec, cwd));
 	else
 		return (exec->exit_status = 0, 0);
 }
