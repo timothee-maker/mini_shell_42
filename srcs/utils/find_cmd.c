@@ -91,7 +91,7 @@ int	fill_cmd(t_list *list, t_exec *exec, t_cmd *cmd)
 	{
 		replace_env(list, exec);
 		cmd = assign_cmd(list, exec);
-		if (!cmd)
+		if (cmd == NULL)
 		{
 			status = 1;
 		}

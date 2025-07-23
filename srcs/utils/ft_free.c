@@ -34,8 +34,10 @@ void	free_env(t_env *env)
 	next = NULL;
 	while (var)
 	{
-		free(var->name);
-		free(var->value);
+        if (var->name)
+		    free(var->name);
+        if (var->value)
+		    free(var->value);
 		next = var->next;
 		free(var);
 		var = next;

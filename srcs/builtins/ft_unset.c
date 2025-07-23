@@ -12,7 +12,7 @@
 
 #include "../../includes/minishell.h"
 
-static int	unset_loop(t_env *var, char *varname)
+static int	unset_loop(t_env *var, char *varname, t_exec *exec)
 {
 	t_env	*prev;
 
@@ -21,9 +21,12 @@ static int	unset_loop(t_env *var, char *varname)
 	{
 		if (!ft_strcmp(var->name, varname))
 		{
-			free(var->name);
+            if (var->name)
+			    free(var->name);
 			if (var->value)
 				free(var->value);
+            if (prev == NULL)
+                exec->env = var->next;
 			if (prev != NULL)
 				prev->next = var->next;
 			free(var);
@@ -50,7 +53,7 @@ int	ft_unset(t_exec *exec, t_cmd *cmd)
 		var = exec->env;
 		var_name = cmd->args[i];
 		exec->exit_status = 0;
-		status = unset_loop(var, var_name);
+		status = unset_loop(var, var_name, exec);
 		i++;
 	}
 	return (status);

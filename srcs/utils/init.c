@@ -70,6 +70,12 @@ t_cmd	*init_cmd(t_list *list, t_exec *exec)
 	res = first_cmd_init();
 	elem = list->first;
 	compare_cmd_tokens(res, elem, exec, list);
+    if (!res->name)
+    {
+        res->name = ft_strdup(":");
+        res->path = ft_strdup(":");
+        res->to_exec = 0;
+    }
 	return (res);
 }
 

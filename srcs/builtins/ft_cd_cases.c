@@ -25,7 +25,7 @@ int	update_currpwd(t_exec *exec)
 		if (!ft_strcmp(var->name, "PWD"))
 		{
 			free(var->value);
-			return (var->value = ft_strdup(getcwd(NULL, PATH_MAX)), 0);
+			return (var->value = getcwd(NULL, PATH_MAX), 0);
 		}
 		prev = var;
 		var = var->next;
