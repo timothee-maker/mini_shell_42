@@ -92,13 +92,19 @@ t_cmd	*assign_cmd(t_list *list, t_exec *exec)
 	if (!res->name)
 		status = 3;
 	if (status == 3)
+    {
+        if (!ft_strcmp(res->name, ":"))
+            return (res);
 		return (ft_free_cmd(res), NULL);
+    }
 	else if (status == 2)
 	{
 		res->to_exec = 0;
 		exec->exit_status = 1;
 	}
-	return (exec->temp_cmd = NULL, res->args = create_args(elem, res), res);
+    res->args = create_args(elem, res);
+    exec->temp_cmd = NULL;
+	return (res);
 }
 
 void	add_command(t_exec *exec, t_cmd *cmd)
