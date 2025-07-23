@@ -42,7 +42,7 @@ void	compare_cmd_tokens(t_cmd *res, t_element *el, t_exec *ex, t_list *list)
 		{
 			first = 0;
 			res->name = get_cmd_name(el->arg);
-			res->path = find_path(res->name, ex);
+			res->path = find_path(el->arg, ex);
 		}
 		else if (!ft_strcmp(el->token, "BUILTIN") && first)
 		{

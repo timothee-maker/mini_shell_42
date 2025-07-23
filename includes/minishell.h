@@ -194,7 +194,7 @@ int						analyze_line(t_split *split, t_list *list,
 
 // ----------------------FIND LIST-----------------------
 int						find_builtin(t_list *list, t_token *token);
-int						find_cmd(t_list *list, t_token *token);
+int						find_cmd(t_list *list, t_token *token, t_exec *exec);
 int						find_files_redir(t_list *list, t_token *token);
 void					find_file(t_list *list, int redir, t_token *token);
 int						join_path(char **path, t_list *list, t_token *token);

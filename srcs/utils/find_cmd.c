@@ -12,30 +12,6 @@
 
 #include "minishell.h"
 
-static char	*path_loop(char *path, char **path_tab, char *name, int i)
-{
-	char	*temp;
-
-	(void)path;
-	temp = NULL;
-	if (access(name, X_OK) == 0)
-		return (ft_strdup(name));
-	if (path_tab[i])
-	{
-		temp = ft_strjoin(path_tab[i], "/");
-		temp = ft_custom_join(temp, name);
-	}
-	if (temp)
-	{
-		if (access(temp, X_OK) == 0)
-		{
-			return (temp);
-		}
-		free(temp);
-	}
-	return (NULL);
-}
-
 char	*get_cmd_name(char *path)
 {
 	int		i;
@@ -57,29 +33,13 @@ char	*get_cmd_name(char *path)
 
 char	*find_path(char *name, t_exec *exec)
 {
-	char	*path;
-	char	*temp;
-	char	**path_tab;
-	int		i;
+    (void) exec;
 
-	path = fetch_value("$PATH", exec);
-	if (path == NULL)
-		path = ft_strdup(BACKUP_PATH);
-	path_tab = ft_split(path, ':');
-	i = 0;
-	while (path_tab[i++])
-	{
-		temp = path_loop(path, path_tab, name, i);
-		if (temp)
-		{
-			free(path);
-			free_tab(path_tab);
-			return (temp);
-		}
-	}
-	free_tab(path_tab);
-	free(path);
-	return (NULL);
+    if (access(name, X_OK) == 0)
+    {
+		return (ft_strdup(name));
+    }
+    return (NULL);
 }
 
 int	fill_cmd(t_list *list, t_exec *exec, t_cmd *cmd)

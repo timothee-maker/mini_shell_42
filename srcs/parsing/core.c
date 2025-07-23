@@ -75,7 +75,7 @@ static int	handle_token(t_list *current, t_token *token, t_exec *exec)
 	{
 		is_good = find_files_redir(current, token);
 		if (!is_good)
-			is_good = find_cmd(current, token);
+			is_good = find_cmd(current, token, exec);
 	}
 	if (is_good == -1)
 		return (0);

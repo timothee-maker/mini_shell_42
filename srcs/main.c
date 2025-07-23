@@ -65,7 +65,10 @@ void	minishell(t_exec *exec)
 			liste = initialisation();
 			exec->liste = liste;
 			if (parsing(input, liste, exec) == 1)
+            {
+                afficherliste(liste);
 				exec_line(exec, liste);
+            }
 			free_list(exec, liste);
 		}
 		free(input);
