@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/07 16:19:39 by tnolent           #+#    #+#             */
-/*   Updated: 2025/07/03 02:50:58 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/07/23 14:51:11 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	find_builtin(t_list *list, t_token *token)
 int	find_cmd(t_list *list, t_token *token, t_exec *exec)
 {
 	char	**path;
-    char *temp;
+	char	*temp;
 	int		is_good;
 
 	is_good = 0;
@@ -46,13 +46,11 @@ int	find_cmd(t_list *list, t_token *token, t_exec *exec)
 		return (empty_string_case(token->split->str, list, token), 0);
 	if (access(token->split->str, X_OK) == 0 && list->cmd == 0)
 		return (list->cmd = 1, add_token(list, "CMD", token));
-    temp = fetch_value("$PATH", exec);
-    if (temp == NULL)
+	temp = fetch_value("$PATH", exec);
+	if (temp == NULL)
 		temp = ft_strdup(BACKUP_PATH);
-    path = ft_split(temp, ':');
-    free(temp);
-	//if (getenv("PATH"))
-	//	path = ft_split(getenv("PATH"), ':');
+	path = ft_split(temp, ':');
+	free(temp);
 	is_good = join_path(path, list, token);
 	if (is_good == -1 || is_good == 1)
 		return (is_good);

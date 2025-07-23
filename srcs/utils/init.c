@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 09:22:37 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/30 15:18:31 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/07/23 14:50:46 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,12 @@ t_cmd	*init_cmd(t_list *list, t_exec *exec)
 	res = first_cmd_init();
 	elem = list->first;
 	compare_cmd_tokens(res, elem, exec, list);
-    if (!res->name)
-    {
-        res->name = ft_strdup(":");
-        res->path = ft_strdup(":");
-        res->to_exec = 0;
-    }
+	if (!res->name)
+	{
+		res->name = ft_strdup(":");
+		res->path = ft_strdup(":");
+		res->to_exec = 0;
+	}
 	return (res);
 }
 
@@ -92,18 +92,18 @@ t_cmd	*assign_cmd(t_list *list, t_exec *exec)
 	if (!res->name)
 		status = 3;
 	if (status == 3)
-    {
-        if (!ft_strcmp(res->name, ":"))
-            return (res);
+	{
+		if (!ft_strcmp(res->name, ":"))
+			return (res);
 		return (ft_free_cmd(res), NULL);
-    }
+	}
 	else if (status == 2)
 	{
 		res->to_exec = 0;
 		exec->exit_status = 1;
 	}
-    res->args = create_args(elem, res);
-    exec->temp_cmd = NULL;
+	res->args = create_args(elem, res);
+	exec->temp_cmd = NULL;
 	return (res);
 }
 

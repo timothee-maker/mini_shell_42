@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 09:13:35 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/30 13:13:33 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/07/23 14:50:55 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,12 @@ char	*get_cmd_name(char *path)
 
 char	*find_path(char *name, t_exec *exec)
 {
-    (void) exec;
-
-    if (access(name, X_OK) == 0)
-    {
+	(void)exec;
+	if (access(name, X_OK) == 0)
+	{
 		return (ft_strdup(name));
-    }
-    return (NULL);
+	}
+	return (NULL);
 }
 
 int	fill_cmd(t_list *list, t_exec *exec, t_cmd *cmd)

@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 09:16:53 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/27 09:46:57 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/07/23 14:50:50 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ void	free_env(t_env *env)
 	next = NULL;
 	while (var)
 	{
-        if (var->name)
-		    free(var->name);
-        if (var->value)
-		    free(var->value);
+		if (var->name)
+			free(var->name);
+		if (var->value)
+			free(var->value);
 		next = var->next;
 		free(var);
 		var = next;

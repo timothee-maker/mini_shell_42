@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 15:07:30 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/06/10 16:00:06 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/07/23 14:51:02 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ static int	unset_loop(t_env *var, char *varname, t_exec *exec)
 	{
 		if (!ft_strcmp(var->name, varname))
 		{
-            if (var->name)
-			    free(var->name);
+			if (var->name)
+				free(var->name);
 			if (var->value)
 				free(var->value);
-            if (prev == NULL)
-                exec->env = var->next;
+			if (prev == NULL)
+				exec->env = var->next;
 			if (prev != NULL)
 				prev->next = var->next;
 			free(var);

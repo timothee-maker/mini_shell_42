@@ -6,7 +6,7 @@
 /*   By: tnolent <tnolent@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/14 13:25:47 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/07/21 15:52:12 by tnolent          ###   ########.fr       */
+/*   Updated: 2025/07/23 14:46:09 by tnolent          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,7 @@ void	minishell(t_exec *exec)
 			liste = initialisation();
 			exec->liste = liste;
 			if (parsing(input, liste, exec) == 1)
-            {
-                afficherliste(liste);
 				exec_line(exec, liste);
-            }
 			free_list(exec, liste);
 		}
 		free(input);
