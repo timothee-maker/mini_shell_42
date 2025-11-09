@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_custom_join.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lde-guil <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: timothee <timothee@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/21 09:14:35 by lde-guil          #+#    #+#             */
-/*   Updated: 2025/05/21 09:14:37 by lde-guil         ###   ########.fr       */
+/*   Updated: 2025/11/09 22:40:37 by timothee         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,16 @@ int	is_special_str(char *str)
 char	*remove_special_str(char *str)
 {
 	char	*temp;
+	char	*old;
 
 	if (is_special_str(str))
 	{
+		old = str;
 		str++;
 		temp = ft_strdup(str);
-		free(str);
+		free(old);
 		return (temp);
 	}
 	return (str);
 }
+
