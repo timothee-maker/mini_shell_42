@@ -1,4 +1,11 @@
-MINISHEll 42 | Par Thimothée NOLENT et Louis DE GUILLEBON
+MINISHEll 42 | Par Timothée NOLENT et Louis DE GUILLEBON
+
+Ce projet consite à reproduire un shell, en locurence, bash --posix dans notre cas.
+
+Si vous êtes sur linux, vous avez juste a lancer make et l'executable se lancera.
+
+Sinon, installer docker si ce n'est pas encore le cas.
+Et lancer "docker build -t minishell ." ensuite "docker run -it --rm minishell".
 
 Parsing : 
 - Sépare chaque pipe de la ligne en une liste chainee de plusieurs elements par pipe
