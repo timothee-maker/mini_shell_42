@@ -12,13 +12,12 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 
 # Cloner le dépôt  
-RUN git clone https://github.com/timothee-maker/mini_shell_42.git .
 
 # Copier le Makefile / sources (optionnel si déjà présent)  
-# COPY . /app
+COPY . /app
 
 # Compiler le projet  
-RUN make
+#RUN make
 
 # Définir le point d’entrée / commande par défaut  
-CMD ["./minishell"]
+#CMD ["./minishell"]

@@ -19,6 +19,11 @@ CYAN = \033[0;96m
 
 all: $(NAME)
 
+docker:
+	docker build -t minishell42 .
+	docker run -it --rm minishell42
+
+
 libft/libft.a:
 	@make -C libft
 
