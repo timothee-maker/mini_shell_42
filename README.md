@@ -160,8 +160,6 @@ minishell/
 
 <div align="center">
 
-| <img src="https://github.com/tnolent.png" width="80" style="border-radius:50%"/> | <img src="https://github.com/ldeguill.png" width="80" style="border-radius:50%"/> |
-|:---:|:---:|
 | **Timothée Nolent** | **Louis de Guillebon** |
 | [@tnolent](https://github.com/tnolent) | [@ldeguill](https://github.com/ldeguill) |
 
