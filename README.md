@@ -86,11 +86,6 @@ User Input
     │
     ▼
 ┌─────────────┐
-│   LEXER     │  Tokenizes raw input into meaningful units
-└──────┬──────┘
-       │
-       ▼
-┌─────────────┐
 │   PARSER    │  Builds a linked list of commands with tokens
 └──────┬──────┘
        │
@@ -144,7 +139,6 @@ The executor processes the parsed list and runs each command through a file-base
 minishell/
 ├── src/
 │   ├── parsing/        # Lexer, parser, token handling
-│   ├── execution/      # Command execution, pipes, redirections
 │   ├── builtins/       # Built-in command implementations
 │   └── utils/          # Helper functions
 ├── include/
